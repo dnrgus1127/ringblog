@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Gnb from "./Gnb";
+import HideMenu from "./HideMenu";
 
 const HeaderCon = styled.header`
   position: fixed;
@@ -7,7 +9,7 @@ const HeaderCon = styled.header`
   left: 0;
   height: var(--header);
   background-color: white;
-  width: calc(100% - var(--gap) * 2);
+  width: 100%;
   padding: 0 var(--gap);
   background-color: var(--bg-element);
 `;
@@ -15,6 +17,7 @@ const HeaderCon = styled.header`
 const ContentWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 100%;
 
   svg {
@@ -22,21 +25,9 @@ const ContentWrap = styled.div`
   }
 `;
 
-const MenuSection = styled.div`
-  display: flex;
-  height: 100%;
-
-  ul {
-    margin: auto 0;
-    list-style: none;
-    display: flex;
-  }
-  li {
-    margin-right: 10px;
-  }
-`;
-
 export default function Header() {
+  const [dark, setDark] = useState(true);
+  const [hideMenu, setHideMenu] = useState(false);
   return (
     <HeaderCon>
       <ContentWrap>
@@ -52,14 +43,13 @@ export default function Header() {
             fill='currentColor'
           ></path>
         </svg>
-        <MenuSection>
-          <ul>
-            <li>메뉴1</li>
-            <li>메뉴2</li>
-            <li>메뉴3</li>
-            <li>메뉴4</li>
-          </ul>
-        </MenuSection>
+        <HideMenu dark={dark} trigger={hideMenu} />
+        <Gnb
+          dark={dark}
+          setDark={setDark}
+          setHideMenu={setHideMenu}
+          hideMenu={hideMenu}
+        />
       </ContentWrap>
     </HeaderCon>
   );
