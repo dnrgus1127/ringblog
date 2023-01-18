@@ -27,7 +27,7 @@ const ContentWrap = styled.div`
 
 export default function Header() {
   const [dark, setDark] = useState(true);
-  const [hideMenu, setHideMenu] = useState(false);
+  const [hideMenu, setHideMenu] = useState(true);
   return (
     <HeaderCon>
       <ContentWrap>

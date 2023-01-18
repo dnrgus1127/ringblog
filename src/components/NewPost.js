@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = styled.button`
+  z-index: 9999;
+
   background: none;
   border: none;
   color: ${(props) => (props.dark ? "white" : "black")};

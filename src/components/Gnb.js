@@ -12,6 +12,7 @@ const MenuSection = styled.div`
     height: 40px;
     padding: 8px;
     border-radius: 100%;
+    z-index: 9999;
   }
   .menuHover:hover {
     background-color: rgba(255, 255, 255, 0.1);
@@ -31,7 +32,6 @@ const MenuSection = styled.div`
 
   .menuIcon {
     cursor: pointer;
-    z-index: 9999;
   }
   .menuIcon:hover {
     margin-left: 10px;
