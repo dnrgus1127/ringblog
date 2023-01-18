@@ -10,11 +10,14 @@ const HeaderCon = styled.header`
   height: var(--header);
   background-color: white;
   width: 100%;
-  padding: 0 var(--gap);
+  /* padding: 0 var(--gap); */
   background-color: var(--bg-element);
+  z-index: 9000;
 `;
 
 const ContentWrap = styled.div`
+  width: var(--width);
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,7 +30,7 @@ const ContentWrap = styled.div`
 
 export default function Header() {
   const [dark, setDark] = useState(true);
-  const [hideMenu, setHideMenu] = useState(true);
+  const [hideMenu, setHideMenu] = useState(false);
   return (
     <HeaderCon>
       <ContentWrap>
