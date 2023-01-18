@@ -21,7 +21,7 @@ function App() {
       <Body>
         <BlogList />
       </Body>
-      <Footer>푸터영역</Footer>
+      <Footer></Footer>
     </div>
   );
 }

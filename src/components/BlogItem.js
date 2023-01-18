@@ -68,22 +68,23 @@ const UserInfo = styled.div`
   .review {
   }
 `;
-export default function BlogItem({ idx }) {
+export default function BlogItem({ idx, data }) {
+  const date = new Date(data.createDateTime);
+  const createDate = `${date.getFullYear()}-${
+    date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
+  }-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`;
   return (
     <ItemWrap>
       <div className='thumbnail'>
         <img src={idx % 2 === 0 ? blog1 : blog2} alt='썸네일' />
       </div>
       <ItemInfo>
-        <h4>블로그 회고</h4>
-        <p className='postPreview'>
-          생소한 표현이지만 알고 보면 쉬워요. 멱등성에 대해 이해하고 API를
-          멱등하게 제공하기 위한 방법도 함께 알아봐요.
-        </p>
-        <p className='madeBy'>2023-01-18</p>
+        <h4>{data.title}</h4>
+        <p className='postPreview'>{data.preview}</p>
+        <p className='madeBy'>{createDate}</p>
       </ItemInfo>
       <UserInfo>
-        <p className='user'>@dnrgus1127</p>
+        <p className='user'>@{data.writer}</p>
         <p className='review'>댓글 : 0개</p>
       </UserInfo>
     </ItemWrap>
