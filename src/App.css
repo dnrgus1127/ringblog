@@ -20,27 +20,36 @@ body {
 
 :root {
   --bg-page: #121212;
-  --gap: 60px;
+  --gap: 80px;
   --header: 10vh;
   --bg-element: #1e1e1e;
   --bg-menu: #2e2e2e;
+  --black2: #1e1e1e;
+  --width: 1100px;
 }
 
-.app {
-  width: 100vw;
-}
-
-@media screen and (min-width: 1400px) {
+@media (min-width: 1400px) {
+  :root {
+    --width: 1300px;
+    --gap: 100px;
+  }
   body {
     font-size: 2rem;
   }
-
+}
+@media (max-width: 1100px) {
   :root {
-    --gap: 100px;
+    --width: 800px;
   }
 }
-@media screen and (max-width: 640px) {
+@media (max-width: 832px) {
   :root {
+    --width: 640px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --width: 340px;
     --gap: 20px;
   }
   body {

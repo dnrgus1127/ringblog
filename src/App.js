@@ -1,10 +1,11 @@
 import "./App.css";
 import styled from "styled-components";
 import Header from "./components/Header";
+import BlogList from "./components/BlogList";
 
 const Body = styled.div`
-  padding: 0 var(--gap);
-  padding-top: var(--header);
+  /* padding: 0 var(--gap); */
+  padding-top: calc(var(--header) * 1.5);
 `;
 
 const Footer = styled.footer`
@@ -17,7 +18,9 @@ function App() {
   return (
     <div className='App'>
       <Header />
-      <Body>바디영역</Body>
+      <Body>
+        <BlogList />
+      </Body>
       <Footer>푸터영역</Footer>
     </div>
   );
