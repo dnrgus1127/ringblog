@@ -7,9 +7,10 @@ import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 import { darkTheme, lightTheme } from "./theme/theme";
 import GlobalStyle from "./theme/GlobalStyle";
+import PostPage from "./pages/PostPage";
 
 function App() {
-  const [themeMode, setThemeMode] = useState("light");
+  const [themeMode, setThemeMode] = useState("dark");
   const theme = themeMode === "light" ? lightTheme : darkTheme;
 
   const toggleTheme = () =>
@@ -24,6 +25,10 @@ function App() {
             element={<MainPage toggleTheme={toggleTheme} theme={themeMode} />}
           ></Route>
           <Route path='/WriteNewPost' element={<NewPost />}></Route>
+          <Route
+            path='/Post'
+            element={<PostPage theme={themeMode} toggleTheme={toggleTheme} />}
+          ></Route>
         </Routes>
       </ThemeProvider>
     </div>
