@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { onlyDate } from "../functions/dateFormat";
 import blog1 from "../images/blogThum.jpg";
 import blog2 from "../images/썸네일2.png";
 
@@ -10,6 +12,8 @@ const ItemWrap = styled.div`
   background-color: ${({ theme }) => theme.bgElement};
   overflow: hidden;
   font-family: "Noto Sans KR", sans-serif;
+  transform: translateY(0);
+  transition: transform 0.25s ease-in 0s;
 
   .thumbnail {
     overflow: hidden;
@@ -22,6 +26,10 @@ const ItemWrap = styled.div`
     transform: scale(1.1);
   }
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-8px);
+  }
 `;
 
 const ItemInfo = styled.div`
@@ -112,24 +120,23 @@ const UserInfo = styled.div`
 // }
 
 export default function BlogItem({ idx, data }) {
-  const date = new Date(data.createDateTime);
-  const createDate = `${date.getFullYear()}-${
-    date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
-  }-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`;
+  const createDate = onlyDate(data.createDateTime);
   return (
     <ItemWrap>
-      <div className='thumbnail'>
-        <img src={idx % 2 === 0 ? blog1 : blog2} alt='썸네일' />
-      </div>
-      <ItemInfo>
-        <h4>{data.title}</h4>
-        <p className='postPreview'>{data.preview}</p>
-        <p className='madeBy'>{createDate}</p>
-      </ItemInfo>
-      <UserInfo>
-        <p className='user'>@{data.writer}</p>
-        <p className='review'>댓글 : 0개</p>
-      </UserInfo>
+      <Link to={`/Post?index=${data._id}`}>
+        <div className='thumbnail'>
+          <img src={idx % 2 === 0 ? blog1 : blog2} alt='썸네일' />
+        </div>
+        <ItemInfo>
+          <h4>{data.title}</h4>
+          <p className='postPreview'>{data.preview}</p>
+          <p className='madeBy'>{createDate}</p>
+        </ItemInfo>
+        <UserInfo>
+          <p className='user'>@{data.writer}</p>
+          <p className='review'>댓글 : 0개</p>
+        </UserInfo>
+      </Link>
     </ItemWrap>
   );
 }
