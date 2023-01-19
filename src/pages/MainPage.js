@@ -4,7 +4,6 @@ import BlogList from "../components/BlogList";
 import Header from "../components/Header";
 
 const Body = styled.div`
-  /* padding: 0 var(--gap); */
   padding-top: calc(var(--header) * 1.5);
   background-color: ${({ theme }) => theme.bgColor};
 `;
