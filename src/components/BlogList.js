@@ -20,7 +20,7 @@ const GridLayout = styled.div`
   }
   @media (max-width: 832px) {
     grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: minmax(30px, 768px);
+    grid-auto-rows: minmax(30px, 500px);
   }
   @media (max-width: 640px) {
     grid-auto-rows: minmax(30px, 408px);
@@ -30,7 +30,7 @@ const GridLayout = styled.div`
 
 export default function BlogList() {
   //   const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-  const [data, setData] = useState([1]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     fetch("/posts", {

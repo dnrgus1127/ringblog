@@ -11,8 +11,9 @@ const HeaderCon = styled.header`
   background-color: white;
   width: 100%;
   /* padding: 0 var(--gap); */
-  background-color: var(--bg-element);
+  background-color: ${({ theme }) => theme.bgElement};
   z-index: 9000;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 `;
 
 const ContentWrap = styled.div`
@@ -28,8 +29,7 @@ const ContentWrap = styled.div`
   }
 `;
 
-export default function Header() {
-  const [dark, setDark] = useState(true);
+export default function Header({ toggleTheme, theme }) {
   const [hideMenu, setHideMenu] = useState(false);
   return (
     <HeaderCon>
@@ -46,10 +46,10 @@ export default function Header() {
             fill='currentColor'
           ></path>
         </svg>
-        <HideMenu dark={dark} trigger={hideMenu} />
+        <HideMenu trigger={hideMenu} />
         <Gnb
-          dark={dark}
-          setDark={setDark}
+          toggleTheme={toggleTheme}
+          theme={theme}
           setHideMenu={setHideMenu}
           hideMenu={hideMenu}
         />

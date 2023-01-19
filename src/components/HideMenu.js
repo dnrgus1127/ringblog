@@ -6,16 +6,13 @@ const Container = styled.div`
   top: 0;
   left: 0;
   height: 80vh;
-  background-color: ${(props) => props.bgColor};
+  background-color: ${({ theme }) => theme.bgElement};
   width: 100%;
   transform: translateY(-100%);
   transition: 0.3s all ease-out;
   padding: 0 var(--gap);
   padding-top: calc(var(--header) * 0.75);
-
-  hr {
-    border: 1px solid rgb(192, 192, 192);
-  }
+  z-index: 9998;
 `;
 const SiteMap = styled.div`
   width: 100%;
@@ -23,17 +20,15 @@ const SiteMap = styled.div`
   padding: 0 var(--gap);
 `;
 
-export default function HideMenu({ dark, trigger }) {
+export default function HideMenu({ trigger }) {
   return (
     <Container
-      bgColor={dark ? "var(--bg-menu)" : "white"}
       style={
         trigger
           ? { transform: "translateY(0%)" }
           : { transform: "translateY(-100%)" }
       }
     >
-      <hr></hr>
       <SiteMap></SiteMap>
     </Container>
   );

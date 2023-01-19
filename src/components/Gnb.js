@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import searchW from "../images/SearchW.png";
 import searchB from "../images/SearchB.png";
-import NewPost from "./NewPost";
+import NewPostBtn from "./NewPostBtn";
 
 const MenuSection = styled.div`
   display: flex;
@@ -28,6 +28,7 @@ const MenuSection = styled.div`
   }
   svg {
     display: block;
+    fill: ${({ theme }) => theme.color};
   }
 
   .menuIcon {
@@ -40,7 +41,7 @@ const MenuSection = styled.div`
   }
 `;
 
-export default function Gnb({ dark, setDark, setHideMenu, hideMenu }) {
+export default function Gnb({ theme, setHideMenu, hideMenu, toggleTheme }) {
   const Sun = (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -57,11 +58,11 @@ export default function Gnb({ dark, setDark, setHideMenu, hideMenu }) {
       width='100%'
       height='100%'
       viewBox='0 0 24 24'
-      fill='white'
     >
       <path d='M12 10.999c1.437.438 2.562 1.564 2.999 3.001.44-1.437 1.565-2.562 3.001-3-1.436-.439-2.561-1.563-3.001-3-.437 1.436-1.562 2.561-2.999 2.999zm8.001.001c.958.293 1.707 1.042 2 2.001.291-.959 1.042-1.709 1.999-2.001-.957-.292-1.707-1.042-2-2-.293.958-1.042 1.708-1.999 2zm-1-9c-.437 1.437-1.563 2.562-2.998 3.001 1.438.44 2.561 1.564 3.001 3.002.437-1.438 1.563-2.563 2.996-3.002-1.433-.437-2.559-1.564-2.999-3.001zm-7.001 22c-6.617 0-12-5.383-12-12s5.383-12 12-12c1.894 0 3.63.497 5.37 1.179-2.948.504-9.37 3.266-9.37 10.821 0 7.454 5.917 10.208 9.37 10.821-1.5.846-3.476 1.179-5.37 1.179z' />
     </svg>
   );
+
   return (
     <MenuSection>
       <div className='menuHover'>
@@ -69,12 +70,13 @@ export default function Gnb({ dark, setDark, setHideMenu, hideMenu }) {
           href='/'
           onClick={(e) => {
             e.preventDefault();
-            setDark(!dark);
+            toggleTheme();
           }}
         >
-          {dark ? Moon : Sun}
+          {theme === "dark" ? Moon : Sun}
         </a>
       </div>
+
       <div className='menuHover'>
         <a
           href='/'
@@ -82,10 +84,11 @@ export default function Gnb({ dark, setDark, setHideMenu, hideMenu }) {
             e.preventDefault();
           }}
         >
-          <img src={dark ? searchW : searchB} alt='' />
+          <img src={theme === "dark" ? searchW : searchB} alt='' />
         </a>
       </div>
-      <NewPost dark={dark} />
+
+      <NewPostBtn />
       <div
         className='menuIcon'
         onClick={() => {
@@ -95,7 +98,6 @@ export default function Gnb({ dark, setDark, setHideMenu, hideMenu }) {
         <svg
           width='100%'
           height='100%'
-          fill={dark ? "white" : "black"}
           clipRule='evenodd'
           fillRule='evenodd'
           strokeLinejoin='round'
