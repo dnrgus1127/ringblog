@@ -16,7 +16,7 @@ const darkTheme = {
   oppositeColor: "black",
   bgElement: "#1e1e1e",
   bgColor: "#121212",
-  greyColor: "lightgrey",
+  greyColor: "#b6bec6",
   lineColor: "#2e2e2e",
   borderColor: "rgb(64,64,64)",
   ...theme,

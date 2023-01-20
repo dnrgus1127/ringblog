@@ -28,6 +28,13 @@ const MarkdownCss = styled.div`
   & > ul > li > ul {
     list-style-type: circle;
   }
+
+  p {
+    font-size: 1.8rem;
+  }
+  ul {
+    font-size: 1.8rem;
+  }
 `;
 
 export { MarkdownCss };
