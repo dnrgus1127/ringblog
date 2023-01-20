@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
 /* Noto Sans Kr  // font-family: 'Noto Sans KR', sans-serif; */
 
+@import url("https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap");
+/* font-family: 'Fira Mono', monospace;
+ */
+
 * {
   box-sizing: border-box;
   padding: 0;
