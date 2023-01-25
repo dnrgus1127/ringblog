@@ -7,6 +7,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { stackoverflowDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { Link } from "react-router-dom";
 import { postBlogPost } from "../functions/fetch";
+import { timeStamp } from "../functions/time";
 
 const Container = styled.div`
   width: 100%;
@@ -179,7 +180,15 @@ export default function NewPost() {
             <Button
               bg={true}
               onClick={() => {
-                postBlogPost({ contents: contents, title: title });
+                // ! - writer, preview 추가 시 수정 요함
+                postBlogPost({
+                  contents: contents,
+                  title: title,
+                  preview: " ",
+                  createDateTime: timeStamp(),
+                  lastMdfdDay: timeStamp(),
+                  writer: "root",
+                });
               }}
             >
               제출하기
