@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// !- 엔터 에 반응해서 줄바꿈 안됨, textArea에 마크다운 입력 시 강조 표시 없음
 const MarkdownCss = styled.div`
   h1,
   h2,
@@ -37,6 +38,8 @@ const MarkdownCss = styled.div`
   p {
     font-size: 1.8rem;
     margin: 1.8rem 0;
+    width: 100%;
+    word-break: break-all;
   }
   ul {
     font-size: 1.8rem;
