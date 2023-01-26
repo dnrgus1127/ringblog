@@ -5,9 +5,10 @@ import { MarkdownCss } from "../css/MarkdownCss";
 
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { stackoverflowDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postBlogPost } from "../functions/fetch";
 import { timeStamp } from "../functions/time";
+import UpCommingMenu from "../components/newPost/UpCommingMenu";
 
 const Container = styled.div`
   width: 100%;
@@ -22,6 +23,7 @@ const Container = styled.div`
     margin: 2rem 0;
     border: 1.5px solid ${({ theme }) => theme.lineColor};
   }
+  position: relative;
 `;
 
 const Left = styled.div`
@@ -30,7 +32,7 @@ const Left = styled.div`
   .titleAndHr {
     padding: calc(var(--gap) / 2);
   }
-  form {
+  .inputArea {
     padding-bottom: 0;
     height: 92vh;
   }
@@ -85,6 +87,8 @@ const Input = styled.input`
 `;
 
 const Title = styled(Input)`
+  width: 100%;
+
   font-size: 3rem;
 `;
 
@@ -136,7 +140,16 @@ const Button = styled(Btn)`
   }
 `;
 
+const ContentLength = styled.div`
+  text-align: right;
+  padding-top: 1rem;
+  padding-right: 2rem;
+  font-size: 1rem;
+`;
+
 export default function NewPost() {
+  const navigate = useNavigate();
+  const maxLength = 5000;
   const [contents, setContents] = useState("");
   const [title, setTitle] = useState();
 
@@ -150,7 +163,7 @@ export default function NewPost() {
     <Container>
       {/* 좌측 화면 */}
       <Left className='left writeSection'>
-        <form action='/Posts'>
+        <div className='inputArea' action='/Posts'>
           <div className='titleAndHr'>
             <Title
               type='text'
@@ -170,11 +183,24 @@ export default function NewPost() {
             }}
             value={contents}
           ></textarea>
-        </form>
+          <ContentLength>
+            <span
+              style={
+                contents.length > maxLength
+                  ? { color: "red" }
+                  : { color: "grey" }
+              }
+            >
+              {contents.length}
+            </span>{" "}
+            / {maxLength}
+          </ContentLength>
+        </div>
         <UnderMenu>
           <Link to={"/"}>
             <BtnBack>나가기</BtnBack>
           </Link>
+
           <div className='btnWrap'>
             <Button bg={false}>임시저장</Button>
             <Button
@@ -188,7 +214,7 @@ export default function NewPost() {
                   createDateTime: timeStamp(),
                   lastMdfdDay: timeStamp(),
                   writer: "root",
-                });
+                }).then((result) => (result ? navigate("/") : null));
               }}
             >
               제출하기
@@ -224,6 +250,7 @@ export default function NewPost() {
           ></ReactMarkdown>
         </MarkdownCss>
       </Right>
+      <UpCommingMenu />
     </Container>
   );
 }

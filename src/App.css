@@ -11,6 +11,10 @@
   margin: 0;
 }
 
+#CSSViewer_block {
+  color: black;
+}
+
 :root {
   font-size: 62.5%;
 }
