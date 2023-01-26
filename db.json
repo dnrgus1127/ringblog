@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "제목",
+      "contents": "내용",
+      "createDateTime": "2023-01-26",
+      "lastMdfdDay": "2023-01-26",
+      "writer": "root"
+    },
+    {
+      "id": 2,
+      "title": "제목",
+      "contents": "내용",
+      "createDateTime": "2023-01-26",
+      "lastMdfdDay": "2023-01-26",
+      "writer": "root"
+    },
+    {
+      "id": 3,
+      "title": "제목",
+      "contents": "내용",
+      "createDateTime": "2023-01-26",
+      "lastMdfdDay": "2023-01-26",
+      "writer": "root"
+    },
+    {
+      "id": 4,
+      "title": "제목",
+      "contents": "내용",
+      "createDateTime": "2023-01-26",
+      "lastMdfdDay": "2023-01-26",
+      "writer": "root"
+    }
+  ]
+}

@@ -123,7 +123,8 @@ export default function BlogItem({ idx, data }) {
   const createDate = onlyDate(data.createDateTime);
   return (
     <ItemWrap>
-      <Link to={`/Post?index=${data._id}`}>
+      {/* json-server */}
+      <Link to={`/Post?index=${data.id}`}>
         <div className='thumbnail'>
           <img src={idx % 2 === 0 ? blog1 : blog2} alt='썸네일' />
         </div>
