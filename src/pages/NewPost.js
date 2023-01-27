@@ -9,12 +9,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { postBlogPost } from "../functions/fetch";
 import { timeStamp } from "../functions/time";
 import UpCommingMenu from "../components/newPost/UpCommingMenu";
+import { Post } from "../data/posts";
 
 const Container = styled.div`
-  width: 100%;
+  width: 100wh;
   height: 100vh;
   display: flex;
   font-family: "Noto Sans KR", sans-serif;
+  overflow: hidden;
   .writeSection {
     width: 50%;
     height: 100vh;
@@ -152,12 +154,18 @@ export default function NewPost() {
   const maxLength = 5000;
   const [contents, setContents] = useState("");
   const [title, setTitle] = useState();
+  const [upComming, setUpComming] = useState(false);
+  const newPost = new Post(title, contents);
 
   const textAreaInputTab = (e) => {
     if (e.key === "Tab") {
       e.preventDefault();
       setContents(contents + "\t");
     }
+  };
+
+  const MenuOnOff = () => {
+    setUpComming(!upComming);
   };
   return (
     <Container>
@@ -202,7 +210,9 @@ export default function NewPost() {
           </Link>
 
           <div className='btnWrap'>
-            <Button bg={false}>임시저장</Button>
+            <Button onClick={MenuOnOff} bg={false}>
+              임시저장
+            </Button>
             <Button
               bg={true}
               onClick={() => {
@@ -250,7 +260,7 @@ export default function NewPost() {
           ></ReactMarkdown>
         </MarkdownCss>
       </Right>
-      <UpCommingMenu />
+      <UpCommingMenu onOff={upComming} onOffEvent={MenuOnOff} />
     </Container>
   );
 }
