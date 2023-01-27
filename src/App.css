@@ -37,6 +37,8 @@ body {
   --width: 1100px;
   --bg-page2: #121212;
   --black3: #0c0c0c;
+  --btn-color: #96f2d7;
+  --btn-hover: #63e6be;
 }
 
 @media (min-width: 1400px) {
