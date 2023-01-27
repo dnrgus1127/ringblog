@@ -20,7 +20,7 @@ function titleValid(title) {
     );
     return false;
   }
-  if (title.length < 2) {
+  if (title === undefined || title.length < 2) {
     alert("제목은 2글자 이상 작성해야 합니다.");
     return false;
   }
