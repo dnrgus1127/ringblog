@@ -16,6 +16,7 @@ const lightTheme = {
   lineColor: "lightgrey",
   borderColor: "rgb(192,192,192)",
   mdColor: "#f8fdfc",
+  tableColor: "#A0A0A0", //임시
   ...theme,
 };
 
@@ -31,6 +32,7 @@ const darkTheme = {
   lineColor: "#2e2e2e",
   borderColor: "rgb(64,64,64)",
   mdColor: "#0c0c0c",
+  tableColor: "#A0A0A0",
   ...theme,
 };
 
