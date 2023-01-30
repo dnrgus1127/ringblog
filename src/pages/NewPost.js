@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import styled from "styled-components";
 import { MarkdownCss } from "../css/MarkdownCss";
 
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { stackoverflowDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import { Link, useNavigate } from "react-router-dom";
-import { postBlogPost } from "../functions/fetch";
-import { timeStamp } from "../functions/time";
+import { Link } from "react-router-dom";
 import UpCommingMenu from "../components/newPost/UpCommingMenu";
 import { Post } from "../data/posts";
+import { useEffect } from "react";
+import remarkGfm from "remark-gfm";
 
 const Container = styled.div`
   width: 100wh;
@@ -150,23 +150,41 @@ const ContentLength = styled.div`
 `;
 
 export default function NewPost() {
-  const navigate = useNavigate();
   const maxLength = 5000;
   const [contents, setContents] = useState("");
   const [title, setTitle] = useState();
   const [upComming, setUpComming] = useState(false);
   const newPost = new Post(title, contents);
+  const taRef = useRef();
+  const [cursor, setCursor] = useState(0);
 
-  const textAreaInputTab = (e) => {
-    if (e.key === "Tab") {
-      e.preventDefault();
-      setContents(contents + "\t");
-    }
+  // tab, enter 등 특수문자 입력시
+  /**
+   * contents에 특수문자 입력하는 함수
+   * @param {*} HTMLnode (e.target)
+   * @param {*} char 특수문자("\t","\n")
+   */
+  const enterSpecialChar = (
+    { value, selectionStart, selectionEnd },
+    char,
+    len
+  ) => {
+    console.log(char);
+    setContents(
+      value.substring(0, selectionStart) + char + value.substring(selectionEnd)
+    );
+    setCursor(selectionStart + len);
   };
+
+  // 특수문자 입력 후 커서 위치 조정하는 hook
+  useEffect(() => {
+    taRef.current.setSelectionRange(cursor, cursor);
+  }, [cursor]);
 
   const MenuOnOff = () => {
     setUpComming(!upComming);
   };
+
   return (
     <Container>
       {/* 좌측 화면 */}
@@ -182,12 +200,20 @@ export default function NewPost() {
             />
             <hr />
           </div>
+          {/* // ! */}
           <textarea
+            ref={taRef}
             onChange={(e) => {
               setContents(e.target.value);
             }}
             onKeyDown={(e) => {
-              textAreaInputTab(e);
+              if (e.key === "Tab") {
+                e.preventDefault();
+                enterSpecialChar(e.target, "\t", 1);
+              } else if (e.key === "Enter") {
+                e.preventDefault();
+                enterSpecialChar(e.target, "  \n", 3);
+              }
             }}
             value={contents}
           ></textarea>
@@ -213,20 +239,7 @@ export default function NewPost() {
             <Button onClick={MenuOnOff} bg={false}>
               임시저장
             </Button>
-            <Button
-              bg={true}
-              onClick={() => {
-                // ! - writer, preview 추가 시 수정 요함
-                postBlogPost({
-                  contents: contents,
-                  title: title,
-                  preview: " ",
-                  createDateTime: timeStamp(),
-                  lastMdfdDay: timeStamp(),
-                  writer: "root",
-                }).then((result) => (result ? navigate("/") : null));
-              }}
-            >
+            <Button bg={true} onClick={MenuOnOff}>
               제출하기
             </Button>
           </div>
@@ -238,10 +251,10 @@ export default function NewPost() {
           <h1 style={{ marginBottom: "6rem" }}>{title}</h1>
           <ReactMarkdown
             children={contents}
+            remarkPlugins={[remarkGfm]}
             // Code Hilghter
             components={{
               code({ node, inline, className, children, ...props }) {
-                console.log(className, inline);
                 const match = /language-(\w+)/.exec(className || "");
                 return !inline && match ? (
                   <SyntaxHighlighter
@@ -260,7 +273,7 @@ export default function NewPost() {
           ></ReactMarkdown>
         </MarkdownCss>
       </Right>
-      <UpCommingMenu onOff={upComming} onOffEvent={MenuOnOff} />
+      <UpCommingMenu onOff={upComming} onOffEvent={MenuOnOff} obj={newPost} />
     </Container>
   );
 }

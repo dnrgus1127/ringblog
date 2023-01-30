@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { postBlogPost } from "../../functions/fetch";
 import thumbnailDefault from "../../images/thumbnail2.jpg";
 import Button from "../Button";
+
 const Container = styled.div`
   position: absolute;
   top: 0;
@@ -85,10 +88,14 @@ const Btn = styled.button`
       props.bg ? theme.btnColor : "none"};
 `;
 
-export default function UpCommingMenu({ onOff, onOffEvent }) {
+export default function UpCommingMenu({ onOff, onOffEvent, obj }) {
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const fileSelector = useRef();
+  const [preview, setPreview] = useState();
+  const data = { ...obj, preview: preview };
 
+  // * Thumbnail function
   const fileSelectorClick = () => {
     fileSelector.current.click();
   };
@@ -104,6 +111,7 @@ export default function UpCommingMenu({ onOff, onOffEvent }) {
       .then((res) => res.json())
       .then((result) => console.log(result));
   };
+  //
 
   return (
     <Container slide={onOff}>
@@ -137,10 +145,24 @@ export default function UpCommingMenu({ onOff, onOffEvent }) {
             cols='30'
             rows='10'
             placeholder='포스트 소개글 작성...'
+            onChange={(e) => {
+              setPreview(e.target.value);
+            }}
+            value={preview}
           ></textarea>
         </Preview>
         <ButtonBox>
-          <Btn bg={true}>제출</Btn>
+          <Btn
+            bg={true}
+            onClick={() => {
+              // ! - writer, 추가 시 수정 요함
+              postBlogPost(data).then((result) =>
+                result ? navigate("/") : null
+              );
+            }}
+          >
+            제출
+          </Btn>
           <Btn onClick={onOffEvent}>취소</Btn>
         </ButtonBox>
       </Wrapper>

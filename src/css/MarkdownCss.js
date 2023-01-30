@@ -7,6 +7,16 @@ const MarkdownCss = styled.div`
   h3,
   h4,
   h5,
+  h6,
+  textarea,
+  input {
+    white-space: pre-wrap;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
   h6 {
     margin: 3rem 0;
   }
@@ -65,6 +75,19 @@ const MarkdownCss = styled.div`
     border-bottom-right-radius: 4px;
     padding: 2rem;
     border-left: 4px solid #63e6be;
+  }
+  table {
+    border: 1px solid ${({ theme }) => theme.tableColor};
+    background-color: ${({ theme }) => theme.bgElement};
+  }
+
+  th {
+    padding: 0.5rem 3rem;
+    border-bottom: 3px solid white;
+  }
+
+  td {
+    padding: 0.8rem;
   }
 `;
 

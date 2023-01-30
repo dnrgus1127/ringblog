@@ -85,6 +85,7 @@ export default function PostContents({ post }) {
           .then((res) => res.text())
           .then((markdown) => {
             setData(markdown);
+            console.log(markdown);
           });
       });
   }, []);
@@ -134,7 +135,7 @@ export default function PostContents({ post }) {
         </div>
       </div>
       <MarkdownCss ref={markdownRef}>
-        <ReactMarkdown>{data}</ReactMarkdown>
+        <ReactMarkdown>{data + "# 123"}</ReactMarkdown>
       </MarkdownCss>
     </Container>
   );
