@@ -11,7 +11,7 @@ function postValid({ title, contents, preview }) {
 }
 
 function titleValid(title) {
-  // ! 스크립트 문자 제한 및 2~20글자 사이의 문자열
+  // ! 스크립트 문자 제한 및 2~50글자 사이의 문자열
   let Reg = /[^%{}[]\*&#@$`]/g;
 
   if (Reg.test(title)) {
@@ -24,7 +24,7 @@ function titleValid(title) {
     alert("제목은 2글자 이상 작성해야 합니다.");
     return false;
   }
-  if (title.length > 21) {
+  if (title.length > 51) {
     alert("제목은 20글자 이하로 작성해야 합니다.");
     return false;
   }

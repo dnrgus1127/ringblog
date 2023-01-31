@@ -64,8 +64,7 @@ export default function PostContents({ post }) {
     } else {
       setfixed(false);
     }
-    console.log(fixed);
-  }, [fixed]);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -85,7 +84,6 @@ export default function PostContents({ post }) {
           .then((res) => res.text())
           .then((markdown) => {
             setData(markdown);
-            console.log(markdown);
           });
       });
   }, []);
@@ -135,7 +133,7 @@ export default function PostContents({ post }) {
         </div>
       </div>
       <MarkdownCss ref={markdownRef}>
-        <ReactMarkdown>{data + "# 123"}</ReactMarkdown>
+        <ReactMarkdown>{post.contents}</ReactMarkdown>
       </MarkdownCss>
     </Container>
   );
