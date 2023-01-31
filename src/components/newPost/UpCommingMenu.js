@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { postBlogPost } from "../../functions/fetch";
+import { uploadPost } from "../../functions/fetch";
 import thumbnailDefault from "../../images/thumbnail2.jpg";
 import Button from "../Button";
 
@@ -93,8 +93,13 @@ export default function UpCommingMenu({ onOff, onOffEvent, obj }) {
   const [file, setFile] = useState(null);
   const fileSelector = useRef();
   const [preview, setPreview] = useState();
-  const data = { ...obj, preview: preview };
 
+  const data = {
+    ...obj,
+    preview: preview,
+  };
+
+  /*-------------------------------------------------------*/
   // * Thumbnail function
   const fileSelectorClick = () => {
     fileSelector.current.click();
@@ -102,16 +107,9 @@ export default function UpCommingMenu({ onOff, onOffEvent, obj }) {
 
   const fileOnChange = (e) => {
     setFile(e.target.files[0]);
-    const formData = new FormData();
-    formData.append("img", file);
-    fetch("/imgUpload", {
-      method: "post",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((result) => console.log(result));
   };
-  //
+
+  /*-------------------------------------------------------*/
 
   return (
     <Container slide={onOff}>
@@ -156,7 +154,7 @@ export default function UpCommingMenu({ onOff, onOffEvent, obj }) {
             bg={true}
             onClick={() => {
               // ! - writer, 추가 시 수정 요함
-              postBlogPost(data).then((result) =>
+              uploadPost(file, data).then((result) =>
                 result ? navigate("/") : null
               );
             }}

@@ -5,7 +5,7 @@ import { postValid } from "./validation";
  * ? Submit Post to Server
  * @param {Post} obj post object
  */
-async function postBlogPost(obj) {
+async function uploadContents(obj) {
   const data = {
     ...obj,
     createDateTime: timeStamp(),
@@ -29,8 +29,27 @@ async function postBlogPost(obj) {
   return true;
 }
 
+async function uploadImg(file) {
+  let result = "";
+  const formData = new FormData();
+  formData.append("img", file);
+  await fetch("/imgUpload", {
+    method: "post",
+    body: formData,
+  }).then((res) => (result = res.json()));
+
+  return result;
+}
+
+async function uploadPost(imgFile, postData) {
+  uploadImg(imgFile).then((result) =>
+    uploadContents({ ...postData, thumbnailPath: result })
+  );
+  return true;
+}
+
 function quotationMark(content) {
   return content.replaceAll('"', '\\"');
 }
 
-export { postBlogPost };
+export { uploadPost };

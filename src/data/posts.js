@@ -5,7 +5,8 @@ export class Post {
     preview = " ",
     createDateTime = "2023-01-26",
     lastMdfdDay = "2023-01-26",
-    writer = "root"
+    writer = "root",
+    thumbnailPath = null
   ) {
     this.title = title;
     this.contents = contents;
@@ -13,5 +14,6 @@ export class Post {
     this.createDateTime = createDateTime;
     this.lastMdfdDay = lastMdfdDay;
     this.writer = writer;
+    this.thumbnailPath = thumbnailPath;
   }
 }

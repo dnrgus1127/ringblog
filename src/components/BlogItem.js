@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { onlyDate } from "../functions/dateFormat";
 import blog1 from "../images/blogThum.jpg";
-import blog2 from "../images/썸네일2.png";
 
 const ItemWrap = styled.div`
   width: 100%;
@@ -126,7 +125,12 @@ export default function BlogItem({ idx, data }) {
       {/* ! json-server */}
       <Link to={`/Post?index=${data._id}`}>
         <div className='thumbnail'>
-          <img src={idx % 2 === 0 ? blog1 : blog2} alt='썸네일' />
+          {/* <img src={idx % 2 === 0 ? blog1 : blog2} alt='썸네일' />
+           */}
+          <img
+            src={data.thumbnailPath ? data.thumbnailPath : blog1}
+            alt={"썸네일"}
+          ></img>
         </div>
         <ItemInfo>
           <h4>{data.title}</h4>
