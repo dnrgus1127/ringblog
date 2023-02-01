@@ -42,9 +42,14 @@ async function uploadImg(file) {
 }
 
 async function uploadPost(imgFile, postData) {
-  uploadImg(imgFile).then((result) =>
-    uploadContents({ ...postData, thumbnailPath: result })
-  );
+  if (imgFile) {
+    uploadImg(imgFile).then((result) =>
+      uploadContents({ ...postData, thumbnailPath: result })
+    );
+  } else {
+    uploadContents({ ...postData });
+  }
+
   return true;
 }
 
