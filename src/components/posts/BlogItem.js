@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { onlyDate } from "../functions/dateFormat";
-import blog1 from "../images/blogThum.jpg";
+import { onlyDate } from "../../functions/dateFormat";
+import blog1 from "../../images/blogThum.jpg";
 
 const ItemWrap = styled.div`
   width: 100%;
@@ -110,25 +110,14 @@ const UserInfo = styled.div`
   }
 `;
 
-// function textToShort(str) {
-//   if (str.length > 100) {
-//     return str.substring(0, 97) + "...";
-//   } else {
-//     return str;
-//   }
-// }
-
-export default function BlogItem({ idx, data }) {
+export default function BlogItem({ data }) {
   const createDate = onlyDate(data.createDateTime);
   return (
     <ItemWrap>
-      {/* ! json-server */}
       <Link to={`/Post?index=${data._id}`}>
         <div className='thumbnail'>
-          {/* <img src={idx % 2 === 0 ? blog1 : blog2} alt='썸네일' />
-           */}
           <img
-            src={data.thumbnailPath ? data.thumbnailPath : blog1}
+            src={data.thumbnailPath !== "null" ? data.thumbnailPath : blog1}
             alt={"썸네일"}
           ></img>
         </div>

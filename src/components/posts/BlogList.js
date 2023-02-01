@@ -40,13 +40,14 @@ export default function BlogList() {
       .then((data) => setData(data));
   }, []);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <GridLayout>
-      {/* {itemList.map((i, idx) => (
-        <BlogItem key={idx} idx={idx} />
-      ))} */}
       {data.map((i, idx) => (
-        <BlogItem key={idx + 12} idx={idx} data={i} />
+        <BlogItem key={idx} idx={idx} data={i} />
       ))}
     </GridLayout>
   );

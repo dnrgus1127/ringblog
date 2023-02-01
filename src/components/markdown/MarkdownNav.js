@@ -35,7 +35,7 @@ export default function MarkdownNav({ list, nodes }) {
   scrollRef.current = nodes;
   const scrollHeading = (idx) => {
     scrollRef.current[idx].scrollIntoView({
-      behavior: "smooth",
+      behavior: "auto",
       block: "center",
       inline: "start",
     });

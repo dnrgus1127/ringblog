@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-// !- 엔터 에 반응해서 줄바꿈 안됨, textArea에 마크다운 입력 시 강조 표시 없음
+// TODO textArea에 마크다운 입력 시 강조 표시 없음
 const MarkdownCss = styled.div`
   h1,
   h2,
@@ -57,7 +57,6 @@ const MarkdownCss = styled.div`
 
   pre {
     background-color: rgba(0, 0, 0, 1);
-    /* padding: 2rem; */
     border-radius: 4px;
   }
   code {
@@ -73,7 +72,7 @@ const MarkdownCss = styled.div`
     background-color: ${({ theme }) => theme.bgElement};
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
-    padding: 2rem;
+    padding: 1rem 2rem;
     border-left: 4px solid #63e6be;
   }
   table {
