@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import BlogList from "../components/BlogList";
+import BlogList from "../components/posts/BlogList";
 import Header from "../components/Header";
 
 const Body = styled.div`

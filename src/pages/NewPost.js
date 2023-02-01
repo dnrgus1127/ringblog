@@ -1,15 +1,12 @@
 import React, { useRef, useState } from "react";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import styled from "styled-components";
-import { MarkdownCss } from "../css/MarkdownCss";
+import { MarkdownCss } from "../components/markdown/MarkdownCss";
 
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { stackoverflowDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { Link } from "react-router-dom";
 import UpCommingMenu from "../components/newPost/UpCommingMenu";
 import { Post } from "../data/posts";
 import { useEffect } from "react";
-import remarkGfm from "remark-gfm";
+import CustomMD from "../components/markdown/CustomMD";
 
 const Container = styled.div`
   width: 100wh;
@@ -169,7 +166,6 @@ export default function NewPost() {
     char,
     len
   ) => {
-    console.log(char);
     setContents(
       value.substring(0, selectionStart) + char + value.substring(selectionEnd)
     );
@@ -249,28 +245,7 @@ export default function NewPost() {
       <Right className='right writeSection'>
         <MarkdownCss>
           <h1 style={{ marginBottom: "6rem" }}>{title}</h1>
-          <ReactMarkdown
-            children={contents}
-            remarkPlugins={[remarkGfm]}
-            // Code Hilghter
-            components={{
-              code({ node, inline, className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || "");
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    language={match[1]}
-                    style={stackoverflowDark}
-                  >
-                    {children}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
-              },
-            }}
-          ></ReactMarkdown>
+          <CustomMD>{contents}</CustomMD>
         </MarkdownCss>
       </Right>
       <UpCommingMenu onOff={upComming} onOffEvent={MenuOnOff} obj={newPost} />
