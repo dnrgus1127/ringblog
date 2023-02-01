@@ -88,6 +88,10 @@ const MarkdownCss = styled.div`
   td {
     padding: 0.8rem;
   }
+
+  img {
+    width: 100%;
+  }
 `;
 
 export { MarkdownCss };
