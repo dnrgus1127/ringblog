@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import styled from "styled-components";
-import { MarkdownCss } from "../css/MarkdownCss";
+import { MarkdownCss } from "./markdown/MarkdownCss";
 import { onlyDate } from "../functions/dateFormat";
-import MarkdownNav from "./MarkdownNav";
+import CustomMD from "./markdown/CustomMD";
+import MarkdownNav from "./markdown/MarkdownNav";
 
 const Container = styled.div`
   width: calc(var(--width) * 0.65);
@@ -51,13 +51,14 @@ const CreateDate = styled(Text)`
 
 export default function PostContents({ post }) {
   const createDate = onlyDate(post.createDateTime);
-
-  const [data, setData] = useState();
   const markdownRef = useRef({});
   const [mdList, setMdList] = useState([]);
   const [nodeList, setNodeList] = useState([]);
   const [fixed, setfixed] = useState(false);
 
+  /**
+   * ? 스크롤 위치에 따라서 Markdown Navigation 포지션 고정
+   */
   const fixedNav = useCallback(() => {
     if (140 >= markdownRef.current.getBoundingClientRect().top) {
       setfixed(true);
@@ -66,6 +67,7 @@ export default function PostContents({ post }) {
     }
   }, []);
 
+  // ? 윈도우 스크롤 이벤트 추가
   useEffect(() => {
     const timer = setInterval(() => {
       window.addEventListener("scroll", fixedNav);
@@ -76,18 +78,7 @@ export default function PostContents({ post }) {
     };
   }, [fixedNav]);
 
-  useEffect(() => {
-    fetch(`https://api.github.com/repos/dnrgus1127/portfolio/readme`)
-      .then((res) => res.json())
-      .then((json) => {
-        fetch(json.download_url)
-          .then((res) => res.text())
-          .then((markdown) => {
-            setData(markdown);
-          });
-      });
-  }, []);
-
+  //? 헤딩 태그 네비게이션 에 들어갈 헤더 리스트 구하는 Hook
   useEffect(() => {
     let arr = [];
     let nodes = [];
@@ -109,7 +100,7 @@ export default function PostContents({ post }) {
       setNodeList([...nodes]);
       setMdList([...arr]);
     }
-  }, [data]);
+  }, [post]);
 
   return (
     <Container>
@@ -133,7 +124,7 @@ export default function PostContents({ post }) {
         </div>
       </div>
       <MarkdownCss ref={markdownRef}>
-        <ReactMarkdown>{post.contents}</ReactMarkdown>
+        <CustomMD>{post.contents}</CustomMD>
       </MarkdownCss>
     </Container>
   );
