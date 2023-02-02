@@ -93,4 +93,4 @@ async function deletePost(id) {
 
   return result;
 }
-export { uploadPost, getPostByIndex, updatePost, deletePost };
+export { uploadPost, getPostByIndex, updatePost, deletePost, uploadImg };
