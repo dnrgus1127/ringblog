@@ -16,24 +16,32 @@ export default function CustomMD({ children }) {
       components={{
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");
+
           return !inline && match ? (
             // ? 언어에 따라서 코드 구문 스타일 지정
             <SyntaxHighlighter
+              children={String(children).replace(/\n$/, "")}
               language={match[1]}
               style={stackoverflowDark}
-              customStyle={{ padding: "1.5rem 1rem" }}
+              customStyle={{ display: "inline" }}
+              PreTag='div'
+              {...props}
             >
-              {children}
+              {/* {children} */}
             </SyntaxHighlighter>
           ) : (
             // ? Code 언어 선택 안했을 때 코드 구문 스타일 지정
-            <SyntaxHighlighter
-              style={stackoverflowDark}
-              customStyle={{ padding: "1.5rem 1rem" }}
-            >
-              {children}
-            </SyntaxHighlighter>
+            // <SyntaxHighlighter
+            //   language='null'
+            //   style={stackoverflowDark}
+            //   customStyle={{ padding: "1.5rem 1rem" }}
+            // >
+            //   {children}
+            // </SyntaxHighlighter>
             // <code>{children}</code>
+            <code className={className} {...props}>
+              {children}
+            </code>
           );
         },
       }}

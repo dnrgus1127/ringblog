@@ -56,16 +56,32 @@ const MarkdownCss = styled.div`
   }
 
   pre {
-    background-color: rgba(0, 0, 0, 1);
+    padding: 1.5rem 1rem;
     border-radius: 4px;
+    background-color: rgb(28, 27, 27);
+    overflow-x: auto;
   }
-  code {
+
+  pre > code:not([class*="language-"]) {
+    /* padding: 1.5rem 1rem; */
+  }
+
+  code [class*="language-"] {
     font-size: 1.4rem;
     font-family: "Fira Mono", monospace;
     font-weight: 400;
     line-height: 2.1px;
     tab-size: 4;
     word-spacing: 0px;
+    background: none;
+  }
+
+  p > code {
+    background-color: rgba(87, 86, 86);
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 1.3rem;
+    margin: 0.1rem 0;
   }
 
   blockquote {
