@@ -1,6 +1,15 @@
 import { timeStamp } from "./time";
 import { postValid } from "./validation";
 
+//-----------------------------------------------get-----------//
+
+async function getPostByIndex(index) {
+  let data = await fetch(`/posts/${index}`).then((data) => data.json());
+
+  return data;
+}
+
+//-----------------------------------------------post----------//
 /**
  * ? Submit Post to Server
  * @param {Post} obj post object
@@ -57,4 +66,31 @@ function quotationMark(content) {
   return content.replaceAll('"', '\\"');
 }
 
-export { uploadPost };
+//포스트 수정--------------------------------------------------------------------------------//
+
+async function updatePost(id, obj) {
+  let data = {
+    ...obj,
+    contents: quotationMark(obj.contents),
+  };
+  let result = await fetch(`/posts/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+
+  return result;
+}
+
+//포스트 삭제-------------------------------------------------------------------//
+
+async function deletePost(id) {
+  let result = await fetch(`/posts/${id}`, {
+    method: "DELETE",
+  });
+
+  return result;
+}
+export { uploadPost, getPostByIndex, updatePost, deletePost };
