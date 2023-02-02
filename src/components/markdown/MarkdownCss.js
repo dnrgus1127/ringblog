@@ -62,10 +62,6 @@ const MarkdownCss = styled.div`
     overflow-x: auto;
   }
 
-  pre > code:not([class*="language-"]) {
-    /* padding: 1.5rem 1rem; */
-  }
-
   code [class*="language-"] {
     font-size: 1.4rem;
     font-family: "Fira Mono", monospace;

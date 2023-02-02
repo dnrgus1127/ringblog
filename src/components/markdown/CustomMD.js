@@ -23,7 +23,7 @@ export default function CustomMD({ children }) {
               children={String(children).replace(/\n$/, "")}
               language={match[1]}
               style={stackoverflowDark}
-              customStyle={{ display: "inline" }}
+              customStyle={{ display: "inline-block" }}
               PreTag='div'
               {...props}
             >
