@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import styled from "styled-components";
 import { useQuery } from "../functions/urlQuery";
 import PostContents from "../components/PostContents";
+import { getPostByIndex } from "../functions/fetch";
 
 const Body = styled.div`
   padding-top: calc(var(--header) * 1.5);
@@ -13,9 +14,7 @@ export default function PostPage({ theme, toggleTheme }) {
   const index = query.get("index");
   const [post, setPost] = useState({});
   useEffect(() => {
-    fetch(`/posts/${index}`)
-      .then((data) => data.json())
-      .then(setPost);
+    getPostByIndex(index).then(setPost);
   }, [index]);
 
   return (
