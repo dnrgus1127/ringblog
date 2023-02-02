@@ -1,12 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { MarkdownCss } from "../components/markdown/MarkdownCss";
-
-import { Link } from "react-router-dom";
 import UpCommingMenu from "../components/newPost/UpCommingMenu";
 import { Post } from "../data/posts";
 import { useEffect } from "react";
 import CustomMD from "../components/markdown/CustomMD";
+import { useQuery } from "../functions/urlQuery";
+import MarkdownInput from "../components/newPost/MarkdownInput";
+import StringLength from "../components/newPost/StringLength";
+import UnderMenu from "../components/newPost/UnderMenu";
+import { getPostByIndex } from "../functions/fetch";
 
 const Container = styled.div`
   width: 100wh;
@@ -91,95 +94,41 @@ const Title = styled(Input)`
   font-size: 3rem;
 `;
 
-const UnderMenu = styled.div`
-  background-color: ${({ theme }) => theme.bgElement2};
-  box-shadow: 0px 0p 5px rgba(0, 0, 0, 0.7);
-  height: 8vh;
-  padding: 0 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .btnWrap {
-    display: flex;
-  }
-`;
-
-const Btn = styled.button`
-  font-size: 2rem;
-  font-weight: 800;
-  font-family: "Noto Sans KR", sans-serif;
-  background: none;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    background-color: rgba(64, 64, 64, 0.7);
-  }
-`;
-
-const BtnBack = styled(Btn)`
-  padding: 0.5rem 2rem;
-  border-radius: 4px;
-`;
-
-const Button = styled(Btn)`
-  background-color: ${({ theme }) =>
-    (props) =>
-      props.bg ? theme.btnColor : "none"};
-
-  padding: 0.5rem 2rem;
-  border-radius: 4px;
-  color: ${({ theme }) =>
-    (props) =>
-      props.bg ? theme.oppositeColor : theme.btnColor};
-  margin-left: 2rem;
-  &:hover {
-    background-color: ${({ theme }) =>
-      (props) =>
-        props.bg ? theme.btnHover : "none"};
-  }
-`;
-
-const ContentLength = styled.div`
-  text-align: right;
-  padding-top: 1rem;
-  padding-right: 2rem;
-  font-size: 1rem;
-`;
-
 export default function NewPost() {
-  const maxLength = 5000;
+  let query = useQuery();
+  const [index, setIndex] = useState(null);
   const [contents, setContents] = useState("");
   const [title, setTitle] = useState();
-  const [upComming, setUpComming] = useState(false);
   const newPost = new Post(title, contents);
-  const taRef = useRef();
-  const [cursor, setCursor] = useState(0);
+  const [upComming, setUpComming] = useState(false);
+  const [preview, setPrivew] = useState();
 
-  // tab, enter 등 특수문자 입력시
-  /**
-   * contents에 특수문자 입력하는 함수
-   * @param {*} HTMLnode (e.target)
-   * @param {*} char 특수문자("\t","\n")
-   */
-  const enterSpecialChar = (
-    { value, selectionStart, selectionEnd },
-    char,
-    len
-  ) => {
-    setContents(
-      value.substring(0, selectionStart) + char + value.substring(selectionEnd)
-    );
-    setCursor(selectionStart + len);
-  };
-
-  // 특수문자 입력 후 커서 위치 조정하는 hook
-  useEffect(() => {
-    taRef.current.setSelectionRange(cursor, cursor);
-  }, [cursor]);
+  const [data, setData] = useState({});
 
   const MenuOnOff = () => {
     setUpComming(!upComming);
   };
+
+  const changeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+  // 새 글 작성이 아니라 수정 하는 경우
+  useEffect(() => {
+    setIndex(query.get("index"));
+  }, [query]);
+
+  useEffect(() => {
+    if (index) {
+      getPostByIndex(index).then((data) => {
+        setContents(data.contents);
+        setTitle(data.title);
+        if (data.preview !== "null") {
+          setPrivew(data.preview);
+        }
+        setData(data);
+      });
+    }
+  }, [index]);
 
   return (
     <Container>
@@ -190,57 +139,17 @@ export default function NewPost() {
             <Title
               type='text'
               placeholder='제목을 입력하세요...'
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
+              value={title || ""}
+              onChange={changeTitle}
             />
             <hr />
           </div>
-          {/* // ! */}
-          <textarea
-            ref={taRef}
-            onChange={(e) => {
-              setContents(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Tab") {
-                e.preventDefault();
-                enterSpecialChar(e.target, "\t", 1);
-              } else if (e.key === "Enter") {
-                e.preventDefault();
-                enterSpecialChar(e.target, "  \n", 3);
-              }
-            }}
-            value={contents}
-          ></textarea>
-          <ContentLength>
-            <span
-              style={
-                contents.length > maxLength
-                  ? { color: "red" }
-                  : { color: "grey" }
-              }
-            >
-              {contents.length}
-            </span>{" "}
-            / {maxLength}
-          </ContentLength>
+          <MarkdownInput data={contents} setData={setContents} />
+          <StringLength string={contents} />
         </div>
-        <UnderMenu>
-          <Link to={"/"}>
-            <BtnBack>나가기</BtnBack>
-          </Link>
-
-          <div className='btnWrap'>
-            <Button onClick={MenuOnOff} bg={false}>
-              임시저장
-            </Button>
-            <Button bg={true} onClick={MenuOnOff}>
-              제출하기
-            </Button>
-          </div>
-        </UnderMenu>
+        <UnderMenu index={index} onClick={MenuOnOff} />
       </Left>
+
       {/* 우측 화면  */}
       <Right className='right writeSection'>
         <MarkdownCss>
@@ -248,7 +157,14 @@ export default function NewPost() {
           <CustomMD>{contents}</CustomMD>
         </MarkdownCss>
       </Right>
-      <UpCommingMenu onOff={upComming} onOffEvent={MenuOnOff} obj={newPost} />
+      <UpCommingMenu
+        onOff={upComming}
+        onOffEvent={MenuOnOff}
+        obj={newPost}
+        index={index}
+        lastPreview={index ? preview : null}
+        serverData={data}
+      />
     </Container>
   );
 }
