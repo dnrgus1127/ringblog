@@ -1,8 +1,5 @@
 // 일반,다크모드 공통 색상 속성
-const theme = {
-  btnColor: "#96f2d7",
-  btnHover: "#63E6BE",
-};
+const theme = {};
 
 // 일반 모드 색상
 const lightTheme = {
@@ -17,6 +14,8 @@ const lightTheme = {
   borderColor: "rgb(192,192,192)",
   mdColor: "#f8fdfc",
   tableColor: "#A0A0A0", //임시
+  btnColor: "#12B886",
+  btnHover: "#20C997",
   ...theme,
 };
 
@@ -33,6 +32,8 @@ const darkTheme = {
   borderColor: "rgb(64,64,64)",
   mdColor: "#0c0c0c",
   tableColor: "#A0A0A0",
+  btnColor: "#96f2d7",
+  btnHover: "#63E6BE",
   ...theme,
 };
 
