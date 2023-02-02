@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { uploadPost } from "../../functions/fetch";
+import { updatePost, uploadPost } from "../../functions/fetch";
+import { timeStamp } from "../../functions/time";
 import thumbnailDefault from "../../images/thumbnail2.jpg";
 import Button from "../Button";
 
@@ -88,14 +89,22 @@ const Btn = styled.button`
       props.bg ? theme.btnColor : "none"};
 `;
 
-export default function UpCommingMenu({ onOff, onOffEvent, obj }) {
+export default function UpCommingMenu({
+  onOff,
+  onOffEvent,
+  obj,
+  index,
+  serverData,
+}) {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
+  const [serverFile, setServerFile] = useState("");
   const fileSelector = useRef();
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState("");
 
   const data = {
     ...obj,
+    lastMdfdDay: timeStamp(),
     preview: preview,
   };
 
@@ -111,14 +120,33 @@ export default function UpCommingMenu({ onOff, onOffEvent, obj }) {
 
   /*-------------------------------------------------------*/
 
+  function postNewPost() {
+    // ! - writer, 추가 시 수정 요함
+    uploadPost(file, data).then((result) => (result ? navigate("/") : null));
+  }
+
+  function editPost() {
+    updatePost(index, data).then((result) => (result ? navigate("/") : null));
+  }
+
+  useEffect(() => {
+    setPreview(serverData.preview);
+
+    setServerFile(serverData.thumbnailPath);
+  }, [serverData]);
+
   return (
     <Container slide={onOff}>
       <Wrapper>
         <ThumbnailBox>
-          <img
-            src={file === null ? thumbnailDefault : URL.createObjectURL(file)}
-            alt='썸네일'
-          />
+          {serverFile !== "null" ? (
+            <img src={serverFile} alt='썸네일' />
+          ) : (
+            <img
+              src={file === null ? thumbnailDefault : URL.createObjectURL(file)}
+              alt='썸네일'
+            />
+          )}
           <div className='btnWrap'>
             <Button
               bg={"rgba(64,64,64,.8)"}
@@ -146,19 +174,11 @@ export default function UpCommingMenu({ onOff, onOffEvent, obj }) {
             onChange={(e) => {
               setPreview(e.target.value);
             }}
-            value={preview}
+            value={preview || ""}
           ></textarea>
         </Preview>
         <ButtonBox>
-          <Btn
-            bg={true}
-            onClick={() => {
-              // ! - writer, 추가 시 수정 요함
-              uploadPost(file, data).then((result) =>
-                result ? navigate("/") : null
-              );
-            }}
-          >
+          <Btn bg={true} onClick={index ? editPost : postNewPost}>
             제출
           </Btn>
           <Btn onClick={onOffEvent}>취소</Btn>

@@ -123,7 +123,10 @@ export default function BlogItem({ data }) {
         </div>
         <ItemInfo>
           <h4>{data.title}</h4>
-          <p className='postPreview'>{data.preview}</p>
+          <p className='postPreview'>
+            {/* // ! null preview null값 처리 수정 필요 */}
+            {data.preview !== "null" ? data.preview : "미리보기가 없습니다."}
+          </p>
           <p className='madeBy'>{createDate}</p>
         </ItemInfo>
         <UserInfo>
