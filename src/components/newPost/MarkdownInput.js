@@ -2,6 +2,7 @@
 // ? 마크다운 입력을 위한 TextArea 영역
 
 import React, { useEffect, useRef, useState } from "react";
+import { uploadImg } from "../../functions/fetch";
 
 /**
  * 마크다운을 입력받는 컴포넌트
@@ -40,6 +41,7 @@ export default function MarkdownInput({ data, setData }) {
       onChange={(e) => {
         setData(e.target.value);
       }}
+      onPaste={(e) => pasteImg(e, setData, setCursor)}
       onKeyDown={(e) => {
         if (e.key === "Tab") {
           e.preventDefault();
@@ -52,4 +54,28 @@ export default function MarkdownInput({ data, setData }) {
       value={data}
     ></textarea>
   );
+}
+
+function pasteImg(evt, setData, setCursor) {
+  const { value, selectionStart, selectionEnd } = evt.target;
+  const clipboardItems = evt.clipboardData.items;
+  const items = [].slice.call(clipboardItems).filter(function (item) {
+    // Filter the image items only
+    return item.type.indexOf("image") !== -1;
+  });
+  if (items.length === 0) {
+    return;
+  }
+
+  const item = items[0];
+  // Get the blob of image
+  const blob = item.getAsFile();
+  uploadImg(blob).then((res) => {
+    setData(
+      value.substring(0, selectionStart) +
+        `![](${res})` +
+        value.substring(selectionEnd)
+    );
+    setCursor(selectionStart + 22);
+  });
 }
