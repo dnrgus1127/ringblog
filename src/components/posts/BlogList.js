@@ -33,16 +33,13 @@ export default function BlogList() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    console.log();
     fetch("/posts", {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <GridLayout>
