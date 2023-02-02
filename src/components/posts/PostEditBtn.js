@@ -14,6 +14,7 @@ const Btn = styled.button`
   border: none;
   margin-left: 1rem;
   color: ${({ theme }) => theme.btnColor};
+  font-weight: 800;
   font-size: 1.6rem;
 
   &:hover {
