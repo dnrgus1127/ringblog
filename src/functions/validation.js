@@ -4,7 +4,7 @@ function postValid({ title, contents, preview }) {
     return false;
   } else if (!contentValide(contents)) {
     return false;
-  } else if (!previewValide(preview)) {
+  } else if (preview && !previewValide(preview)) {
     return false;
   }
   return true;
