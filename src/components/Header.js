@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Context } from "../functions/Login/LoginProvider";
 import Gnb from "./Gnb";
 import HideMenu from "./HideMenu";
+import LoginForm from "./Login/LoginForm";
 
 const HeaderCon = styled.header`
   position: fixed;
@@ -30,8 +33,20 @@ const ContentWrap = styled.div`
   }
 `;
 
+const LoginFromWrap = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
 export default function Header({ toggleTheme, theme }) {
   const [hideMenu, setHideMenu] = useState(false);
+  const [loginForm, setLoginFrom] = useState(false);
+  const { loggedUser, loggedIn, setLoggedUser } = useContext(Context);
+
+  const ControllLoginForm = () => {
+    setLoginFrom(!loginForm);
+  };
   return (
     <HeaderCon>
       <ContentWrap>
@@ -50,6 +65,15 @@ export default function Header({ toggleTheme, theme }) {
           </svg>
         </Link>
         <HideMenu trigger={hideMenu} />
+        {loginForm ? (
+          <LoginFromWrap>
+            <LoginForm onOff={ControllLoginForm} setUser={setLoggedUser} />
+          </LoginFromWrap>
+        ) : null}
+        <button className='loginBtn' onClick={ControllLoginForm}>
+          Login
+        </button>
+        <p>{loggedUser.username}</p>
         <Gnb
           toggleTheme={toggleTheme}
           theme={theme}
