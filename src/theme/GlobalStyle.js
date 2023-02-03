@@ -16,6 +16,17 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
     }
+    input {
+        outline: none;
+        border: none;
+        background: none;
+    }
+
+    button {
+        background: none;
+        outline: none;
+        border: none;
+    }
 
     textarea {
         width: 100%;
