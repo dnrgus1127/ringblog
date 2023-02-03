@@ -7,6 +7,11 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: end;
   margin: 1.5rem 0;
+  align-items: center;
+  a {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const Btn = styled.button`
