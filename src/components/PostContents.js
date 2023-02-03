@@ -7,8 +7,6 @@ import MarkdownNav from "./markdown/MarkdownNav";
 import PostEditBtn from "./posts/PostEditBtn";
 
 const Container = styled.div`
-  width: calc(var(--width) * 0.65);
-  margin: 0 auto;
   position: relative;
 
   .writerAndWriteDate {
