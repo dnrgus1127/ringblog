@@ -26,3 +26,13 @@ export default function Button({ bg, color, children, onClick }) {
     </BtnCss>
   );
 }
+
+function ReloadButton({ children, onClick }) {
+  return (
+    <BtnCss onClick={onClick} bg={"white"}>
+      {children}
+    </BtnCss>
+  );
+}
+
+export { ReloadButton };
