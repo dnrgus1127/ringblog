@@ -11,22 +11,21 @@ const Context = createContext({
 
 const LoginProvider = ({ children }) => {
   const setLoggedUser = (data) => {
-    console.log(data);
     setState((prevState) => ({
       ...prevState,
       loggedUser: { username: data },
     }));
   };
 
-  const setLoggedIn = () => {
+  const setLoggedIn = (data) => {
     setState((prevState) => ({
       ...prevState,
-      loggedIn: !prevState.loggedIn,
+      loggedIn: data,
     }));
   };
 
   const initialState = {
-    loggedUser: { username: "로그인 X" },
+    loggedUser: { username: "" },
     loggedIn: false,
     setLoggedUser,
     setLoggedIn,
