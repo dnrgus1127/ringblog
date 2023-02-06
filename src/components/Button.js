@@ -19,6 +19,16 @@ const BtnCss = styled.button`
   }
 `;
 
+const ColorButton = styled(BtnCss)`
+  background-color: ${({ theme }) => theme.btnColor};
+  color: ${({ theme }) => theme.oppositeColor};
+  border-radius: 6px;
+  padding: 0.8rem 1.4rem;
+  &:hover {
+    background-color: ${({ theme }) => theme.btnHover};
+  }
+`;
+
 export default function Button({ bg, color, children, onClick }) {
   return (
     <BtnCss bg={bg} color={color} onClick={onClick}>
@@ -35,4 +45,4 @@ function ReloadButton({ children, onClick }) {
   );
 }
 
-export { ReloadButton };
+export { ReloadButton, BtnCss, ColorButton };
