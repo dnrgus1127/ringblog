@@ -10,6 +10,10 @@ import MarkdownInput from "../components/newPost/MarkdownInput";
 import StringLength from "../components/newPost/StringLength";
 import UnderMenu from "../components/newPost/UnderMenu";
 import { getPostByIndex } from "../functions/fetch";
+import { useLogin } from "../Hooks/useLogin";
+import { useContext } from "react";
+import { Context } from "../functions/Login/LoginProvider";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100wh;
@@ -102,8 +106,9 @@ export default function NewPost() {
   const newPost = new Post(title, contents);
   const [upComming, setUpComming] = useState(false);
   const [preview, setPrivew] = useState();
-
   const [data, setData] = useState({});
+  const { loggedIn } = useContext(Context);
+  const navigation = useNavigate();
 
   const MenuOnOff = () => {
     setUpComming(!upComming);
@@ -129,6 +134,15 @@ export default function NewPost() {
       });
     }
   }, [index]);
+
+  useLogin();
+
+  useEffect(() => {
+    if (!loggedIn) {
+      alert("로그인이 필요합니다.");
+      navigation("/");
+    }
+  }, [loggedIn, navigation]);
 
   return (
     <Container>
