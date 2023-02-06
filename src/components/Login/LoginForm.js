@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import LoginComponent from "./LoginComponent";
+import RegisterComponent from "./RegisterComponent";
+import { ColorButton } from "../Button";
 
 const Container = styled.div`
   width: 100vw;
@@ -15,14 +18,7 @@ const CenterWrap = styled.div`
   width: calc(var(--width) / 2);
   background-color: ${({ theme }) => theme.bgColor};
   padding: 2rem 4rem;
-  border-radius: 4px;
-
-  .buttonBox {
-    display: flex;
-    align-items: center;
-    padding: 1rem 0;
-    justify-content: center;
-  }
+  border-radius: 8px;
 
   h1,
   h2,
@@ -35,89 +31,56 @@ const CenterWrap = styled.div`
   }
 `;
 
-const Input = styled.input`
-  padding: 0.5rem 1rem;
-  display: block;
-  width: 100%;
-  height: 4rem;
-  background-color: ${({ theme }) => theme.bgElement};
-  border: 1px solid ${({ theme }) => theme.btnColor};
-  border-radius: 4px;
-  margin-bottom: 2rem;
-`;
+const SignDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
 
-const Button = styled.button`
-  background-color: ${({ theme }) => theme.btnColor};
-  border-radius: 4px;
-  padding: 1rem 1rem;
-  color: ${({ theme }) => theme.oppositeColor};
-  font-weight: 800;
-  font-size: 1.6rem;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.btnHover};
+  .signButton {
+    color: ${({ theme }) => theme.greyColor};
+    cursor: pointer;
   }
 `;
 
-const Form = styled.form`
-  button {
+const XButton = styled(ColorButton)`
+  font-size: 1.6rem;
+  color: ${({ theme }) => theme.oppositeColor};
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  align-items: center;
+  display: flex;
+  svg {
     display: block;
     margin: 0 auto;
   }
 `;
 
-export default function LoginForm({ onOff, setUser }) {
-  const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
+export default function LoginForm({ onOff }) {
+  const [sign, setSign] = useState(false);
 
-  const submit = (e) => {
-    e.preventDefault();
-    fetch("/login", {
-      method: "POST",
-      body: JSON.stringify({ userId: id, password: pw }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((data) => data.json())
-      .then((result) => setUser(result));
+  const changeSign = () => {
+    setSign((prevState) => !prevState);
   };
 
   return (
     <Container>
       <CenterWrap>
-        <h2>로그인</h2>
-
-        <h3>RingBlog ID 로그인</h3>
-        <Form onSubmit={submit}>
-          <Input
-            value={id}
-            onChange={(e) => {
-              setId(e.target.value);
-            }}
-            type='text'
-          />
-          <Input
-            value={pw}
-            onChange={(e) => {
-              setPw(e.target.value);
-            }}
-            type='password'
-          />
-          <Button bg={""} type='submit'>
-            로그인
-          </Button>
-        </Form>
-
-        <div className='buttonBox'>
-          <Button
-            onClick={() => {
-              fetch("/logout");
-            }}
-          >
-            로그아웃
-          </Button>
-          <Button onClick={onOff}> 창닫기 </Button>
-        </div>
-        <h3>소셜 계정 ID 로그인</h3>
+        <SignDiv>
+          <XButton as='div' onClick={onOff}>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='40%'
+              height='40%'
+              viewBox='0 0 24 24'
+            >
+              <path d='M24 3.752l-4.423-3.752-7.771 9.039-7.647-9.008-4.159 4.278c2.285 2.885 5.284 5.903 8.362 8.708l-8.165 9.447 1.343 1.487c1.978-1.335 5.981-4.373 10.205-7.958 4.304 3.67 8.306 6.663 10.229 8.006l1.449-1.278-8.254-9.724c3.287-2.973 6.584-6.354 8.831-9.245z' />
+            </svg>
+          </XButton>
+          <button className='signButton' onClick={changeSign}>
+            {sign ? "로그인 하러가기" : "회원가입"}
+          </button>
+        </SignDiv>
+        {sign ? <RegisterComponent /> : <LoginComponent onOff={onOff} />}
       </CenterWrap>
     </Container>
   );
