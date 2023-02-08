@@ -20,7 +20,9 @@ export default function PostPage({ theme, toggleTheme }) {
     <React.Fragment>
       <Header theme={theme} toggleTheme={toggleTheme} />
       <Body>
-        <Fetch uri={uri} renderSucsecc={fetchSucces}></Fetch>
+        <div style={{ height: "80vh" }}>
+          <Fetch uri={uri} renderSuccess={fetchSucces}></Fetch>
+        </div>
       </Body>
     </React.Fragment>
   );
