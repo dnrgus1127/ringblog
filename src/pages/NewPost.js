@@ -100,14 +100,15 @@ const Title = styled(Input)`
 
 export default function NewPost() {
   let query = useQuery();
+  const { loggedUser, loggedIn } = useContext(Context);
   const [index, setIndex] = useState(null);
   const [contents, setContents] = useState("");
   const [title, setTitle] = useState();
   const newPost = new Post(title, contents);
+  newPost.writer = loggedUser.userId;
   const [upComming, setUpComming] = useState(false);
   const [preview, setPrivew] = useState();
   const [data, setData] = useState({});
-  const { loggedIn } = useContext(Context);
   const navigation = useNavigate();
 
   const MenuOnOff = () => {
