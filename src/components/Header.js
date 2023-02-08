@@ -32,7 +32,7 @@ const ContentWrap = styled.div`
   align-items: center;
   height: 100%;
 
-  svg {
+  .logo {
     margin: auto 0;
   }
 
@@ -65,6 +65,7 @@ export default function Header({ toggleTheme, theme }) {
     setLoginFrom(!loginForm);
   };
 
+  // 새로고침 시 로그인 여부 확인
   useLogin();
 
   return (
@@ -107,6 +108,7 @@ function Logo() {
   return (
     <Link to={"/"}>
       <svg
+        className='logo'
         width='71'
         height='24'
         viewBox='0 0 71 24'
