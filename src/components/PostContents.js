@@ -5,6 +5,8 @@ import { onlyDate } from "../functions/dateFormat";
 import CustomMD from "./markdown/CustomMD";
 import MarkdownNav from "./markdown/MarkdownNav";
 import PostEditBtn from "./posts/PostEditBtn";
+import { useContext } from "react";
+import { Context } from "../functions/Login/LoginProvider";
 
 const Container = styled.div`
   position: relative;
@@ -54,6 +56,7 @@ export default function PostContents({ post }) {
   const [mdList, setMdList] = useState([]);
   const [nodeList, setNodeList] = useState([]);
   const [fixed, setfixed] = useState(false);
+  const { loggedUser } = useContext(Context);
 
   /**
    * ? 스크롤 위치에 따라서 Markdown Navigation 포지션 고정
@@ -105,7 +108,10 @@ export default function PostContents({ post }) {
     <Container>
       <Title as={"h1"}>{post.title}</Title>
 
-      <PostEditBtn index={post._id} />
+      {loggedUser.username === post.name ? (
+        <PostEditBtn index={post._id} />
+      ) : null}
+
       <div className='writerAndWriteDate'>
         <Writer>{post.name}</Writer>
         <CreateDate>{createDate}</CreateDate>
