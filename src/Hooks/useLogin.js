@@ -9,8 +9,7 @@ function useLogin() {
       .then((data) => data.json())
       .then((result) => {
         if (result.isLogined === true) {
-          console.log(result.name);
-          setLoggedUser(result.name);
+          setLoggedUser({ username: result.username, userId: result.userId });
           if (loggedIn === false) {
             setLoggedIn(true);
           }
