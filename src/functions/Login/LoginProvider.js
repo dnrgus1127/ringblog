@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 const Context = createContext({
   loggedUser: {
     username: "",
+    userId: "",
   },
   loggedIn: false,
   setLoggedUser: () => {},
@@ -13,7 +14,7 @@ const LoginProvider = ({ children }) => {
   const setLoggedUser = (data) => {
     setState((prevState) => ({
       ...prevState,
-      loggedUser: { username: data },
+      loggedUser: data,
     }));
   };
 
@@ -25,7 +26,10 @@ const LoginProvider = ({ children }) => {
   };
 
   const initialState = {
-    loggedUser: { username: "" },
+    loggedUser: {
+      username: "",
+      userId: "",
+    },
     loggedIn: false,
     setLoggedUser,
     setLoggedIn,
