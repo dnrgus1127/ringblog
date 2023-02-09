@@ -16,6 +16,7 @@ const lightTheme = {
   tableColor: "#A0A0A0", //임시
   btnColor: "#12B886",
   btnHover: "#20C997",
+  warning: "rgba(236, 130, 03, 0.9)",
   ...theme,
 };
 
@@ -34,6 +35,7 @@ const darkTheme = {
   tableColor: "#A0A0A0",
   btnColor: "#96f2d7",
   btnHover: "#63E6BE",
+  warning: "rgba(256, 150, 23, 0.9)",
   ...theme,
 };
 
