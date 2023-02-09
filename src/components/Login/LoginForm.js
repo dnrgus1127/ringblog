@@ -53,6 +53,11 @@ const XButton = styled(ColorButton)`
     display: block;
     margin: 0 auto;
   }
+
+  @media (max-width: 640px) {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 `;
 
 export default function LoginForm({ onOff }) {
