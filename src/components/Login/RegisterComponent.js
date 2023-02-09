@@ -5,13 +5,22 @@ import {
   checkName,
   checkPassword,
 } from "../../functions/Login/AccountValidation";
+import { InputCss } from "../../styledCss/InputCss";
 import { ColorButton } from "../Button";
 import { Fetch } from "../Fetch";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  h2 {
+    margin-bottom: 1rem;
+  }
+`;
 
 const Button = styled(ColorButton)`
   font-size: 1.6rem;
+`;
+
+const Input = styled(InputCss)`
+  margin: 0 auto;
 `;
 
 const Form = styled.form`
@@ -24,16 +33,6 @@ const Form = styled.form`
     display: inline-block;
   }
 
-  input {
-    background-color: ${({ theme }) => theme.bgElement3};
-    display: block;
-    border-radius: 4px;
-    border: 1px solid ${({ theme }) => theme.btnColor};
-    font-size: 1.6rem;
-    width: 100%;
-    padding: 0.6rem 1rem;
-  }
-
   button {
     display: block;
     margin: 2rem auto;
@@ -41,7 +40,8 @@ const Form = styled.form`
 `;
 
 const ErrorMessage = styled.p`
-  color: red;
+  padding-top: 1rem;
+  color: ${({ theme }) => theme.warning};
 `;
 
 const CompleteSign = styled.div`
@@ -84,6 +84,7 @@ export default function RegisterComponent() {
 
   const submit = (e) => {
     e.preventDefault();
+
     if (isCheckId.isCheck || isCheckName.isCheck || CheckedPw.isCheck) {
       alert("입력 칸을 다시 채워 주세요!");
       return false;
@@ -140,7 +141,7 @@ export default function RegisterComponent() {
           <h2>회원 가입</h2>
           <Form onSubmit={submit}>
             <label htmlFor='id'>아이디</label>
-            <input
+            <Input
               type='text'
               name='id'
               placeholder='아이디를 입력하세요'
@@ -155,10 +156,10 @@ export default function RegisterComponent() {
             ) : null}
 
             <label htmlFor='password'>비밀번호</label>
-            <input
+            <Input
               type='password'
               name='password'
-              placeholder='비밀번호를 입력하세요'
+              placeholder='패스워드를 입력하세요'
               value={password}
               onBlur={validPassword}
               onChange={(e) => {
@@ -170,7 +171,7 @@ export default function RegisterComponent() {
             ) : null}
 
             <label htmlFor='username'>이름(닉네임)</label>
-            <input
+            <Input
               type='text'
               name='username'
               placeholder='이름(닉네임)을 입력하세요'
