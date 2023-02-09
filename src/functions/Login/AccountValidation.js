@@ -82,7 +82,8 @@ function checkName(name, setState) {
     // 영,숫자 포함 8~16자 정규표현식 검사
     setState({
       isCheck: true,
-      message: "이름(닉네임)은  2~10자 이내여야 합니다.",
+      message:
+        "이름(닉네임)은 한글, 영어, 숫자만 사용하여  2~10자 이내로 작성할 수 있습니다.",
     });
   } else {
     // 아이디 중복 검사
