@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import styled from "styled-components";
 import { useQuery } from "../functions/urlQuery";
-import PostContents from "../components/PostContents";
+import PostContents from "../components/posts/PostContents";
 import { Fetch } from "../components/Fetch";
 
 const Body = styled.div`
