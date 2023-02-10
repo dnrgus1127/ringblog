@@ -31,7 +31,6 @@ export default function LoginComponent({ onOff }) {
   // 로그인 요청
   const submit = (e) => {
     e.preventDefault();
-
     if (id.length === 0 || pw.length === 0) {
       alert(
         `${id.length === 0 ? "아이디" : "비밀번호"}를 빈칸으로 둘 수 없습니다.`
@@ -151,14 +150,14 @@ function LoginFail({ setClose, type }) {
 
   return (
     <FailBox>
-      <button
+      {/* <button
         className='closeButton'
         onClick={() => {
           setClose(false);
         }}
       >
         닫기
-      </button>
+      </button> */}
       <div>
         <h5>⚠️ 로그인 실패</h5>
         <p>{ErrorType[type]}</p>
