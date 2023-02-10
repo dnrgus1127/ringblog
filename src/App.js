@@ -9,6 +9,7 @@ import { darkTheme, lightTheme } from "./theme/theme";
 import GlobalStyle from "./theme/GlobalStyle";
 import PostPage from "./pages/PostPage";
 import { LoginProvider } from "./functions/Login/LoginProvider";
+import UserBlog from "./pages/UserBlog";
 
 function App() {
   const [themeMode, setThemeMode] = useState("dark");
@@ -30,6 +31,10 @@ function App() {
             <Route
               path='/Post'
               element={<PostPage theme={themeMode} toggleTheme={toggleTheme} />}
+            ></Route>
+            <Route
+              path='/userBlog'
+              element={<UserBlog theme={themeMode} toggleTheme={toggleTheme} />}
             ></Route>
           </Routes>
         </LoginProvider>
