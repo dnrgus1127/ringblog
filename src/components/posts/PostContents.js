@@ -7,6 +7,8 @@ import MarkdownNav from "../markdown/MarkdownNav";
 import PostEditBtn from "./PostEditBtn";
 import { useContext } from "react";
 import { Context } from "../../functions/Login/LoginProvider";
+import { Link } from "react-router-dom";
+import CommentBox from "./comments/CommentBox";
 
 const Container = styled.div`
   position: relative;
@@ -24,6 +26,13 @@ const Container = styled.div`
     position: absolute;
     top: 14rem;
     /* right: calc(var(--width) * -0.25); */
+  }
+
+  hr {
+    margin: 5rem 0;
+    border: none;
+    height: 1px;
+    background-color: ${({ theme }) => theme.greyColor};
   }
 
   @media screen and (max-width: 1100px) {
@@ -50,7 +59,7 @@ const CreateDate = styled(Text)`
   color: ${({ theme }) => theme.greyColor};
 `;
 
-export default function PostContents({ post }) {
+export default function PostContents({ post, index }) {
   const createDate = onlyDate(post.createDateTime);
   const markdownRef = useRef({});
   const [mdList, setMdList] = useState([]);
@@ -113,7 +122,9 @@ export default function PostContents({ post }) {
       ) : null}
 
       <div className='writerAndWriteDate'>
-        <Writer>{post.name}</Writer>
+        <Link to={`/UserBlog?writer=${post.writer}`}>
+          <Writer>{post.name}</Writer>
+        </Link>
         <CreateDate>{createDate}</CreateDate>
         <div className='mdNav'>
           <div
@@ -130,9 +141,13 @@ export default function PostContents({ post }) {
           </div>
         </div>
       </div>
+
       <MarkdownCss ref={markdownRef}>
         <CustomMD>{post.contents}</CustomMD>
       </MarkdownCss>
+
+      <hr></hr>
+      <CommentBox index={index} />
     </Container>
   );
 }
