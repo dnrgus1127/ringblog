@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import styled from "styled-components";
 import { useQuery } from "../functions/urlQuery";
 import PostContents from "../components/posts/PostContents";
@@ -16,6 +16,10 @@ export default function PostPage({ theme, toggleTheme }) {
   const index = query.get("index");
   const uri = `/posts/${index}`;
 
+  function fetchSucces({ data }) {
+    return <PostContents post={data} index={index} />;
+  }
+
   return (
     <React.Fragment>
       <Header theme={theme} toggleTheme={toggleTheme} />
@@ -26,8 +30,4 @@ export default function PostPage({ theme, toggleTheme }) {
       </Body>
     </React.Fragment>
   );
-}
-
-function fetchSucces({ data }) {
-  return <PostContents post={data} />;
 }
