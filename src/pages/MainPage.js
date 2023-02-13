@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BlogList from "../components/posts/BlogList";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 
 const Body = styled.div`
   padding-top: calc(var(--header) * 1.5);
