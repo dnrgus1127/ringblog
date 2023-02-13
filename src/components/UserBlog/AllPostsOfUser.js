@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Fetch } from "../Fetch";
 import PostCard from "./PostCard";
@@ -7,26 +8,53 @@ const Container = styled.div`
   width: calc(var(--width) * 0.6);
   margin: 0 auto;
 
+  @media (max-width: 1100px) {
+    width: calc(var(--width) * 0.8);
+  }
+
+  @media (max-width: 832px) {
+    width: 100%;
+  }
+
   @media (max-width: 640px) {
     width: var(--width);
   }
 `;
+const NoPost = styled.div`
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+`;
 
-export default function AllPostsOfUser({ writer }) {
+export default function AllPostsOfUser({ writer, search }) {
+  const [uri, setUri] = useState();
+  useEffect(() => {
+    if (search === "") {
+      setUri(`/posts/writer?writer=${writer}`);
+    } else {
+      setUri(`/posts/writer?writer=${writer}&search=${search}`);
+    }
+  }, [writer, search]);
   return (
     <Container>
-      <Fetch uri={`/posts/writer?writer=${writer}`} renderSuccess={Contents} />
+      <Fetch uri={uri} renderSuccess={Contents} />
     </Container>
   );
 }
 
 function Contents({ data }) {
   console.log(data);
-  return (
-    <div>
-      {data.map((item, idx) => (
-        <PostCard key={idx} item={item} />
-      ))}
-    </div>
-  );
+  if (data.length !== 0) {
+    return (
+      <div>
+        {data.map((item, idx) => (
+          <PostCard key={idx} item={item} />
+        ))}
+      </div>
+    );
+  } else {
+    return <NoPost>게시글이 없습니다.</NoPost>;
+  }
 }
