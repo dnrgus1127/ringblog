@@ -22,7 +22,7 @@ const BtnCss = styled.button`
 const ColorButton = styled(BtnCss)`
   background-color: ${({ theme }) => theme.btnColor};
   color: ${({ theme }) => theme.oppositeColor};
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 0.8rem 1.4rem;
   &:hover {
     background-color: ${({ theme }) => theme.btnHover};
