@@ -4,4 +4,13 @@ function timeStamp() {
   return now;
 }
 
-export { timeStamp };
+function FullStamp() {
+  const date = new Date();
+  const now = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+
+  return now;
+}
+
+export { timeStamp, FullStamp };
