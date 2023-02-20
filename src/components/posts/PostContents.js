@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { Context } from "../../functions/Login/LoginProvider";
 import { Link } from "react-router-dom";
 import CommentBox from "./comments/CommentBox";
+import SideMenu from "./SideMenu";
 
 const Container = styled.div`
   position: relative;
@@ -22,10 +23,17 @@ const Container = styled.div`
     position: absolute;
     left: 105%;
   }
+  .sideMenu {
+    position: absolute;
+    left: -10rem;
+  }
+  .sideWrap {
+    position: absolute;
+    top: 14rem;
+  }
   .mdNavPosition {
     position: absolute;
     top: 14rem;
-    /* right: calc(var(--width) * -0.25); */
   }
 
   hr {
@@ -38,6 +46,7 @@ const Container = styled.div`
   @media screen and (max-width: 1100px) {
     .mdNavPosition {
       visibility: hidden;
+      display: none;
     }
   }
   @media screen and (max-width: 640px) {
@@ -66,6 +75,7 @@ export default function PostContents({ post, index }) {
   const [nodeList, setNodeList] = useState([]);
   const [fixed, setfixed] = useState(false);
   const { loggedUser } = useContext(Context);
+  const underRef = useRef();
 
   /**
    * ? 스크롤 위치에 따라서 Markdown Navigation 포지션 고정
@@ -126,6 +136,7 @@ export default function PostContents({ post, index }) {
           <Writer>{post.name}</Writer>
         </Link>
         <CreateDate>{createDate}</CreateDate>
+
         <div className='mdNav'>
           <div
             className='mdNavPosition'
@@ -140,13 +151,36 @@ export default function PostContents({ post, index }) {
             <MarkdownNav list={mdList} nodes={nodeList} />
           </div>
         </div>
+        <div className='sideMenu'>
+          <div
+            className='sideWrap'
+            style={
+              fixed
+                ? {
+                    position: "fixed",
+                  }
+                : null
+            }
+          >
+            <SideMenu
+              index={index}
+              scroll={() => {
+                underRef.current.scrollIntoView({
+                  behavior: "auto",
+                  block: "center",
+                  inline: "start",
+                });
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <MarkdownCss ref={markdownRef}>
         <CustomMD>{post.contents}</CustomMD>
       </MarkdownCss>
 
-      <hr></hr>
+      <hr ref={underRef}></hr>
       <CommentBox index={index} />
     </Container>
   );
