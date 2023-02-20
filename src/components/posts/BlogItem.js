@@ -131,7 +131,10 @@ export default function BlogItem({ data }) {
         </ItemInfo>
         <UserInfo>
           <p className='user'>@{data.writer}</p>
-          <p className='review'>댓글 : 0개</p>
+          <p>좋아요 : {data.rcmnd_cnt ? data.rcmnd_cnt : 0}개</p>
+          <p className='review'>
+            댓글 : {data.comment_cnt ? data.comment_cnt : 0}개
+          </p>
         </UserInfo>
       </Link>
     </ItemWrap>
