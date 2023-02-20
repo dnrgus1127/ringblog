@@ -6,9 +6,14 @@ import PostContents from "../components/posts/PostContents";
 import { Fetch } from "../components/Fetch";
 
 const Body = styled.div`
-  padding-top: calc(var(--header) * 1.5);
+  padding: calc(var(--header) * 1.5) 0;
+
   width: calc(var(--width) * 0.65);
   margin: 0 auto;
+
+  @media (max-width: 640px) {
+    width: 90vw;
+  }
 `;
 
 export default function PostPage({ theme, toggleTheme }) {
@@ -24,7 +29,7 @@ export default function PostPage({ theme, toggleTheme }) {
     <React.Fragment>
       <Header theme={theme} toggleTheme={toggleTheme} />
       <Body>
-        <div style={{ height: "80vh" }}>
+        <div>
           <Fetch uri={uri} renderSuccess={fetchSucces}></Fetch>
         </div>
       </Body>
