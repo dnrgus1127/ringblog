@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCallback } from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { commentValid } from "../../../functions/comments/commentValidation";
 import { Context } from "../../../functions/Login/LoginProvider";
 import { FullStamp } from "../../../functions/time";
 import { ColorButton } from "../../Button";
 import { Fetch } from "../../Fetch";
 import LoginForm from "../../Login/LoginForm";
-import CommentItem from "./CommentItem";
+import CommentList from "./CommentList";
 
 const Container = styled.div`
   /* border: 1px solid ${({ theme }) => theme.tmp}; */
@@ -16,8 +17,16 @@ const Container = styled.div`
     background-color: ${({ theme }) => theme.bgElement};
     border: 0.1px solid rgba(255, 255, 255, 0.2);
     border-radius: 2px;
-    padding: 1rem 2rem;
-    font-size: 1.6rem;
+    padding: 1.5rem 2.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .loginUser {
+    font-size: 1.4rem;
+    cursor: pointer;
+    border-bottom: 1px solid ${({ theme }) => theme.btnColor};
+    display: inline-block;
     margin-bottom: 1rem;
   }
 `;
@@ -55,11 +64,12 @@ const LoginButton = styled(ColorButton)`
 
 export default function CommentBox({ index }) {
   const [comments, setComments] = useState("");
-  const { loggedUser, loggedIn } = useContext(Context);
+  const { loggedUser, loggedIn, setLoggedIn } = useContext(Context);
   const [update, setUpdate] = useState();
   const [onOffLogin, setLogin] = useState();
   const forceUpdate = useCallback(() => setUpdate({}), []);
 
+  useEffect(() => {}, [comments]);
   const submit = (e) => {
     e.preventDefault();
 
@@ -76,6 +86,11 @@ export default function CommentBox({ index }) {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.type === 100) {
+          setLoggedIn(false);
+          alert("다시 로그인해 주세요");
+          return;
+        }
         if (data.success) {
           setComments("");
           forceUpdate();
@@ -87,31 +102,29 @@ export default function CommentBox({ index }) {
   };
 
   const NewComments = (
-    <WriteComment onSubmit={submit}>
-      <textarea
-        placeholder='댓글을 작성하세요'
-        onChange={(e) => {
-          setComments(e.target.value);
-        }}
-        value={comments}
-        name='comments'
-        id='comments'
-      ></textarea>
-      <Button type='submit'>작성하기</Button>
-    </WriteComment>
+    <React.Fragment>
+      <p className='loginUser'>{loggedUser.username}</p>
+      <WriteComment onSubmit={submit}>
+        <textarea
+          placeholder='댓글을 작성하세요'
+          onChange={(e) => {
+            if (commentValid(e.target.value)) {
+              setComments(e.target.value);
+            } else {
+              alert("!@#$%^&*를 제외한 특수문자를 입력할 수 없습니다.");
+            }
+          }}
+          value={comments}
+          name='comments'
+          id='comments'
+        ></textarea>
+        <Button type='submit'>작성하기</Button>
+      </WriteComment>
+    </React.Fragment>
   );
 
   function loadComments({ data }) {
-    return (
-      <div>
-        <p>{data.length}개의 댓글</p>
-        {data.map((item, idx) => (
-          <CommentItem key={idx} commentsUpdate={forceUpdate}>
-            {item}
-          </CommentItem>
-        ))}
-      </div>
-    );
+    return <CommentList data={data} update={forceUpdate} />;
   }
 
   return (

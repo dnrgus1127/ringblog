@@ -18,7 +18,7 @@ const Container = styled.div`
 const Comment = styled.div`
   margin: 1rem 0;
   display: flex;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 
   svg {
     width: 3rem;
@@ -33,7 +33,7 @@ const CommentInfo = styled.div`
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
-  padding-left: 1rem;
+
   justify-content: space-between;
   p {
     margin-right: 0.5rem;
@@ -41,6 +41,11 @@ const CommentInfo = styled.div`
   .date {
     font-size: 1rem;
     color: ${({ theme }) => theme.greyColor};
+  }
+  .mdfd {
+    font-size: 1rem;
+    font-weight: 400;
+    color: ${({ theme }) => theme.btnColor};
   }
 
   .writerAndDate {
@@ -137,8 +142,15 @@ export default function CommentItem({ children, commentsUpdate }) {
     <Container>
       <CommentInfo>
         <div className='writerAndDate'>
-          <p>{children.writer}</p>
-          <p className='date'>{relativeDate(children.createDate)}</p>
+          <p>{children.name}</p>
+          <p className='date'>
+            {relativeDate(
+              children.mdfd === 0 ? children.createDate : children.mdfdDate
+            )}
+          </p>
+          <span className='mdfd'>
+            {children.mdfd === 1 ? "(수정됨)" : null}
+          </span>
         </div>
 
         {loggedUser.userId === children.writer ? (
