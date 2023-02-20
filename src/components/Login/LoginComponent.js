@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { Context } from "../../functions/Login/LoginProvider";
 import { InputCss } from "../../styledCss/InputCss";
@@ -27,6 +28,7 @@ export default function LoginComponent({ onOff }) {
   const [authFail, setAuthFail] = useState(false);
   const [failType, setFailType] = useState(999);
   const [loading, setLoading] = useState(false);
+  const inputRef = useRef();
 
   // 로그인 요청
   const submit = (e) => {
@@ -60,11 +62,17 @@ export default function LoginComponent({ onOff }) {
         });
     }
   };
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <React.Fragment>
       <h2>로그인</h2>
       <Form onSubmit={submit}>
         <Input
+          ref={inputRef}
           value={id}
           placeholder='아이디 입력'
           onChange={(e) => {

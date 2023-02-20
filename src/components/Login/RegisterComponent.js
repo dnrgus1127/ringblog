@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import {
   checkId,
@@ -67,6 +68,7 @@ export default function RegisterComponent() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [success, setSuccess] = useState(false);
+  const inputRef = useRef();
 
   const [isCheckId, setIsCheckId] = useState({
     // 중복, 유효성 검사, 빈칸 시 isCheck true
@@ -115,7 +117,9 @@ export default function RegisterComponent() {
       </CompleteSign>
     );
   }
-
+  useEffect(() => {
+    inputRef.current.focus();
+  });
   return (
     <Wrapper>
       {success ? (
@@ -142,6 +146,7 @@ export default function RegisterComponent() {
           <Form onSubmit={submit}>
             <label htmlFor='id'>아이디</label>
             <Input
+              ref={inputRef}
               type='text'
               name='id'
               placeholder='아이디를 입력하세요'
