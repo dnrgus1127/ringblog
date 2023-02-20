@@ -16,8 +16,7 @@ const HeaderCon = styled.header`
   top: 0;
   left: 0;
   height: var(--header);
-  background-color: white;
-  width: 100%;
+  width: 100vw;
   /* padding: 0 var(--gap); */
   background-color: ${({ theme }) => theme.bgElement};
   z-index: 9000;
@@ -28,9 +27,12 @@ const ContentWrap = styled.div`
   width: var(--width);
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
+  @media (max-width: 640px) {
+    width: 90vw;
+  }
 
   .logo {
     margin: auto 0;
@@ -42,6 +44,14 @@ const ContentWrap = styled.div`
   .userName span {
     font-weight: 800;
     color: ${({ theme }) => theme.btnColor};
+  }
+
+  .loginMenus {
+    display: flex;
+    align-items: center;
+    @media (max-width: 1100px) {
+      display: none;
+    }
   }
 `;
 
@@ -75,22 +85,23 @@ export default function Header({ toggleTheme, theme }) {
         <HideMenu trigger={hideMenu} />
 
         <div style={{ display: "flex", alignItems: "center" }}>
-          {loginForm ? (
-            <LoginFromWrap>
-              <LoginForm onOff={ControllLoginForm} />
-            </LoginFromWrap>
-          ) : null}
-
-          {loggedIn === true ? (
-            <p className='userName'>
-              <span>{loggedUser.username}</span>님 환영합니다.
-            </p>
-          ) : (
-            <LoginButton className='loginBtn' onClick={ControllLoginForm}>
-              로그인
-            </LoginButton>
-          )}
-          {loggedIn ? <LogOutButton /> : null}
+          <div className='loginMenus'>
+            {loginForm ? (
+              <LoginFromWrap>
+                <LoginForm onOff={ControllLoginForm} />
+              </LoginFromWrap>
+            ) : null}
+            {loggedIn === true ? (
+              <p className='userName'>
+                <span>{loggedUser.username}</span>님 환영합니다.
+              </p>
+            ) : (
+              <LoginButton className='loginBtn' onClick={ControllLoginForm}>
+                로그인
+              </LoginButton>
+            )}
+            {loggedIn ? <LogOutButton /> : null}
+          </div>
 
           <Gnb
             toggleTheme={toggleTheme}
