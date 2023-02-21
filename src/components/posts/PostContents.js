@@ -62,6 +62,7 @@ const Title = styled(Text)`
 `;
 const Writer = styled(Text)`
   font-size: 1.4rem;
+  border-bottom: 1px solid ${({ theme }) => theme.btnColor};
 `;
 
 const CreateDate = styled(Text)`
