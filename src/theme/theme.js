@@ -9,7 +9,7 @@ const lightTheme = {
   oppositeColor: "white",
   bgElement: "#ffffff",
   bgElement2: "#ffffff",
-  bgElement3: "#252525",
+  bgElement3: "#ffffff",
   bgColor: "#F8F9FA",
   greyColor: "#868e96",
   lineColor: "lightgrey",

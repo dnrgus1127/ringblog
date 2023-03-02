@@ -10,6 +10,7 @@ import { Context } from "../../functions/Login/LoginProvider";
 import { Link } from "react-router-dom";
 import CommentBox from "./comments/CommentBox";
 import SideMenu from "./SideMenu";
+import SubscriptionButton from "./Subscription/SubscriptionButton";
 
 const Container = styled.div`
   position: relative;
@@ -34,6 +35,12 @@ const Container = styled.div`
   .mdNavPosition {
     position: absolute;
     top: 14rem;
+  }
+
+  .subscriptionWrap {
+    display: flex;
+    align-items: center;
+    justify-content: end;
   }
 
   hr {
@@ -182,6 +189,10 @@ export default function PostContents({ post, index }) {
       </MarkdownCss>
 
       <hr ref={underRef}></hr>
+
+      <div className='subscriptionWrap'>
+        <SubscriptionButton writer={post.writer} />
+      </div>
       <CommentBox index={index} />
     </Container>
   );

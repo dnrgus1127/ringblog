@@ -10,6 +10,7 @@ import GlobalStyle from "./theme/GlobalStyle";
 import PostPage from "./pages/PostPage";
 import { LoginProvider } from "./functions/Login/LoginProvider";
 import UserBlog from "./pages/UserBlog";
+import Recordpage from "./pages/Recordpage";
 
 function App() {
   const [themeMode, setThemeMode] = useState("dark");
@@ -36,6 +37,12 @@ function App() {
               path='/userBlog'
               element={<UserBlog theme={themeMode} toggleTheme={toggleTheme} />}
             ></Route>
+            <Route
+              path='/RecordPage'
+              element={
+                <Recordpage theme={themeMode} toggleTheme={toggleTheme} />
+              }
+            />
           </Routes>
         </LoginProvider>
       </ThemeProvider>

@@ -66,7 +66,9 @@ export default function HideMenu({ trigger }) {
           <Link to={`/UserBlog?writer=${loggedUser.userId}`}>
             <li>내 블로그</li>
           </Link>
-          <li>읽기 목록</li>
+          <Link to={"/RecordPage"}>
+            <li>읽기 목록</li>
+          </Link>
           <li>설정</li>
           <li>로그아웃</li>
         </ul>

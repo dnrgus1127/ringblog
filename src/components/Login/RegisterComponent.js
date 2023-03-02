@@ -119,7 +119,7 @@ export default function RegisterComponent() {
   }
   useEffect(() => {
     inputRef.current.focus();
-  });
+  }, []);
   return (
     <Wrapper>
       {success ? (
