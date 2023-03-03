@@ -20,10 +20,6 @@ export default function RecordSubscription() {
       .then((data) => setSubscribed(data));
   }, []);
 
-  useEffect(() => {
-    console.log(subscribed);
-  }, [subscribed]);
-
   return (
     <Container>
       {subscribed.map((item, idx) => (
