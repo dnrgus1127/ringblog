@@ -56,7 +56,7 @@ const Button = styled(BtnCss)`
   margin: 0 0.5rem;
   font-size: 1.2rem;
   padding: 0;
-  ${(props) => (props.color ? props.color : null)};
+  color: ${({ theme }) => theme.color};
 `;
 
 export default function RecordComments() {
@@ -101,8 +101,8 @@ function Item({ item, idx }) {
         </CommentItem>
       </Link>
       <div className='commentBtn'>
-        <Button color='green'>수정</Button>
-        <Button color='red'>삭제</Button>
+        <Button>수정</Button>
+        <Button>삭제</Button>
       </div>
     </Container>
   );
