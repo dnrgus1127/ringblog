@@ -1,18 +1,6 @@
 import React, { useFetch } from "../Hooks/useFetch";
 import styled from "styled-components";
-
-const LoadingContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Comments = styled.h1`
-  font-size: 4rem;
-`;
+import Loading from "./Loading";
 
 const ErrorMessage = styled.div`
   height: 100%;
@@ -26,7 +14,7 @@ export function Fetch({
   uri,
   options,
   renderSuccess,
-  loadingFallback = <Loading />,
+  loadingFallback = <Loading text={"로딩 중"} />,
   renderError = (error) => (
     <ErrorMessage>{JSON.stringify(error, null, 2)}</ErrorMessage>
   ),
@@ -35,12 +23,4 @@ export function Fetch({
   if (error) return renderError(error);
   if (loading) return loadingFallback;
   if (data) return renderSuccess({ data });
-}
-
-function Loading() {
-  return (
-    <LoadingContainer>
-      <Comments>로딩중...</Comments>
-    </LoadingContainer>
-  );
 }
