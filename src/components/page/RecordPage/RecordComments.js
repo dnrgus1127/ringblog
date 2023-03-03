@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { Context } from "../../../functions/Login/LoginProvider";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { relativeDate } from "../../../functions/dateFormat";
 import { BtnCss } from "../../Button";
+import useCmtLoggedUser from "../../common/Comment/hooks/useCmtLoggedUser";
+import Loading from "../../Loading";
+import Error from "../../Error/Error";
 
 const Container = styled.div`
   margin-bottom: 1rem;
@@ -23,6 +23,13 @@ const CommentItem = styled.div`
   justify-content: space-between;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 
+  &:hover {
+    background-color: ${({ theme }) => theme.bgElement2};
+  }
+  &:hover .comment {
+    font-weight: 800;
+  }
+
   .createDate {
     font-size: 1.2rem;
     color: ${({ theme }) => theme.warning};
@@ -31,10 +38,6 @@ const CommentItem = styled.div`
     font-size: 1.4rem;
     font-weight: 400;
     margin-bottom: 1rem;
-  }
-  .comment:hover {
-    font-weight: 800;
-    border-bottom: 1px solid ${({ theme }) => theme.greyColor};
   }
   .title {
     font-size: 1.2rem;
@@ -45,10 +48,6 @@ const CommentItem = styled.div`
   }
   .title span:hover {
     color: ${({ theme }) => theme.btnColor};
-  }
-
-  &:hover {
-    background-color: ${({ theme }) => theme.bgElement2};
   }
 `;
 
@@ -61,20 +60,22 @@ const Button = styled(BtnCss)`
 `;
 
 export default function RecordComments() {
-  const { loggedIn, loggedUser } = useContext(Context);
-  const [data, setData] = useState([{ title: "123" }]);
-
-  useEffect(() => {
-    fetch(`/allCommentByUser?userId=${loggedUser.userId}`)
-      .then((res) => res.json())
-      .then((result) => setData(result));
-  }, [loggedUser]);
-
-  return (
-    <div>
-      {loggedIn && data.map((item, idx) => <Item key={idx} item={item} />)}
-    </div>
-  );
+  const { loading, data, error } = useCmtLoggedUser();
+  if (loading) return <Loading text={"로딩중"} />;
+  if (error) return <div>Error</div>;
+  if (data) {
+    if (data.length === 0) {
+      return <Error text={"작성한 댓글이 없습니다."} icon={"💬"} />;
+    }
+    return (
+      <div>
+        {data.map((item, idx) => (
+          <Item key={idx} item={item} />
+        ))}
+      </div>
+    );
+  }
+  return <Error text={"로그인이 필요합니다."} />;
 }
 
 function Item({ item, idx }) {
@@ -88,17 +89,13 @@ function Item({ item, idx }) {
           </div>
           <div style={{ display: "flex" }}>
             <div>
-              <Link to={`/Post?index=${item.postId}`}>
-                <p className='title'>
-                  by
-                  <span> {item.title}</span>
-                </p>
-              </Link>
-              <Link to={`/userBlog?writer=${item.postWriter}`}>
-                <p className='title'>
-                  작성자 <span>{item.postWriter}</span>
-                </p>
-              </Link>
+              <p className='title'>
+                by
+                <span> {item.title}</span>
+              </p>
+              <p className='title'>
+                작성자 <span>{item.postWriter}</span>
+              </p>
             </div>
           </div>
         </CommentItem>
