@@ -3,8 +3,8 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { relativeDate } from "../../../functions/dateFormat";
 import { Context } from "../../../functions/Login/LoginProvider";
+import useBoolean from "../../../Hooks/useBoolean";
 import { BtnCss } from "../../Button";
-import ConfirmWindow from "../../ConfirmWindow";
 import MdfdComment from "./MdfdComment";
 
 const Container = styled.div`
@@ -92,79 +92,37 @@ const hideComment = (
   </svg>
 );
 
-export default function CommentItem({ children, commentsUpdate }) {
+export default function CommentItem({ data, commentsUpdate, onDelete }) {
   const [hide, setHide] = useState(false);
+
   const { loggedUser } = useContext(Context);
-  const [confirm, setConfirm] = useState(false);
-  const [mdfd, setMdfd] = useState(false);
-  const { setLoggedIn } = useContext(Context);
 
-  // 댓글 삭제 처리
-  const deleteComment = (commentId) => {
-    fetch(`/comments?commentId=${commentId}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.type !== 0) {
-          // 로그인 해제된 경우
-          if (data.type === 100) {
-            alert("로그인 만료", data.msg);
-            setLoggedIn(false);
-          }
-          // 인증 실패
-          if (data.type === 101) {
-            alert("올바르지 않은 접근 입니다.", data.msg);
-          }
-        } else {
-          setMdfd(false);
-        }
-        commentsUpdate();
-      });
-  };
-
-  // 수정, 삭제 확인 창
-  const Confirm = (
-    <ConfirmWindow
-      title={`댓글 삭제`}
-      message={`댓글을 정말로 삭제 하시겠습니까?`}
-      cancel={() => {
-        setConfirm(false);
-      }}
-      ok={() => {
-        setConfirm(false);
-        deleteComment(children._id);
-      }}
-    />
-  );
+  const [mdfd, onToggleMdfd] = useBoolean(false);
 
   return (
     <Container>
       <CommentInfo>
         <div className='writerAndDate'>
-          <p>{children.name}</p>
+          <p>{data.name}</p>
           <p className='date'>
-            {relativeDate(
-              children.mdfd === 0 ? children.createDate : children.mdfdDate
-            )}
+            {relativeDate(data.mdfd === 0 ? data.createDate : data.mdfdDate)}
           </p>
-          <span className='mdfd'>
-            {children.mdfd === 1 ? "(수정됨)" : null}
-          </span>
+          <span className='mdfd'>{data.mdfd === 1 ? "(수정됨)" : null}</span>
         </div>
 
-        {loggedUser.userId === children.writer ? (
+        {loggedUser.userId === data.writer ? (
           <div className='editDel'>
             <Btn
               onClick={() => {
-                setMdfd(true);
+                onToggleMdfd(true);
               }}
             >
               수정
             </Btn>
             <Btn
               onClick={() => {
-                setConfirm(true);
+                onToggleMdfd();
+                onDelete(data._id);
               }}
             >
               삭제
@@ -181,20 +139,17 @@ export default function CommentItem({ children, commentsUpdate }) {
         >
           {hide ? hideComment : open}
         </button>
-        {hide ? <p>가려진 댓글입니다.</p> : <p>{children.comment}</p>}
+        {hide ? <p>가려진 댓글입니다.</p> : <p>{data.comment}</p>}
       </Comment>
       {mdfd ? (
         <MdfdComment
-          data={children}
+          data={data}
           update={commentsUpdate}
           close={() => {
-            setMdfd(false);
+            onToggleMdfd(false);
           }}
         />
       ) : null}
-
-      {/* 수정, 삭제 시 확인 취소 창 */}
-      {confirm ? Confirm : null}
     </Container>
   );
 }

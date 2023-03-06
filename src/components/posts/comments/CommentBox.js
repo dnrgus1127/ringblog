@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useCallback } from "react";
 import { useContext } from "react";
 import { useState } from "react";
@@ -8,20 +8,11 @@ import { Context } from "../../../functions/Login/LoginProvider";
 import { FullStamp } from "../../../functions/time";
 import { ColorButton } from "../../Button";
 import { Fetch } from "../../Fetch";
-import LoginForm from "../../Login/LoginForm";
+import LoginForm from "../../common/Login/LoginForm";
 import CommentList from "./CommentList";
+import CommentTA from "./CommentTA";
 
 const Container = styled.div`
-  /* border: 1px solid ${({ theme }) => theme.tmp}; */
-  textarea {
-    background-color: ${({ theme }) => theme.bgElement};
-    border: 0.1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
-    padding: 1.5rem 2.5rem;
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-  }
-
   .loginUser {
     font-size: 1.4rem;
     cursor: pointer;
@@ -69,7 +60,6 @@ export default function CommentBox({ index }) {
   const [onOffLogin, setLogin] = useState();
   const forceUpdate = useCallback(() => setUpdate({}), []);
 
-  useEffect(() => {}, [comments]);
   const submit = (e) => {
     e.preventDefault();
 
@@ -105,7 +95,7 @@ export default function CommentBox({ index }) {
     <React.Fragment>
       <p className='loginUser'>{loggedUser.username}</p>
       <WriteComment onSubmit={submit}>
-        <textarea
+        <CommentTA
           placeholder='댓글을 작성하세요'
           onChange={(e) => {
             if (commentValid(e.target.value)) {
@@ -117,7 +107,7 @@ export default function CommentBox({ index }) {
           value={comments}
           name='comments'
           id='comments'
-        ></textarea>
+        ></CommentTA>
         <Button type='submit'>작성하기</Button>
       </WriteComment>
     </React.Fragment>
