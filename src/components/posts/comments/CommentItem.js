@@ -97,7 +97,7 @@ export default function CommentItem({ data, commentsUpdate, onDelete }) {
 
   const { loggedUser } = useContext(Context);
 
-  const [mdfd, onToggleMdfd] = useBoolean(false);
+  const [mdfd, onToggleMdfd, setMdfd] = useBoolean(false);
 
   return (
     <Container>
@@ -121,7 +121,7 @@ export default function CommentItem({ data, commentsUpdate, onDelete }) {
             </Btn>
             <Btn
               onClick={() => {
-                onToggleMdfd();
+                setMdfd(false);
                 onDelete(data._id);
               }}
             >
