@@ -11,6 +11,10 @@ const Container = styled.div`
   border-radius: 4px;
   margin-bottom: 1rem;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  @media (max-width: 832px) {
+    width: 100%;
+    text-align: center;
+  }
 `;
 
 const UserName = styled.p`

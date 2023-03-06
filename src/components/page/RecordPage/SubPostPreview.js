@@ -8,10 +8,24 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+
+  .allWrap {
+    display: none;
+  }
+
+  @media (max-width: 832px) {
+    display: block;
+    .allWrap {
+      display: flex;
+      justify-content: end;
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
 `;
 
 const Item = styled.div`
-  width: 21.5%;
+  width: 24.5%;
   background-color: ${({ theme }) => theme.bgElement3};
   padding: 1.5rem;
   border-radius: 4px;
@@ -34,10 +48,16 @@ const Item = styled.div`
     font-size: 1.2rem;
     color: ${({ theme }) => theme.greyColor};
   }
+
+  @media (max-width: 832px) {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
 `;
 
-const More = styled(Item)`
-  width: 10%;
+const All = styled.button`
+  font-size: 1.4rem;
+  font-weight: 600;
 `;
 
 export default function SubPostPreview({ user }) {
@@ -51,10 +71,14 @@ export default function SubPostPreview({ user }) {
         <p className='createDate'>{onlyDate(item.createDateTime)}</p>
       </Link>
     </Item>
+    // <BlogItem data={item} idx={idx} key={idx} />
   );
 
   return (
     <Container>
+      <div className='allWrap'>
+        <All>전체보기</All>
+      </div>
       {data.map((item, idx) => {
         if (idx < 4) {
           return post(item, idx);
@@ -62,7 +86,6 @@ export default function SubPostPreview({ user }) {
           return null;
         }
       })}
-      {data.length > 4 ? <More>더보기...</More> : null}
     </Container>
   );
 }
