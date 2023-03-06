@@ -20,6 +20,15 @@ const MenuItem = styled.div`
   height: 100%;
   font-size: 1.6rem;
   font-weight: 800;
+  @media (min-width: 1400px) {
+  }
+  @media (max-width: 1100px) {
+  }
+  @media (max-width: 832px) {
+  }
+  @media (max-width: 640px) {
+    font-size: 1.4rem;
+  }
 `;
 
 export default function XNavgation({ items, index, setIndex }) {
