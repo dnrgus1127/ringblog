@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Context } from "../../../functions/Login/LoginProvider";
-import { FullStamp } from "../../../functions/time";
+
+import useCmtMdfd from "../../../Hooks/Comments/useCmtMdfd";
 import { ColorButton } from "../../Button";
 import CommentTA from "./CommentTA";
 
@@ -15,43 +15,29 @@ const Button = styled(ColorButton)`
 `;
 
 export default function MdfdComment({ data, update, close }) {
-  const [value, setValue] = useState(data.comment);
-  const { setLoggedIn } = useContext(Context);
-  // 댓글 수정 처리
-  const mdfdComment = (value) => {
-    fetch(`/comments?commentId=${data._id}`, {
-      method: "PATCH",
-      body: JSON.stringify({ comment: value, mdfdDate: FullStamp() }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.type === 100) {
-          alert("로그인 만료.");
-          setLoggedIn(false);
-        } else if (data.type === 101) {
-          alert("잘못된 접근입니다.");
-          setLoggedIn(false);
-        }
-      })
-      .then(close)
-      .then(update);
-  };
+  const { comment, commentMdfd, setComment } = useCmtMdfd(
+    data._id,
+    data.comment,
+    () => {
+      close();
+      update();
+    }
+  );
 
   return (
     <Container>
       <CommentTA
         name=''
         id=''
-        value={value}
+        value={comment}
         onChange={(e) => {
-          setValue(e.target.value);
+          setComment(e.target.value);
         }}
       ></CommentTA>
 
       <Button
         onClick={() => {
-          mdfdComment(value);
+          commentMdfd(comment);
         }}
       >
         수정하기
