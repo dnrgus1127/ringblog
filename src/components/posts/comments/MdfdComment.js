@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Context } from "../../../functions/Login/LoginProvider";
 import { FullStamp } from "../../../functions/time";
 import { ColorButton } from "../../Button";
+import CommentTA from "./CommentTA";
 
 const Container = styled.div`
   text-align: end;
@@ -39,14 +40,14 @@ export default function MdfdComment({ data, update, close }) {
 
   return (
     <Container>
-      <textarea
+      <CommentTA
         name=''
         id=''
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
         }}
-      ></textarea>
+      ></CommentTA>
 
       <Button
         onClick={() => {
