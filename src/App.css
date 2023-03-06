@@ -46,9 +46,6 @@ body {
     --width: 1300px;
     --gap: 100px;
   }
-  body {
-    font-size: 2rem;
-  }
 }
 @media (max-width: 1100px) {
   :root {
