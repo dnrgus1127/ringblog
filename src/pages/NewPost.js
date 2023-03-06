@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { MarkdownCss } from "../components/markdown/MarkdownCss";
+import { MarkdownCss } from "../components/common/markdown/MarkdownCss";
 import UpCommingMenu from "../components/newPost/UpCommingMenu";
 import { Post } from "../data/posts";
 import { useEffect } from "react";
-import CustomMD from "../components/markdown/CustomMD";
+import CustomMD from "../components/common/markdown/CustomMD";
 import { useQuery } from "../functions/urlQuery";
 import MarkdownInput from "../components/newPost/MarkdownInput";
 import StringLength from "../components/newPost/StringLength";

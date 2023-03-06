@@ -5,10 +5,10 @@ import {
   checkId,
   checkName,
   checkPassword,
-} from "../../functions/Login/AccountValidation";
-import { InputCss } from "../../styledCss/InputCss";
-import { ColorButton } from "../Button";
-import { Fetch } from "../Fetch";
+} from "../../../functions/Login/AccountValidation";
+import { InputCss } from "../../../styledCss/InputCss";
+import { ColorButton } from "../../Button";
+import { Fetch } from "../../Fetch";
 
 const Wrapper = styled.div`
   h2 {

@@ -1,10 +1,10 @@
 import React, { useContext, useRef, useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { Context } from "../../functions/Login/LoginProvider";
-import { InputCss } from "../../styledCss/InputCss";
-import { ColorButton } from "../Button";
-import Loading from "../Loading";
+import { Context } from "../../../functions/Login/LoginProvider";
+import { InputCss } from "../../../styledCss/InputCss";
+import { ColorButton } from "../../Button";
+import Loading from "../../Loading";
 
 const Input = styled(InputCss)``;
 

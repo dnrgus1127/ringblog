@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import LoginComponent from "./LoginComponent";
 import RegisterComponent from "./RegisterComponent";
-import { ColorButton } from "../Button";
+import { ColorButton } from "../../Button";
 
 const Container = styled.div`
   width: 100vw;

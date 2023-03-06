@@ -4,7 +4,7 @@ import { stackoverflowDark } from "react-syntax-highlighter/dist/cjs/styles/hljs
 import remarkGfm from "remark-gfm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
-import { ReloadButton } from "../Button";
+import { ReloadButton } from "../../Button";
 
 // TODO - 다크모드 아닐 때 SyntaxHighlighter style 추가 필요
 export default function CustomMD({ children }) {

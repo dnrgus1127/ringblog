@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { MarkdownCss } from "../markdown/MarkdownCss";
+import { MarkdownCss } from "../common/markdown/MarkdownCss";
 import { onlyDate } from "../../functions/dateFormat";
-import CustomMD from "../markdown/CustomMD";
-import MarkdownNav from "../markdown/MarkdownNav";
+import CustomMD from "../common/markdown/CustomMD";
+import MarkdownNav from "../common/markdown/MarkdownNav";
 import PostEditBtn from "./PostEditBtn";
 import { useContext } from "react";
 import { Context } from "../../functions/Login/LoginProvider";

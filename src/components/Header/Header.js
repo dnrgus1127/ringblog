@@ -8,8 +8,8 @@ import { ColorButton } from "../Button";
 import Gnb from "../Gnb";
 import HideMenu from "./HideMenu";
 
-import LoginForm from "../Login/LoginForm";
-import LogOutButton from "../Login/LogOutButton";
+import LoginForm from "../common/Login/LoginForm";
+import LogOutButton from "../common/Login/LogOutButton";
 
 const HeaderCon = styled.header`
   position: fixed;
