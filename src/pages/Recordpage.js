@@ -19,10 +19,17 @@ const Wrapper = styled.div`
   .menuWrap {
     width: 60%;
     margin: 0 auto;
-    margin-bottom: 2rem;
+    margin-bottom: 6rem;
   }
 
-  @media (max-width: 640px) {
+  @media (min-width: 1100px) {
+    .commentWrap {
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 832px) {
     .menuWrap {
       width: 100%;
     }
@@ -42,7 +49,11 @@ export default function Recordpage({ theme, toggleTheme }) {
       case 1:
         return <RecordRcmnd />;
       case 2:
-        return <RecordComments />;
+        return (
+          <div className='commentWrap'>
+            <RecordComments />
+          </div>
+        );
       default:
         return null;
     }

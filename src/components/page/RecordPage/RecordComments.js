@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import useCmtLoggedUser from "../../common/Comment/hooks/useCmtLoggedUser";
 import Loading from "../../Loading";
 import Error from "../../common/Error/Error";
-
 import CommentList from "../../posts/comments/CommentList";
 import { useState } from "react";
 

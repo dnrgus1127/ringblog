@@ -6,7 +6,6 @@ const Menu = styled.div`
   height: 6rem;
   display: flex;
   align-items: center;
-
   .selected {
     border-bottom: 2px solid ${({ theme }) => theme.btnColor};
   }
