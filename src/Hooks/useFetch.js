@@ -7,6 +7,10 @@ export function useFetch(uri, options) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  useEffect(() => {
     if (!uri) return;
     fetch(uri, options)
       .then((res) => {

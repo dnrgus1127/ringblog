@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "../components/Header/Header";
 import AllPostsOfUser from "../components/UserBlog/AllPostsOfUser";
 import BlogNavigation from "../components/UserBlog/BlogNavigation";
+import PageBySeries from "../components/UserBlog/PageBySeries";
 import SearchBox from "../components/UserBlog/SearchBox";
 import { useQuery } from "../functions/urlQuery";
 
@@ -41,6 +42,8 @@ export default function UserBlog({ theme, toggleTheme }) {
         return <AllPostsOfUser writer={writer} search={searchTerm} />;
       case 1:
         return <div>2</div>;
+      case 2:
+        return <PageBySeries>3</PageBySeries>;
       default:
         return <div>error</div>;
     }
