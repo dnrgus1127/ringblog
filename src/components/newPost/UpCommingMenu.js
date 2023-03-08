@@ -7,6 +7,7 @@ import { updatePost, uploadPost } from "../../functions/fetch";
 import { timeStamp } from "../../functions/time";
 import thumbnailDefault from "../../images/thumbnail2.jpg";
 import Button from "../Button";
+import NewPostSetting from "./NewPostSetting";
 
 const Container = styled.div`
   position: absolute;
@@ -183,6 +184,7 @@ export default function UpCommingMenu({
           </Btn>
           <Btn onClick={onOffEvent}>취소</Btn>
         </ButtonBox>
+        <NewPostSetting />
       </Wrapper>
     </Container>
   );

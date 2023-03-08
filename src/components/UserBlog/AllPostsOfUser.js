@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Fetch } from "../Fetch";
 import PostCard from "./PostCard";
+import SearchBox from "./SearchBox";
 
 const Container = styled.div`
   width: calc(var(--width) * 0.6);
@@ -28,24 +29,27 @@ const NoPost = styled.div`
   font-size: 4rem;
 `;
 
-export default function AllPostsOfUser({ writer, search }) {
+export default function AllPostsOfUser({ writer }) {
   const [uri, setUri] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
-    if (search === "") {
+    if (searchTerm === "") {
       setUri(`/posts/writer?writer=${writer}`);
     } else {
-      setUri(`/posts/writer?writer=${writer}&search=${search}`);
+      setUri(`/posts/writer?writer=${writer}&search=${searchTerm}`);
     }
-  }, [writer, search]);
+  }, [writer, searchTerm]);
   return (
     <Container>
+      <SearchBox onBlur={setSearchTerm} />
+
       <Fetch uri={uri} renderSuccess={Contents} />
     </Container>
   );
 }
 
 function Contents({ data }) {
-  console.log(data);
   if (data.length !== 0) {
     return (
       <div>

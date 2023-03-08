@@ -5,7 +5,6 @@ import Header from "../components/Header/Header";
 import AllPostsOfUser from "../components/UserBlog/AllPostsOfUser";
 import BlogNavigation from "../components/UserBlog/BlogNavigation";
 import PageBySeries from "../components/UserBlog/PageBySeries";
-import SearchBox from "../components/UserBlog/SearchBox";
 import { useQuery } from "../functions/urlQuery";
 
 const Container = styled.div`
@@ -31,7 +30,6 @@ const BlogContents = styled.div`
 
 export default function UserBlog({ theme, toggleTheme }) {
   const [navType, setNavType] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
 
   let query = useQuery();
   const writer = query.get("writer");
@@ -39,7 +37,7 @@ export default function UserBlog({ theme, toggleTheme }) {
   const RouteContents = (type) => {
     switch (type) {
       case 0:
-        return <AllPostsOfUser writer={writer} search={searchTerm} />;
+        return <AllPostsOfUser writer={writer} />;
       case 1:
         return <div>2</div>;
       case 2:
@@ -53,9 +51,7 @@ export default function UserBlog({ theme, toggleTheme }) {
       <Header theme={theme} toggleTheme={toggleTheme} />
       <BlogContents>
         <h1>정욱현's Ring</h1>
-        {/* <hr /> */}
         <BlogNavigation navType={navType} setNavType={setNavType} />
-        <SearchBox onBlur={setSearchTerm} />
         {RouteContents(navType)}
       </BlogContents>
     </Container>
