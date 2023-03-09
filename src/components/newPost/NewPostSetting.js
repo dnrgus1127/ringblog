@@ -27,10 +27,13 @@ export default function NewPostSetting() {
   return (
     <Container>
       <SeriesWrap>
-        <button className='addButton' onClick={onToggelSeries}>
-          시리즈에 추가하기
-        </button>
-        {onSeries ? <NewPostSeries data={data} /> : null}
+        {onSeries ? (
+          <NewPostSeries data={data} cancel={onToggelSeries} />
+        ) : (
+          <button className='addButton' onClick={onToggelSeries}>
+            시리즈에 추가하기
+          </button>
+        )}
       </SeriesWrap>
     </Container>
   );
