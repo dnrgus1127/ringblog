@@ -4,7 +4,6 @@ import BlogItem from "./BlogItem";
 import Search from "../common/Search";
 import { useGetPost } from "./hook/useGetPost";
 import Loading from "../Loading";
-import { useEffect } from "react";
 
 const GridLayout = styled.div`
   width: var(--width);
@@ -76,10 +75,6 @@ export default function BlogList() {
         </GridLayout>
       );
   }
-
-  useEffect(() => {
-    console.log(search);
-  }, [search]);
 
   return (
     <React.Fragment>

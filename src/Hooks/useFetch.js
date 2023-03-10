@@ -7,7 +7,7 @@ export function useFetch(uri, options) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(data);
+    data && console.log(data);
   }, [data]);
 
   useEffect(() => {
