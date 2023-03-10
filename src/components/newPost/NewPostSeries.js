@@ -8,17 +8,21 @@ import useFetchPost from "../../Hooks/useFetchPost";
 import { BtnCss, ColorButton } from "../Button";
 
 const Container = styled.div`
+  .newSeriesBtns {
+    text-align: end;
+  }
+`;
+
+const SeriesSetting = styled.div`
+  background-color: ${({ theme }) => theme.bgElement3};
+
   .selected {
     background-color: ${({ theme }) => theme.bgElement2};
     color: ${({ theme }) => theme.btnColor};
   }
 
-  max-height: 40rem;
+  max-height: 40vh;
   overflow: auto;
-
-  .newSeriesBtns {
-    text-align: end;
-  }
 `;
 
 const Item = styled.div`
@@ -30,9 +34,17 @@ const Item = styled.div`
   font-weight: 800;
   cursor: pointer;
 
-  input {
+  input,
+  button {
     font-size: inherit;
     font-weight: inherit;
+  }
+`;
+
+const NewSeries = styled(Item)`
+  text-align: center;
+  button {
+    color: ${({ theme }) => theme.warning};
   }
 `;
 
@@ -51,35 +63,42 @@ const Btn = styled(BtnCss)`
     transform: none;
   }
 `;
-export default function NewPostSeries({ data, cancel }) {
-  const [seriesIndex, setIndex] = useState();
+export default function NewPostSeries({ data, cancel, update, index, select }) {
   const [onNewSeries, onToggelNewSeries] = useBoolean(false);
 
   return (
     <Container>
-      {data.map((item, idx) => (
-        <Item
-          key={idx}
-          onClick={() => {
-            setIndex(idx);
-          }}
-          className={seriesIndex === idx ? "selected" : null}
-        >
-          {item.title}
-        </Item>
-      ))}
-      {onNewSeries ? <NewItem cancel={onToggelNewSeries} /> : null}
-      <div>
-        <button onClick={onToggelNewSeries}>새 시리즈 생성</button>
-        <button onClick={cancel}>cancel</button>
+      <SeriesSetting>
+        <NewSeries>
+          <button onClick={onToggelNewSeries}>새 시리즈 생성 +</button>
+        </NewSeries>
+        {onNewSeries ? (
+          <NewItem cancel={onToggelNewSeries} update={update} />
+        ) : null}
+
+        {data.map((item, idx) => (
+          <Item
+            key={idx}
+            onClick={() => {
+              select(idx);
+            }}
+            className={index === idx ? "selected" : null}
+          >
+            {item.title}
+          </Item>
+        ))}
+      </SeriesSetting>
+      <div className='newSeriesBtns'>
+        <Btn onClick={cancel}>취소</Btn>
+        <ColorBtn onClick={cancel}>시리즈 선택 완료</ColorBtn>
       </div>
     </Container>
   );
 }
 
-function NewItem({ cancel }) {
+function NewItem({ cancel, update }) {
   const { loggedUser } = useContext(Context);
-  const [title, setTitle] = useState();
+  const [title, setTitle] = useState("");
 
   const [fetchNewSeries, result] = useFetchPost();
   const newRef = useRef();
@@ -97,6 +116,8 @@ function NewItem({ cancel }) {
       title: title,
       writer: loggedUser.userId,
     });
+    update({});
+    cancel();
   };
 
   return (

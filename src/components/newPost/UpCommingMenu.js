@@ -24,8 +24,17 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: calc(var(--width) * 0.4);
+  /* width: calc(var(--width) * 0.4); */
   margin: 0 auto;
+  height: 50vh;
+  display: flex;
+
+  .default {
+    width: calc(var(--width) * 0.4);
+  }
+  .setting {
+    width: calc(var(--width) * 0.4);
+  }
 `;
 
 const Preview = styled.div`
@@ -102,11 +111,13 @@ export default function UpCommingMenu({
   const [serverFile, setServerFile] = useState("");
   const fileSelector = useRef();
   const [preview, setPreview] = useState("");
+  const [seriesId, setSeriesId] = useState(null);
 
   const data = {
     ...obj,
     lastMdfdDay: timeStamp(),
     preview: preview,
+    seriesId: seriesId,
   };
 
   /*-------------------------------------------------------*/
@@ -139,52 +150,60 @@ export default function UpCommingMenu({
   return (
     <Container slide={onOff}>
       <Wrapper>
-        <ThumbnailBox>
-          {serverFile !== "null" ? (
-            <img src={serverFile} alt='썸네일' />
-          ) : (
-            <img
-              src={file === null ? thumbnailDefault : URL.createObjectURL(file)}
-              alt='썸네일'
-            />
-          )}
-          <div className='btnWrap'>
-            <Button
-              bg={"rgba(64,64,64,.8)"}
-              color={"var(--btn-color)"}
-              onClick={fileSelectorClick}
-            >
-              썸네일 고르기
-            </Button>
-            <input
-              ref={fileSelector}
-              type='file'
-              onChange={fileOnChange}
-              accept='image/*'
-              hidden
-            />
-          </div>
-        </ThumbnailBox>
-        <Preview>
-          <textarea
-            name=''
-            id=''
-            cols='30'
-            rows='10'
-            placeholder='포스트 소개글 작성...'
-            onChange={(e) => {
-              setPreview(e.target.value);
-            }}
-            value={preview || ""}
-          ></textarea>
-        </Preview>
-        <ButtonBox>
-          <Btn bg={true} onClick={index ? editPost : postNewPost}>
-            제출
-          </Btn>
-          <Btn onClick={onOffEvent}>취소</Btn>
-        </ButtonBox>
-        <NewPostSetting />
+        <div className='default'>
+          <ThumbnailBox>
+            {serverFile !== "null" ? (
+              <img src={serverFile} alt='썸네일' />
+            ) : (
+              <img
+                src={
+                  file === null ? thumbnailDefault : URL.createObjectURL(file)
+                }
+                alt='썸네일'
+              />
+            )}
+            <div className='btnWrap'>
+              <Button
+                bg={"rgba(64,64,64,.8)"}
+                color={"var(--btn-color)"}
+                onClick={fileSelectorClick}
+              >
+                썸네일 고르기
+              </Button>
+              <input
+                ref={fileSelector}
+                type='file'
+                onChange={fileOnChange}
+                accept='image/*'
+                hidden
+              />
+            </div>
+          </ThumbnailBox>
+          <Preview>
+            <textarea
+              name=''
+              id=''
+              cols='30'
+              rows='10'
+              placeholder='포스트 소개글 작성...'
+              onChange={(e) => {
+                setPreview(e.target.value);
+              }}
+              value={preview || ""}
+            ></textarea>
+          </Preview>
+          <ButtonBox>
+            <Btn bg={true} onClick={index ? editPost : postNewPost}>
+              제출
+            </Btn>
+            <Btn onClick={onOffEvent}>취소</Btn>
+          </ButtonBox>
+        </div>
+
+        <div className='setting'>
+          <h2>포스트 설정</h2>
+          <NewPostSetting setSeries={setSeriesId} />
+        </div>
       </Wrapper>
     </Container>
   );
