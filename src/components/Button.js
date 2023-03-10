@@ -9,7 +9,6 @@ const BtnCss = styled.button`
   font-family: inherit;
   font-size: 2rem;
   font-weight: 800;
-  margin-right: 2rem;
   color: ${(props) => (props.color ? props.color : "#000000")};
   background-color: ${(props) => (props.bg ? props.bg : "none")};
   transition: 0.3s all ease-out;
