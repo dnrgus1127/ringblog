@@ -24,9 +24,8 @@ async function uploadContents(obj) {
   if (!postValid(data)) {
     console.log("유효성 검사 오류");
     return false;
-  } else {
-    console.log(data);
   }
+
   await fetch(`/posts`, {
     method: "POST",
     body: JSON.stringify(data),
