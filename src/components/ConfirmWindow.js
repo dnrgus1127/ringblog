@@ -37,8 +37,13 @@ const Container = styled.div`
   animation: ${OpenAnimation} 0.4s;
 
   h2,
-  p {
+  .bottomSpace {
     margin-bottom: 2rem;
+  }
+
+  .subMsg {
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.warning};
   }
 
   h2 {
@@ -67,13 +72,17 @@ const CancelButton = styled(BtnCss)`
   color: ${({ theme }) => theme.btnColor};
 `;
 
-export default function ConfirmWindow({ title, message, cancel, ok }) {
+export default function ConfirmWindow({ title, message, subMsg, cancel, ok }) {
   return (
     <BackgroundCon>
       <Container>
         <div>
           <h2>{title}</h2>
-          <p>{message}</p>
+          <div className='bottomSpace'>
+            <p>{message}</p>
+            {subMsg && <p className='subMsg'>{subMsg}</p>}
+          </div>
+
           <div className='buttonWrap'>
             <CancelButton onClick={cancel}>취소</CancelButton>
             <OkButton onClick={ok}>확인</OkButton>

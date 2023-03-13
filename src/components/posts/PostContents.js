@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import CommentBox from "./comments/CommentBox";
 import SideMenu from "./SideMenu";
 import SubscriptionButton from "./Subscription/SubscriptionButton";
+import SeriesInPosts from "./SeriesInPosts";
 
 const Container = styled.div`
   position: relative;
@@ -18,7 +19,7 @@ const Container = styled.div`
   .writerAndWriteDate {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12rem;
+    margin-bottom: 4rem;
   }
   .mdNav {
     position: absolute;
@@ -183,6 +184,7 @@ export default function PostContents({ post, index }) {
           </div>
         </div>
       </div>
+      <SeriesInPosts index={index} />
 
       <MarkdownCss ref={markdownRef}>
         <CustomMD>{post.contents}</CustomMD>

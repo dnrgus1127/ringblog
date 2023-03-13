@@ -4,18 +4,33 @@ import { useState } from "react";
 import styled from "styled-components";
 import useBoolean from "../../Hooks/useBoolean";
 import SeriesPosts from "./SeriesPosts";
+import ConfirmWindow from "../ConfirmWindow";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement3};
   padding: 2rem 2.5rem;
-  border-radius: 8px;
+  border-radius: 4px;
   margin-bottom: 1.5rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  .titleAndDelete {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .delete {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+      color: red;
+    }
+  }
+
   .title {
     font-size: 2rem;
     color: ${({ theme }) => theme.btnColor};
     font-weight: 600;
-    margin-bottom: 2rem;
+    display: inline-block;
   }
   .showBtn {
     color: ${({ theme }) => theme.greyColor};
@@ -60,9 +75,10 @@ const arrowUnder = (
   </ArrowIcon>
 );
 
-export default function SeriesItem({ children }) {
+export default function SeriesItem({ children, isBlog, refresh }) {
   const [showList, onToggleShowList] = useBoolean(false);
   const [seriesPosts, setSeriesPosts] = useState([]);
+  const [askConfirm, onToggleAsk] = useBoolean(false);
 
   useEffect(() => {
     fetch(`/series/postsById?seriesId=${children._id}`)
@@ -70,9 +86,34 @@ export default function SeriesItem({ children }) {
       .then(setSeriesPosts);
   }, [children]);
 
+  const deleteSeries = () => {
+    onToggleAsk();
+    fetch(`/series/delete?seriesId=${children._id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          alert("시리즈가 삭제되었습니다.");
+        } else {
+          alert("시리즈 삭제 실패.");
+        }
+      })
+      .then(() => {
+        refresh();
+      });
+  };
+
   return (
     <Container>
-      <p className='title'>{children.title}</p>
+      <div className='titleAndDelete'>
+        <p className='title'>{children.title}</p>
+        {isBlog && (
+          <button className='delete' onClick={onToggleAsk}>
+            삭제
+          </button>
+        )}
+      </div>
       {showList ? (
         <div className='postsWrap'>
           <SeriesPosts data={seriesPosts} />
@@ -81,6 +122,15 @@ export default function SeriesItem({ children }) {
       <button className='showBtn' onClick={onToggleShowList}>
         {showList ? arrowTop : arrowUnder} 글 보기
       </button>
+      {askConfirm ? (
+        <ConfirmWindow
+          ok={deleteSeries}
+          cancel={onToggleAsk}
+          title={"시리즈 삭제"}
+          message={"시리즈를 삭제하시겠습니까?"}
+          subMsg={"(시리즈를 삭제해도 포스트는 지워지지 않습니다.)"}
+        />
+      ) : null}
     </Container>
   );
 }
