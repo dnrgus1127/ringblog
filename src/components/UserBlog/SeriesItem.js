@@ -1,10 +1,9 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
 import styled from "styled-components";
 import useBoolean from "../../Hooks/useBoolean";
 import SeriesPosts from "./SeriesPosts";
 import ConfirmWindow from "../ConfirmWindow";
+import { useFetch } from "../../Hooks/useFetch";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement3};
@@ -75,16 +74,11 @@ const arrowUnder = (
   </ArrowIcon>
 );
 
-export default function SeriesItem({ children, isBlog, refresh }) {
+export default function SeriesItem({ children, isBlog, refresh, mdfd }) {
   const [showList, onToggleShowList] = useBoolean(false);
-  const [seriesPosts, setSeriesPosts] = useState([]);
   const [askConfirm, onToggleAsk] = useBoolean(false);
 
-  useEffect(() => {
-    fetch(`/series/postsById?seriesId=${children._id}`)
-      .then((res) => res.json())
-      .then(setSeriesPosts);
-  }, [children]);
+  const posts = useFetch(`/series/postsById?seriesId=${children._id}`);
 
   const deleteSeries = () => {
     onToggleAsk();
@@ -109,14 +103,23 @@ export default function SeriesItem({ children, isBlog, refresh }) {
       <div className='titleAndDelete'>
         <p className='title'>{children.title}</p>
         {isBlog && (
-          <button className='delete' onClick={onToggleAsk}>
-            삭제
-          </button>
+          <div>
+            <button
+              onClick={() => {
+                mdfd();
+              }}
+            >
+              수정
+            </button>
+            <button className='delete' onClick={onToggleAsk}>
+              삭제
+            </button>
+          </div>
         )}
       </div>
       {showList ? (
         <div className='postsWrap'>
-          <SeriesPosts data={seriesPosts} />
+          <SeriesPosts data={posts.data && posts.data} />
         </div>
       ) : null}
       <button className='showBtn' onClick={onToggleShowList}>
