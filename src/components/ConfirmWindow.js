@@ -60,6 +60,15 @@ const Container = styled.div`
   button {
     font-size: 1.4rem;
   }
+
+  @media (max-width: 640px) {
+    width: 80vw;
+    padding: 1.5rem 2rem;
+
+    .subMsg {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 const OkButton = styled(ColorButton)`

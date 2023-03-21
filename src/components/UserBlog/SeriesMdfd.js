@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import styled from "styled-components";
+import { Context } from "../../functions/Login/LoginProvider";
 import useBoolean from "../../Hooks/useBoolean";
 import { useFetch } from "../../Hooks/useFetch";
 import { BtnCss, ColorButton } from "../Button";
+import CustomCheckBox from "../common/CustomCheckBox";
 
 const Container = styled.div`
   z-index: 9999;
@@ -22,6 +24,7 @@ const MdfdContainer = styled.div`
   background-color: ${({ theme }) => theme.bgElement2};
   border-radius: 4px;
   padding: 2rem 3rem;
+  min-width: 25vw;
 
   .title {
     color: ${({ theme }) => theme.btnColor};
@@ -29,12 +32,24 @@ const MdfdContainer = styled.div`
     font-weight: 800;
   }
 
-  h4 {
-    margin-bottom: 1rem;
-  }
-
   .btn {
     text-align: end;
+  }
+  @media (max-width: 640px) {
+    min-width: 80vw;
+  }
+
+  .addPostsBtn {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(49, 68, 62);
+
+    font-size: 1.6rem;
+    font-weight: 800;
+    border-radius: 4px;
+    padding: 0.5rem;
+    cursor: pointer;
   }
 `;
 
@@ -56,12 +71,46 @@ const TitleWrap = styled.div`
   }
 `;
 
-export default function SeriesMdfd({ cancel, data }) {
+const PostListTop = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  button {
+    cursor: pointer;
+  }
+
+  .postsCnt {
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.greyColor};
+  }
+
+  svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    fill: ${({ theme }) => theme.btnColor};
+  }
+
+  /* svg:hover {
+    transform: rotate(-180deg);
+    transition: 0.5s all ease-in-out;
+  } */
+`;
+
+export default function SeriesMdfd({ close, data, refresh }) {
   const posts = useFetch(`/series/postsById?seriesId=${data._id}`);
   const [mdfdTitle, onToggleMdfdTitle] = useBoolean(false);
   const editTitleRef = useRef();
   const [title, setTitle] = useState(data.title);
-  const [postNumbers, setNumbers] = useState(new Set());
+  const [postNumbers, setNumbers] = useState(new Set([]));
+  const [choosePosts, onToggleChoose, setChoosePosts] = useBoolean(false);
+  const [showPostList, onToggleShowPostList] = useBoolean(false);
+
+  const { loggedUser } = useContext(Context);
+  const notHaveSeries = useFetch(
+    `/series/unSeriesPosts?writer=${loggedUser.userId}`
+  );
 
   // 시리즈에서 삭제할 포스트 id 배열 추가
   const addNumbers = (addNumber) => {
@@ -73,6 +122,23 @@ export default function SeriesMdfd({ cancel, data }) {
       prevItem.delete(delNumbers);
       return new Set([...prevItem]);
     });
+  };
+
+  useEffect(() => {
+    !showPostList && setChoosePosts(false);
+  }, [showPostList, setChoosePosts]);
+
+  // 이미 시리즈속에 있는 포스트들을 선택된 리스트에 추가
+  useEffect(() => {
+    posts.data &&
+      posts.data.forEach((item) => {
+        addNumbers(`${item._id}`);
+      });
+  }, [posts.data]);
+
+  // 선택 리스트 안에 해당 포스트번호가 있는지 확인
+  const checkIncludeChooseList = (value) => {
+    return postNumbers.has(value);
   };
 
   // 제목 수정 input 활성화
@@ -91,12 +157,16 @@ export default function SeriesMdfd({ cancel, data }) {
       method: "PATCH",
       body: JSON.stringify({
         title: title,
-        deletePostsNumber: Array.from(postNumbers),
+        PostsNumbers: Array.from(postNumbers),
       }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
-      .then(console.log);
+      .then((data) => {
+        console.log(data);
+        close();
+        refresh();
+      });
   };
 
   return (
@@ -137,114 +207,69 @@ export default function SeriesMdfd({ cancel, data }) {
             </svg>
           </button>
         </TitleWrap>
-        <h4>글 목록</h4>
-        <PostsCheckBox>
-          {posts.data &&
-            posts.data.map((item, idx) => (
-              <label key={idx} className='checkbox'>
-                <input
-                  type='checkbox'
-                  value={item._id}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      addNumbers(e.target.value);
-                    } else {
-                      delNumbers(e.target.value);
-                    }
-                  }}
+        <PostListTop>
+          <h4>
+            글 목록{" "}
+            <span className='postsCnt'>
+              ({posts.data ? posts.data.length : 0})
+            </span>
+          </h4>
+          <div>
+            <button onClick={onToggleShowPostList}>
+              <svg
+                clipRule='evenodd'
+                fillRule='evenodd'
+                stroke-linejoin='round'
+                stroke-miterlimit='2'
+                viewBox='0 0 24 24'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='m15 17.75c0-.414-.336-.75-.75-.75h-11.5c-.414 0-.75.336-.75.75s.336.75.75.75h11.5c.414 0 .75-.336.75-.75zm7-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z'
+                  fillRule='nonzero'
                 />
-                <span className='checkbox_icon'></span>
-                <span className='checkbox_text'>{item.title}</span>
-              </label>
-            ))}
-        </PostsCheckBox>
+              </svg>
+            </button>
+          </div>
+        </PostListTop>
+        {showPostList ? (
+          <>
+            <CustomCheckBox
+              data={posts.data}
+              check={addNumbers}
+              unCheck={delNumbers}
+              defaultCheck={true}
+              includeList={checkIncludeChooseList}
+            />
+            <button onClick={onToggleChoose} className='addPostsBtn'>
+              포스트 추가
+            </button>
+          </>
+        ) : null}
+        {choosePosts ? (
+          <CustomCheckBox
+            data={notHaveSeries.data && notHaveSeries.data}
+            check={addNumbers}
+            unCheck={delNumbers}
+            includeList={checkIncludeChooseList}
+          />
+        ) : null}
         <div className='btn'>
-          <CancelButton onClick={cancel}>취소</CancelButton>
+          <CancelButton onClick={close}>취소</CancelButton>
           <OkButton onClick={mdfdSeries}>수정</OkButton>
         </div>
       </MdfdContainer>
+      {/* {choosePosts ? (
+        <ChoosePosts
+          addNumbers={addNumbers}
+          delNumbers={delNumbers}
+          includeList={checkIncludeChooseList}
+          postList={notHaveSeries.data}
+        />
+      ) : null} */}
     </Container>
   );
 }
-
-//체크 박스 CSS
-const PostsCheckBox = styled.div`
-  .checkbox input {
-    display: none;
-  }
-  // 체크박스 테두리
-  .checkbox_icon {
-    display: inline-block;
-    width: 2rem;
-    height: 2rem;
-    background-color: transparent;
-    border: 1px solid ${({ theme }) => theme.btnColor};
-    position: relative;
-    cursor: pointer;
-  }
-
-  // 체크박스 가상요소
-  .checkbox_icon::before,
-  .checkbox_icon::after {
-    content: ""; // 가상요소 필수값
-    display: inline-block; // 크기 지정
-    width: 2px;
-    height: 0; // 체크박스가 체크가 되면 변화값으로 커지게 하기 위해 (일단 화면에는 나타나지 않음)
-    background-color: ${({ theme }) => theme.btnColor};
-    position: absolute; // 체크박스 테두리 기준으로 위치조정 가능
-    transform-origin: left top; // 기울기 지정, 기준점을 왼쪽 상단 모서리로 (기본값은 중심임)
-  }
-
-  // 가상요소 before
-  .checkbox_icon::before {
-    top: 10px; // 위치값 top
-    left: 2px; // 위치값 left
-    transform: rotate(-45deg); // 회전값
-  }
-
-  // 가상요소 after
-  .checkbox_icon::after {
-    top: 15px; // 위치값 top
-    left: 8px; // 위치값 left
-    transform: rotate(-135deg); // 회전값
-  }
-
-  // 체크되었을 때 테투리 설정
-  .checkbox input:checked + .checkbox_icon {
-    /* border-color: red; */
-  }
-
-  // 체크되었을 때 가상요소 before
-  .checkbox input:checked + .checkbox_icon::before {
-    height: 7px; // 높이값 지정
-    transition: all 0.15s ease; // 0.15초 변화시간 줌
-  }
-
-  // 체크되었을 때 가상요소 after
-  .checkbox input:checked + .checkbox_icon::after {
-    height: 14px; // 높이값 지정
-    transition: all 0.15s ease 0.15s; // 0.15초 변화시간 + 딜레이 시간 줌
-  }
-
-  .checkbox_text {
-    margin-left: 0.8rem;
-    font-size: 1.4rem;
-  }
-  .checkbox_text:hover {
-    color: ${({ theme }) => theme.btnColor};
-    cursor: pointer;
-  }
-
-  label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.7rem;
-  }
-  .checkbox input:checked ~ .checkbox_text {
-    text-decoration: line-through;
-    text-decoration-color: ${({ theme }) => theme.warning};
-  }
-`;
 
 const CancelButton = styled(BtnCss)`
   font-size: 1.6rem;

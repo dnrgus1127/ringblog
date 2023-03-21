@@ -4,6 +4,8 @@ import useBoolean from "../../Hooks/useBoolean";
 import SeriesPosts from "./SeriesPosts";
 import ConfirmWindow from "../ConfirmWindow";
 import { useFetch } from "../../Hooks/useFetch";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement3};
@@ -17,12 +19,24 @@ const Container = styled.div`
     align-items: center;
     margin-bottom: 2rem;
   }
+  .mdfd {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+      color: lightgreen;
+    }
+  }
   .delete {
     cursor: pointer;
     &:hover {
       text-decoration: underline;
       color: red;
     }
+  }
+  .btnWrap {
+    width: 6rem;
+    display: flex;
+    justify-content: space-between;
   }
 
   .title {
@@ -77,8 +91,13 @@ const arrowUnder = (
 export default function SeriesItem({ children, isBlog, refresh, mdfd }) {
   const [showList, onToggleShowList] = useBoolean(false);
   const [askConfirm, onToggleAsk] = useBoolean(false);
+  const [reFetch, setRefetch] = useState();
 
-  const posts = useFetch(`/series/postsById?seriesId=${children._id}`);
+  const posts = useFetch(`/series/postsById?seriesId=${children._id}`, reFetch);
+
+  useEffect(() => {
+    setRefetch({});
+  }, [children]);
 
   const deleteSeries = () => {
     onToggleAsk();
@@ -103,8 +122,9 @@ export default function SeriesItem({ children, isBlog, refresh, mdfd }) {
       <div className='titleAndDelete'>
         <p className='title'>{children.title}</p>
         {isBlog && (
-          <div>
+          <div className='btnWrap'>
             <button
+              className='mdfd'
               onClick={() => {
                 mdfd();
               }}

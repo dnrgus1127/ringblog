@@ -35,7 +35,11 @@ export default function SeriesList({ data, refresh }) {
         </SeriesItem>
       ))}
       {openSeriesMdfd ? (
-        <SeriesMdfd cancel={onToggleOpenSM} data={data[updateSeriesId]} />
+        <SeriesMdfd
+          close={onToggleOpenSM}
+          data={data[updateSeriesId]}
+          refresh={refresh}
+        />
       ) : null}
     </div>
   );
