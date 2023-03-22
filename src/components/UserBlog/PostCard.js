@@ -6,12 +6,14 @@ import { onlyDate } from "../../functions/dateFormat";
 const Container = styled.div`
   img {
     width: 100%;
+    object-fit: cover;
     max-height: 40vh;
   }
   .thumbnail {
     border: 0.5px solid rgba(255, 255, 255, 0.2);
     margin-bottom: 2rem;
   }
+
   hr {
     margin-top: 1rem;
     margin-bottom: 4rem;

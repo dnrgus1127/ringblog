@@ -6,7 +6,6 @@ import blog1 from "../../images/blogThum.jpg";
 
 const ItemWrap = styled.div`
   width: 100%;
-  height: 100%;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.bgElement};
   overflow: hidden;
@@ -21,13 +20,19 @@ const ItemWrap = styled.div`
   }
   img {
     width: 100%;
-    height: 100%;
-    transform: scale(1.1);
+    /* max-height: 18vh; */
+    object-fit: cover;
   }
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 
   &:hover {
     transform: translateY(-8px);
+  }
+
+  @media (max-width: 640px) {
+    img {
+      max-height: 29vh;
+    }
   }
 `;
 
@@ -106,7 +111,9 @@ const UserInfo = styled.div`
   .user {
     color: ${({ theme }) => theme.greyColor};
   }
-  .review {
+
+  @media (max-width: 640px) {
+    padding: 0 1.6rem;
   }
 `;
 
