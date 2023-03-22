@@ -7,6 +7,11 @@ import { useFetch } from "../../Hooks/useFetch";
 import { useEffect } from "react";
 import { useState } from "react";
 
+const ArrowIcon = styled.svg`
+  width: 3rem;
+  height: 3rem;
+  fill: ${({ theme }) => theme.greyColor};
+`;
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement3};
   padding: 2rem 2.5rem;
@@ -57,12 +62,27 @@ const Container = styled.div`
     padding-left: 1rem;
     margin-bottom: 1rem;
   }
-`;
 
-const ArrowIcon = styled.svg`
-  width: 3rem;
-  height: 3rem;
-  fill: ${({ theme }) => theme.greyColor};
+  @media (max-width: 640px) {
+    padding: 1.5rem 2rem;
+    .title {
+      font-size: 1.8rem;
+    }
+
+    ${ArrowIcon} {
+      width: 2.5rem;
+    }
+
+    .delete {
+      color: red;
+    }
+
+    .btnWrap {
+      button {
+        font-size: 1.2rem;
+      }
+    }
+  }
 `;
 
 const arrowTop = (
@@ -146,7 +166,7 @@ export default function SeriesItem({ children, isBlog, refresh, mdfd }) {
         </div>
       ) : null}
       <button className='showBtn' onClick={onToggleShowList}>
-        {showList ? arrowTop : arrowUnder} 글 보기
+        글 보기{showList ? arrowTop : arrowUnder}
       </button>
       {askConfirm ? (
         <ConfirmWindow
