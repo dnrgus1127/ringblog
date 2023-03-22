@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import BlogItem from "./BlogItem";
-import Search from "../common/Search";
 import { useGetPost } from "./hook/useGetPost";
 import Loading from "../Loading";
+import SearchBox from "../UserBlog/SearchBox";
 
 const GridLayout = styled.div`
   width: var(--width);
@@ -80,7 +80,8 @@ export default function BlogList() {
     <React.Fragment>
       <SearchWrap>
         <div className='searchBoxSize'>
-          <Search onBlur={setSearch} />
+          {/* <Search onBlur={setSearch} /> */}
+          <SearchBox onBlur={setSearch} />
         </div>
       </SearchWrap>
       <BlogItems />

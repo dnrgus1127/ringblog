@@ -33,6 +33,8 @@ const SearchIcon = styled.svg`
   width: 1.7rem;
   height: 1.7rem;
   margin-right: 1rem;
+
+  fill: ${({ theme }) => theme.color};
 `;
 
 const SearchInput = styled.input`
@@ -47,14 +49,10 @@ export default function SearchBox({ onBlur }) {
       <div className='boxWrap'>
         <SearchIcon
           // ?  돋보기 아이콘
-          //   clip-rule='evenodd'
-          //   fill-rule='evenodd'
-          //   stroke-linejoin='round'
-          //   stroke-miterlimit='2'
+
           width='17'
           height='17'
           viewBox='0 0 24 24'
-          fill='white'
           xmlns='http://www.w3.org/2000/svg'
         >
           <path
