@@ -30,6 +30,10 @@ const MdfdContainer = styled.div`
     color: ${({ theme }) => theme.btnColor};
     font-size: 2.4rem;
     font-weight: 800;
+
+    @media (max-width: 640px) {
+      width: 60vw;
+    }
   }
 
   .btn {
@@ -37,19 +41,21 @@ const MdfdContainer = styled.div`
   }
   @media (max-width: 640px) {
     min-width: 80vw;
+    max-width: 90vw;
   }
 
   .addPostsBtn {
     text-align: center;
     width: 100%;
     height: 100%;
-    background-color: rgb(49, 68, 62);
+    background-color: rgb(68, 85, 78);
 
     font-size: 1.6rem;
     font-weight: 800;
-    border-radius: 4px;
+
     padding: 0.5rem;
     cursor: pointer;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -163,7 +169,6 @@ export default function SeriesMdfd({ close, data, refresh }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         close();
         refresh();
       });

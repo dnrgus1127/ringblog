@@ -37,6 +37,9 @@ const Container = styled.div`
     width: 6rem;
     display: flex;
     justify-content: space-between;
+    button {
+      font-weight: 800;
+    }
   }
 
   .title {

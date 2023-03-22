@@ -1,6 +1,15 @@
 import React from "react";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const slide = keyframes`
+from {
+  transform: translateX(-30%);
+}
+to {
+  transform: translateX(0);
+}
+`;
 
 //체크 박스 CSS
 const PostsCheckBox = styled.div`
@@ -64,21 +73,29 @@ const PostsCheckBox = styled.div`
   .checkbox_text {
     margin-left: 0.8rem;
     font-size: 1.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .checkbox_text:hover {
     color: ${({ theme }) => theme.btnColor};
     cursor: pointer;
   }
 
-  label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.7rem;
+  .checkbox input:checked ~ .checkbox_text {
+    color: ${({ theme }) => theme.btnColor};
   }
-  /* .checkbox input:checked ~ .checkbox_text {
-    text-decoration: line-through;
-    text-decoration-color: ${({ theme }) => theme.warning};
-  } */
+`;
+
+const Label = styled.label`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.7rem;
+
+  transform: translateX(-30%);
+
+  animation: ${slide} 0.5s ${(props) => `${props.idx * 0.05}s`} ease-in-out
+    alternate forwards;
 `;
 
 export default function CustomCheckBox({ data, check, unCheck, includeList }) {
@@ -86,14 +103,14 @@ export default function CustomCheckBox({ data, check, unCheck, includeList }) {
     <PostsCheckBox>
       {data &&
         data.map((item, idx) => (
-          <label key={idx} className='checkbox'>
+          <Label idx={idx} key={idx} className='checkbox'>
             <Input
               item={item}
               init={includeList}
               check={check}
               unCheck={unCheck}
             />
-          </label>
+          </Label>
         ))}
     </PostsCheckBox>
   );
