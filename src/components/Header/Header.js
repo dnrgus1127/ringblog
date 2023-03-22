@@ -17,7 +17,6 @@ const HeaderCon = styled.header`
   left: 0;
   height: var(--header);
   width: 100vw;
-  /* padding: 0 var(--gap); */
   background-color: ${({ theme }) => theme.bgElement};
   z-index: 9000;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
@@ -80,9 +79,9 @@ export default function Header({ toggleTheme, theme }) {
 
   return (
     <HeaderCon>
+      <HideMenu trigger={hideMenu} />
       <ContentWrap>
         <Logo />
-        <HideMenu trigger={hideMenu} />
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <div className='loginMenus'>

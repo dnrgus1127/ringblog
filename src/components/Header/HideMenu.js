@@ -12,7 +12,6 @@ const Container = styled.div`
   width: 100%;
   transform: translateY(-100%);
   transition: 0.3s all ease-out;
-  padding: 0 var(--gap);
   padding-top: calc(var(--header) * 0.75);
   z-index: 9998;
 
@@ -30,8 +29,6 @@ const SiteMap = styled.div`
 const UserMenu = styled.div`
   display: flex;
   justify-content: end;
-  /* margin-right: 2rem; */
-  /* margin-top: 2rem; */
 
   & > .border {
     padding: 1.5rem;
