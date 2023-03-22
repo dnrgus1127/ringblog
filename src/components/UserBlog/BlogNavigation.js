@@ -32,7 +32,7 @@ const NavItem = styled.div`
   cursor: pointer;
 `;
 
-const Contents = ["최근 글", "인기 글", "시리즈", "로드맵"];
+const Contents = ["최근 글", "인기 글", "시리즈"];
 
 export default function BlogNavigation({ navType, setNavType }) {
   return (

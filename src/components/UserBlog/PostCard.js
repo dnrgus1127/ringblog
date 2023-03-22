@@ -19,6 +19,8 @@ const Container = styled.div`
     background-color: lightgrey;
     height: 1px;
   }
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const TitleBox = styled.div`
@@ -39,7 +41,18 @@ const TitleBox = styled.div`
     font-size: 1.4rem;
     color: ${({ theme }) => theme.greyColor};
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+  }
+  .rcmndCount {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    width: 3rem;
+    justify-content: space-between;
+
+    path {
+      fill: currentColor;
+    }
   }
 `;
 
@@ -57,6 +70,12 @@ export default function PostCard({ item }) {
           <h2>{item.title}</h2>
           <p className='preview'>{item.preview}</p>
           <div className='subInfo'>
+            <div className='rcmndCount'>
+              <svg width='1.7rem' height='1.7rem' viewBox='0 0 24 24'>
+                <path d='M18 1l-6 4-6-4-6 5v7l12 10 12-10v-7z'></path>
+              </svg>
+              <p>{item.rcmnd_cnt}</p>
+            </div>
             <p>{date}</p>
           </div>
         </TitleBox>

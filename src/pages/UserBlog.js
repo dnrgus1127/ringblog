@@ -2,9 +2,9 @@ import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
-import AllPostsOfUser from "../components/UserBlog/AllPostsOfUser";
 import BlogNavigation from "../components/UserBlog/BlogNavigation";
 import PageBySeries from "../components/UserBlog/PageBySeries";
+import PostCardList from "../components/UserBlog/PostCardList";
 import { useQuery } from "../functions/urlQuery";
 
 const Container = styled.div`
@@ -34,12 +34,13 @@ export default function UserBlog({ theme, toggleTheme }) {
   let query = useQuery();
   const writer = query.get("writer");
 
+  // writer 기반으로 수정 필요
   const RouteContents = (type) => {
     switch (type) {
       case 0:
-        return <AllPostsOfUser writer={writer} />;
+        return <PostCardList writer={writer} uri={"/posts/writer"} />;
       case 1:
-        return <div>2</div>;
+        return <PostCardList writer={writer} uri={"/popularPosts"} />;
       case 2:
         return <PageBySeries>3</PageBySeries>;
       default:

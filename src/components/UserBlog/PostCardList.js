@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Fetch } from "../Fetch";
 import PostCard from "./PostCard";
@@ -29,22 +28,22 @@ const NoPost = styled.div`
   font-size: 4rem;
 `;
 
-export default function AllPostsOfUser({ writer }) {
-  const [uri, setUri] = useState();
+export default function PostCardList({ uri, writer }) {
+  const [fetchUri, setUri] = useState();
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (searchTerm === "") {
-      setUri(`/posts/writer?writer=${writer}`);
+      setUri(`${uri}?writer=${writer}`);
     } else {
-      setUri(`/posts/writer?writer=${writer}&search=${searchTerm}`);
+      setUri(`${uri}?writer=${writer}&search=${searchTerm}`);
     }
-  }, [writer, searchTerm]);
+  }, [writer, searchTerm, uri]);
   return (
     <Container>
       <SearchBox onBlur={setSearchTerm} />
 
-      <Fetch uri={uri} renderSuccess={Contents} />
+      <Fetch uri={fetchUri} renderSuccess={Contents} />
     </Container>
   );
 }
