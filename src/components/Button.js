@@ -16,6 +16,9 @@ const BtnCss = styled.button`
   &:hover {
     transform: scale(1.1);
   }
+  @media (max-width: 640px) {
+    font-size: 1.6rem;
+  }
 `;
 
 const ColorButton = styled(BtnCss)`

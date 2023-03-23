@@ -25,6 +25,10 @@ const Btn = styled.button`
   &:hover {
     background-color: rgba(64, 64, 64, 0.7);
   }
+
+  @media (max-width: 640px) {
+    font-size: 1.6rem;
+  }
 `;
 
 const BtnBack = styled(Btn)`

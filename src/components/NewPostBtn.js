@@ -15,6 +15,7 @@ const Button = styled.button`
   font-weight: 400;
   font-family: "Noto Sans KR", sans-serif;
   transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     background-color: ${({ theme }) => theme.color};

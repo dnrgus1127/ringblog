@@ -12,19 +12,19 @@ import NewPostSetting from "./NewPostSetting";
 const Container = styled.div`
   position: absolute;
   top: 0;
-  left: ${(props) => (props.slide ? "10vw" : "100vw")};
+  left: ${(props) => (props.slide ? "0vw" : "100vw")};
   height: 100vh;
   width: 100vw;
   background-color: ${({ theme }) => theme.bgElement};
   display: flex;
   align-items: center;
   transition: 0.2s all ease-in-out;
-  box-shadow: ${(props) =>
-    props.slide ? "0px 0px 60px rgba(150, 242, 215, 0.3);" : "none"};
+  @media (max-width: 640px) {
+    left: ${(props) => (props.slide ? "0vw" : "100vw")};
+  }
 `;
 
 const Wrapper = styled.div`
-  /* width: calc(var(--width) * 0.4); */
   margin: 0 auto;
   height: 50vh;
   display: flex;
@@ -34,6 +34,19 @@ const Wrapper = styled.div`
   }
   .setting {
     width: calc(var(--width) * 0.4);
+  }
+
+  @media (max-width: 640px) {
+    display: block;
+    height: initial;
+
+    .default {
+      width: 100%;
+    }
+    .setting {
+      width: 100%;
+      /* display: none; */
+    }
   }
 `;
 
@@ -97,9 +110,13 @@ const Btn = styled.button`
   background-color: ${({ theme }) =>
     (props) =>
       props.bg ? theme.btnColor : "none"};
+
+  @media (max-width: 640px) {
+    font-size: 1.6rem;
+  }
 `;
 
-export default function UpCommingMenu({
+export default function WritePostSetting({
   onOff,
   onOffEvent,
   obj,
@@ -192,17 +209,16 @@ export default function UpCommingMenu({
               value={preview || ""}
             ></textarea>
           </Preview>
+        </div>
+
+        <div className='setting'>
+          <NewPostSetting setSeries={setSeriesId} />
           <ButtonBox>
             <Btn bg={true} onClick={index ? editPost : postNewPost}>
               제출
             </Btn>
             <Btn onClick={onOffEvent}>취소</Btn>
           </ButtonBox>
-        </div>
-
-        <div className='setting'>
-          <h2>포스트 설정</h2>
-          <NewPostSetting setSeries={setSeriesId} />
         </div>
       </Wrapper>
     </Container>
