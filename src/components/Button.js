@@ -7,15 +7,15 @@ const BtnCss = styled.button`
   padding: 1rem 2rem;
   border-radius: 4px;
   font-family: inherit;
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 800;
-  color: ${(props) => (props.color ? props.color : "#000000")};
-  background-color: ${(props) => (props.bg ? props.bg : "none")};
+  /* color: ${(props) => (props.color ? props.color : "#000000")}; */
+  /* background-color: ${(props) => (props.bg ? props.bg : "none")}; */
   transition: 0.3s all ease-out;
   cursor: pointer;
-  &:hover {
+  /* &:hover {
     transform: scale(1.1);
-  }
+  } */
   @media (max-width: 640px) {
     font-size: 1.6rem;
   }
@@ -24,8 +24,7 @@ const BtnCss = styled.button`
 const ColorButton = styled(BtnCss)`
   background-color: ${({ theme }) => theme.btnColor};
   color: ${({ theme }) => theme.oppositeColor};
-  border-radius: 4px;
-  padding: 0.8rem 1.4rem;
+
   &:hover {
     background-color: ${({ theme }) => theme.btnHover};
   }
