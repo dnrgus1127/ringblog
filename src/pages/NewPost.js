@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MarkdownCss } from "../components/common/markdown/MarkdownCss";
-import UpCommingMenu from "../components/newPost/UpCommingMenu";
 import { Post } from "../data/posts";
 import { useEffect } from "react";
 import CustomMD from "../components/common/markdown/CustomMD";
 import { useQuery } from "../functions/urlQuery";
-import MarkdownInput from "../components/newPost/MarkdownInput";
-import StringLength from "../components/newPost/StringLength";
-import UnderMenu from "../components/newPost/UnderMenu";
+import MarkdownInput from "../components/WritePosts/MarkdownInput";
+import StringLength from "../components/WritePosts/StringLength";
+import UnderMenu from "../components/WritePosts/UnderMenu";
 import { getPostByIndex } from "../functions/fetch";
 import { useLogin } from "../Hooks/useLogin";
 import { useContext } from "react";
 import { Context } from "../functions/Login/LoginProvider";
 import { useNavigate } from "react-router-dom";
+import WritePostSetting from "../components/WritePosts/WritePostSetting";
+import NewPostPublishScreen from "../container/write/NewPostPublishScreen";
+import { useDispatch } from "react-redux";
+import { writeActions } from "../redux/writeReducer";
 
 const Container = styled.div`
   width: 100wh;
@@ -25,11 +28,14 @@ const Container = styled.div`
     width: 50%;
     height: 100vh;
   }
-  hr {
-    margin: 2rem 0;
-    border: 1.5px solid ${({ theme }) => theme.lineColor};
-  }
+
   position: relative;
+
+  @media (max-width: 640px) {
+    .writeSection {
+      width: 100%;
+    }
+  }
 `;
 
 const Left = styled.div`
@@ -52,7 +58,7 @@ const Left = styled.div`
     outline: none;
     border: none;
     font-family: inherit;
-    font-size: 2rem;
+    font-size: 1.8rem;
     width: 100%;
     height: 70vh;
     resize: none;
@@ -66,6 +72,27 @@ const Left = styled.div`
   }
   textarea::-webkit-scrollbar-track {
     background-color: ${({ theme }) => theme.bgElement};
+  }
+  hr {
+    margin: 2rem 0;
+    border: 1.5px solid ${({ theme }) => theme.lineColor};
+  }
+
+  @media (max-width: 640px) {
+    .inputArea {
+      padding: 0 2rem;
+    }
+
+    hr {
+      margin: 1rem 0;
+    }
+    .titleAndHr {
+      padding: 2rem 1rem;
+    }
+
+    textarea {
+      font-size: 1.6rem;
+    }
   }
 `;
 const Right = styled.div`
@@ -83,6 +110,9 @@ const Right = styled.div`
   &::-webkit-scrollbar-track {
     background-color: ${({ theme }) => theme.oppositeColor};
   }
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const Input = styled.input`
@@ -96,6 +126,9 @@ const Title = styled(Input)`
   width: 100%;
 
   font-size: 3rem;
+  @media (max-width: 640px) {
+    font-size: 2.5rem;
+  }
 `;
 
 export default function NewPost() {
@@ -111,8 +144,13 @@ export default function NewPost() {
   const [data, setData] = useState({});
   const navigation = useNavigate();
 
+  ///
+  const dispatch = useDispatch();
+  ///
+
   const MenuOnOff = () => {
     setUpComming(!upComming);
+    dispatch(writeActions.onToggleVisible());
   };
 
   const changeTitle = (e) => {
@@ -148,7 +186,7 @@ export default function NewPost() {
   return (
     <Container>
       {/* 좌측 화면 */}
-      <Left className='left writeSection'>
+      <Left className=' writeSection'>
         <div className='inputArea' action='/Posts'>
           <div className='titleAndHr'>
             <Title
@@ -166,20 +204,21 @@ export default function NewPost() {
       </Left>
 
       {/* 우측 화면  */}
-      <Right className='right writeSection'>
+      <Right className=' writeSection'>
         <MarkdownCss>
           <h1 style={{ marginBottom: "6rem" }}>{title}</h1>
           <CustomMD>{contents}</CustomMD>
         </MarkdownCss>
       </Right>
-      <UpCommingMenu
+      {/* <WritePostSetting
         onOff={upComming}
         onOffEvent={MenuOnOff}
         obj={newPost}
         index={index}
         lastPreview={index ? preview : null}
         serverData={data}
-      />
+      /> */}
+      <NewPostPublishScreen onOff={upComming} onOffEvent={MenuOnOff} />
     </Container>
   );
 }
