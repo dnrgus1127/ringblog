@@ -8,6 +8,7 @@ import { timeStamp } from "../../functions/time";
 import thumbnailDefault from "../../images/thumbnail2.jpg";
 import Button from "../Button";
 import NewPostSetting from "./NewPostSetting";
+import WritePostSettingTemplate from "./WritePostSettingTemplate";
 
 const Container = styled.div`
   position: absolute;
