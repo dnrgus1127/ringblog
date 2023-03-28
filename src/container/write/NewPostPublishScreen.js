@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import WritePostSettingTemplate from "../../components/WritePosts/WritePostSettingTemplate";
-import PublishSeriesConfig from "../PublishSeriesConfig";
+import PublishSeriesConfig from "./PublishSeriesConfig";
 import PublishSetting from "./PublishSetting";
 import PublishThumbnailContainer from "./PublishThumbnailContainer";
 

@@ -30,12 +30,15 @@ const Wrapper = styled.div`
 
 const Pane = styled.div`
   flex: 1;
-  text-align: center;
 `;
 const RightPane = styled(Pane)``;
 
 const Separator = styled.div`
   min-height: 468px;
+  width: 1px;
+  background-color: ${({ theme }) => theme.greyColor};
+  box-shadow: 0px 0px 12px rgba(255, 255, 255);
+  margin: 0 2rem;
 `;
 
 export default function WritePostSettingTemplate({ visible, left, right }) {
@@ -46,11 +49,7 @@ export default function WritePostSettingTemplate({ visible, left, right }) {
     <Container slide={visible}>
       <Wrapper>
         <Pane>{left}</Pane>
-        <Separator>
-          <button onClick={() => dispatch(writeActions.onToggleVisible())}>
-            닫기
-          </button>
-        </Separator>
+        <Separator></Separator>
         <RightPane>{right}</RightPane>
       </Wrapper>
     </Container>

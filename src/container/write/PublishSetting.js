@@ -1,27 +1,23 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { BtnCss, ColorButton } from "../../components/Button";
-import { writeActions } from "../../redux/writeReducer";
+import PublishButtons from "../../components/WritePosts/PublishButtons";
+import PublishSeriesBlock from "../../components/WritePosts/PublishSeriesBlock";
+import PublishSettingSection from "../../components/WritePosts/PublishSettingSection";
 
-const Button = styled(BtnCss)``;
-
-const SeriesButton = styled(ColorButton)`
-  color: ${({ theme }) => theme.oppositeColor};
-  background-color: ${({ theme }) => theme.btnColor};
+const SettingTemplate = styled.div`
+  h3 {
+    margin-bottom: 1rem;
+  }
 `;
 
 export default function PublishSetting() {
-  const dispatch = useDispatch();
   return (
-    <div>
-      <SeriesButton
-        onClick={() => {
-          dispatch(writeActions.onToggleSeriesSelect());
-        }}
-      >
-        시리즈 선택하기
-      </SeriesButton>
-    </div>
+    <SettingTemplate>
+      <PublishSettingSection title='시리즈 설정'>
+        <PublishSeriesBlock />
+      </PublishSettingSection>
+
+      <PublishButtons />
+    </SettingTemplate>
   );
 }

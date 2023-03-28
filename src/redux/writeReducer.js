@@ -6,6 +6,7 @@ const initialState = {
   visible: false,
   thumbNailPath: null,
   seriesSelect: false,
+  selectedSeries: null,
 };
 
 const writeSlice = createSlice({
@@ -27,6 +28,12 @@ const writeSlice = createSlice({
     },
     onToggleSeriesSelect(state) {
       state.seriesSelect = !state.seriesSelect;
+    },
+    selectSeries(state, action) {
+      state.selectedSeries = action.payload;
+    },
+    delSelectedSeries(state) {
+      state.selectedSeries = null;
     },
   },
 });

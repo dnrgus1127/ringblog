@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
         background: none;
         outline: none;
         border: none;
+        cursor: pointer;
     }
 
     textarea {

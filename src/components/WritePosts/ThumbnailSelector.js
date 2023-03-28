@@ -50,15 +50,27 @@ export default function ThumbnailSelector() {
     fileSelector.current.click();
   };
   const fileOnChange = (e) => {
-    dispatch(writeActions.setThumbNailPath(e.target.files[0]));
+    // file에 대해서 리덕스에 blobURI만 저장해서 메모리 절감 및 non-serializable 경고 해결
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    //읽기 동작이 성공적으로 완료되었을 떄 실행되는 onload함수
+    reader.onload = () => {
+      // blob에 파일 저장 후
+      const blob = new Blob([reader.result], { type: file.type });
+      // uri로 변경하여
+      const blobUri = URL.createObjectURL(blob);
+      // redux에 uri 저장
+      dispatch(writeActions.setThumbNailPath(blobUri));
+    };
+
+    reader.readAsArrayBuffer(file);
   };
 
   return (
     <ThumbnailBox>
       <img
-        src={
-          !thumbNailPath ? thumbnailDefault : URL.createObjectURL(thumbNailPath)
-        }
+        src={!thumbNailPath ? thumbnailDefault : thumbNailPath}
         alt='썸네일'
       />
       <div className='btnWrap'>
