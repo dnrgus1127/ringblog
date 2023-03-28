@@ -11,6 +11,7 @@ import PostPage from "./pages/PostPage";
 import { LoginProvider } from "./functions/Login/LoginProvider";
 import UserBlog from "./pages/UserBlog";
 import Recordpage from "./pages/Recordpage";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
   const [themeMode, setThemeMode] = useState("dark");
@@ -18,35 +19,45 @@ function App() {
 
   const toggleTheme = () =>
     setThemeMode(themeMode === "light" ? "dark" : "light");
+
+  const queryClient = new QueryClient();
   return (
-    <div className='App'>
-      <ThemeProvider theme={theme}>
-        <LoginProvider>
-          <GlobalStyle />
-          <Routes>
-            <Route
-              path='/'
-              element={<MainPage toggleTheme={toggleTheme} theme={themeMode} />}
-            ></Route>
-            <Route path='/WriteNewPost' element={<NewPost />}></Route>
-            <Route
-              path='/Post'
-              element={<PostPage theme={themeMode} toggleTheme={toggleTheme} />}
-            ></Route>
-            <Route
-              path='/userBlog'
-              element={<UserBlog theme={themeMode} toggleTheme={toggleTheme} />}
-            ></Route>
-            <Route
-              path='/RecordPage'
-              element={
-                <Recordpage theme={themeMode} toggleTheme={toggleTheme} />
-              }
-            />
-          </Routes>
-        </LoginProvider>
-      </ThemeProvider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className='App'>
+        <ThemeProvider theme={theme}>
+          <LoginProvider>
+            <GlobalStyle />
+            <Routes>
+              <Route
+                path='/'
+                element={
+                  <MainPage toggleTheme={toggleTheme} theme={themeMode} />
+                }
+              ></Route>
+              <Route path='/WriteNewPost' element={<NewPost />}></Route>
+              <Route
+                path='/Post'
+                element={
+                  <PostPage theme={themeMode} toggleTheme={toggleTheme} />
+                }
+              ></Route>
+              <Route
+                path='/userBlog'
+                element={
+                  <UserBlog theme={themeMode} toggleTheme={toggleTheme} />
+                }
+              ></Route>
+              <Route
+                path='/RecordPage'
+                element={
+                  <Recordpage theme={themeMode} toggleTheme={toggleTheme} />
+                }
+              />
+            </Routes>
+          </LoginProvider>
+        </ThemeProvider>
+      </div>
+    </QueryClientProvider>
   );
 }
 
