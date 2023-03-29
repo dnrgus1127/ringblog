@@ -42,7 +42,7 @@ const SelectButton = styled(BtnCss)`
 `;
 
 export default function ThumbnailSelector() {
-  const { thumbNailPath } = useSelector((state) => state.write);
+  const { thumbNailPath } = useSelector((state) => state.write.data);
   const dispatch = useDispatch();
   const fileSelector = useRef();
 
@@ -52,6 +52,7 @@ export default function ThumbnailSelector() {
   const fileOnChange = (e) => {
     // file에 대해서 리덕스에 blobURI만 저장해서 메모리 절감 및 non-serializable 경고 해결
     const file = e.target.files[0];
+    console.log(file);
     const reader = new FileReader();
 
     //읽기 동작이 성공적으로 완료되었을 떄 실행되는 onload함수

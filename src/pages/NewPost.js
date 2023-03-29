@@ -183,6 +183,12 @@ export default function NewPost() {
     }
   }, [loggedIn, navigation]);
 
+  const openPublishWindow = () => {
+    dispatch(writeActions.setTitle(title));
+    dispatch(writeActions.setContent(contents));
+    upComming();
+  };
+
   return (
     <Container>
       {/* 좌측 화면 */}
@@ -194,10 +200,19 @@ export default function NewPost() {
               placeholder='제목을 입력하세요...'
               value={title || ""}
               onChange={changeTitle}
+              onBlur={() => {
+                dispatch(writeActions.setTitle(title));
+              }}
             />
             <hr />
           </div>
-          <MarkdownInput data={contents} setData={setContents} />
+          <MarkdownInput
+            data={contents}
+            setData={setContents}
+            onBlur={() => {
+              dispatch(writeActions.setContent(contents));
+            }}
+          />
           <StringLength string={contents} />
         </div>
         <UnderMenu index={index} onClick={MenuOnOff} />
@@ -218,7 +233,7 @@ export default function NewPost() {
         lastPreview={index ? preview : null}
         serverData={data}
       /> */}
-      <NewPostPublishScreen onOff={upComming} onOffEvent={MenuOnOff} />
+      <NewPostPublishScreen onOff={openPublishWindow} onOffEvent={MenuOnOff} />
     </Container>
   );
 }

@@ -9,7 +9,7 @@ import { uploadImg } from "../../functions/fetch";
  * @props data,setData
  * @return textArea HTMLTag
  */
-export default function MarkdownInput({ data, setData }) {
+export default function MarkdownInput({ data, setData, onBlur }) {
   const taRef = useRef();
   const [cursor, setCursor] = useState(0);
 
@@ -52,6 +52,7 @@ export default function MarkdownInput({ data, setData }) {
         }
       }}
       value={data}
+      onBlur={onBlur}
     ></textarea>
   );
 }

@@ -1,30 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  title: "",
-  preview: "",
   visible: false,
-  thumbNailPath: null,
   seriesSelect: false,
   selectedSeries: null,
+  data: {
+    thumbNailPath: null,
+    title: "",
+    preview: "",
+    contents: "",
+  },
 };
 
 const writeSlice = createSlice({
   name: "write",
   initialState: initialState,
   reducers: {
-    getAllWrite(state, action) {
-      state.title = action.payload;
+    setTitle(state, action) {
+      state.data.title = action.payload;
+    },
+    setContent(state, action) {
+      state.data.contents = action.payload;
     },
 
-    onToggleVisible(state, action) {
+    onToggleVisible(state) {
       state.visible = !state.visible;
     },
     setThumbNailPath(state, action) {
-      state.thumbNailPath = action.payload;
+      state.data.thumbNailPath = action.payload;
     },
     setPreview(state, action) {
-      state.preview = action.payload;
+      state.data.preview = action.payload;
     },
     onToggleSeriesSelect(state) {
       state.seriesSelect = !state.seriesSelect;
@@ -34,6 +40,11 @@ const writeSlice = createSlice({
     },
     delSelectedSeries(state) {
       state.selectedSeries = null;
+    },
+    clearData(state) {
+      state.data = initialState.data;
+      state.visible = false;
+      state.selectedSeries = false;
     },
   },
 });
