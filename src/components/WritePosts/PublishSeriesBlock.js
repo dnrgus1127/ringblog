@@ -17,6 +17,7 @@ const SelectedSeries = styled.div`
     font-weight: 800;
     background-color: ${({ theme }) => theme.bgElement3};
     color: ${({ theme }) => theme.btnColor};
+    cursor: pointer;
   }
   .delWrap {
     text-align: end;
@@ -39,12 +40,18 @@ export default function PublishSeriesBlock() {
   const deleteSeries = () => {
     dispatch(writeActions.delSelectedSeries());
   };
+
+  const onSelectSeries = () => {
+    dispatch(writeActions.onToggleSeriesSelect());
+  };
   return (
     <div>
       {" "}
-      {selectedSeries ? (
+      {selectedSeries.id ? (
         <SelectedSeries>
-          <div className='seriesName'>{selectedSeries.title}</div>
+          <div className='seriesName' onClick={onSelectSeries}>
+            {selectedSeries.title}
+          </div>
           <div className='delWrap'>
             <button className='delBtn' onClick={deleteSeries}>
               시리즈에서 제거하기

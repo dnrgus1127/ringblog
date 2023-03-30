@@ -6,7 +6,7 @@ export default function SeriesInPosts({ index }) {
   const { data } = useFetch(`/series/ForPost?postId=${index}`);
 
   if (data) {
-    if (data.series === false) {
+    if (data._id === undefined) {
       return <></>;
     }
     return <SeriesItem>{data && data}</SeriesItem>;

@@ -6,10 +6,10 @@ import { uploadImg } from "../../functions/fetch";
 
 /**
  * 마크다운을 입력받는 컴포넌트
- * @props data,setData
+ * @props data,onChange
  * @return textArea HTMLTag
  */
-export default function MarkdownInput({ data, setData, onBlur }) {
+export default function MarkdownInput({ data, onChange, onBlur }) {
   const taRef = useRef();
   const [cursor, setCursor] = useState(0);
 
@@ -24,7 +24,7 @@ export default function MarkdownInput({ data, setData, onBlur }) {
     char,
     len
   ) => {
-    setData(
+    onChange(
       value.substring(0, selectionStart) + char + value.substring(selectionEnd)
     );
     setCursor(selectionStart + len);
@@ -39,9 +39,9 @@ export default function MarkdownInput({ data, setData, onBlur }) {
     <textarea
       ref={taRef}
       onChange={(e) => {
-        setData(e.target.value);
+        onChange(e.target.value);
       }}
-      onPaste={(e) => pasteImg(e, setData, setCursor)}
+      onPaste={(e) => pasteImg(e, onChange, setCursor)}
       onKeyDown={(e) => {
         if (e.key === "Tab") {
           e.preventDefault();
@@ -57,7 +57,7 @@ export default function MarkdownInput({ data, setData, onBlur }) {
   );
 }
 
-function pasteImg(evt, setData, setCursor) {
+function pasteImg(evt, onChange, setCursor) {
   const { value, selectionStart, selectionEnd } = evt.target;
   const clipboardItems = evt.clipboardData.items;
   const items = [].slice.call(clipboardItems).filter(function (item) {
@@ -72,7 +72,7 @@ function pasteImg(evt, setData, setCursor) {
   // Get the blob of image
   const blob = item.getAsFile();
   uploadImg(blob).then((res) => {
-    setData(
+    onChange(
       value.substring(0, selectionStart) +
         `![](${res})` +
         value.substring(selectionEnd)

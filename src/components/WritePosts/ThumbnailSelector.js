@@ -42,7 +42,7 @@ const SelectButton = styled(BtnCss)`
 `;
 
 export default function ThumbnailSelector() {
-  const { thumbNailPath } = useSelector((state) => state.write.data);
+  const { thumbnailPath } = useSelector((state) => state.write.data);
   const dispatch = useDispatch();
   const fileSelector = useRef();
 
@@ -71,7 +71,7 @@ export default function ThumbnailSelector() {
   return (
     <ThumbnailBox>
       <img
-        src={!thumbNailPath ? thumbnailDefault : thumbNailPath}
+        src={!thumbnailPath ? thumbnailDefault : thumbnailPath}
         alt='썸네일'
       />
       <div className='btnWrap'>

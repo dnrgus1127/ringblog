@@ -18,21 +18,20 @@ const Preview = styled.div`
 `;
 
 export default function PublishPreview() {
-  const { preview } = useSelector((state) => state.write);
+  const { preview } = useSelector((state) => state.write.data);
   const dispatch = useDispatch();
   return (
     <Preview>
-      {" "}
       <textarea
         name=''
         id=''
         cols='30'
         rows='10'
         placeholder='포스트 소개글 작성...'
+        value={preview}
         onChange={(e) => {
           dispatch(writeActions.setPreview(e.target.value));
         }}
-        value={preview}
       ></textarea>
     </Preview>
   );

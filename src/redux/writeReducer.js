@@ -3,9 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   visible: false,
   seriesSelect: false,
-  selectedSeries: null,
+  selectedSeries: {
+    id: null,
+    title: null,
+  },
+  edit: false,
+  postNumber: null,
   data: {
-    thumbNailPath: null,
+    thumbnailPath: null,
     title: "",
     preview: "",
     contents: "",
@@ -27,7 +32,7 @@ const writeSlice = createSlice({
       state.visible = !state.visible;
     },
     setThumbNailPath(state, action) {
-      state.data.thumbNailPath = action.payload;
+      state.data.thumbnailPath = action.payload;
     },
     setPreview(state, action) {
       state.data.preview = action.payload;
@@ -45,6 +50,19 @@ const writeSlice = createSlice({
       state.data = initialState.data;
       state.visible = false;
       state.selectedSeries = false;
+      state.edit = false;
+      state.postNumber = null;
+    },
+    setData(state, action) {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+    },
+
+    setEdit(state, action) {
+      state.edit = true;
+      state.postNumber = action.payload;
     },
   },
 });

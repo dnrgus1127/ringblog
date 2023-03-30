@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MarkdownCss } from "../components/common/markdown/MarkdownCss";
-import { Post } from "../data/posts";
 import { useEffect } from "react";
 import CustomMD from "../components/common/markdown/CustomMD";
-import { useQuery } from "../functions/urlQuery";
+import { useQuery as paramQuery } from "../functions/urlQuery";
 import MarkdownInput from "../components/WritePosts/MarkdownInput";
 import StringLength from "../components/WritePosts/StringLength";
 import UnderMenu from "../components/WritePosts/UnderMenu";
@@ -15,8 +14,11 @@ import { Context } from "../functions/Login/LoginProvider";
 import { useNavigate } from "react-router-dom";
 import WritePostSetting from "../components/WritePosts/WritePostSetting";
 import NewPostPublishScreen from "../container/write/NewPostPublishScreen";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { writeActions } from "../redux/writeReducer";
+import PostEditor from "../components/WritePosts/PostEditor";
+import { domain } from "../lib/fetch/domain";
+import { useQuery } from "react-query";
 
 const Container = styled.div`
   width: 100wh;
@@ -115,67 +117,76 @@ const Right = styled.div`
   }
 `;
 
-const Input = styled.input`
-  background: none;
-  border: 0;
-  outline: none;
-  color: white;
-`;
-
-const Title = styled(Input)`
-  width: 100%;
-
-  font-size: 3rem;
-  @media (max-width: 640px) {
-    font-size: 2.5rem;
-  }
-`;
-
 export default function NewPost() {
-  let query = useQuery();
-  const { loggedUser, loggedIn } = useContext(Context);
-  const [index, setIndex] = useState(null);
-  const [contents, setContents] = useState("");
-  const [title, setTitle] = useState();
-  const newPost = new Post(title, contents);
-  newPost.writer = loggedUser.userId;
-  const [upComming, setUpComming] = useState(false);
-  const [preview, setPrivew] = useState();
-  const [data, setData] = useState({});
+  let query = paramQuery();
+  const write = useSelector((state) => state.write);
+  const { postNumber, edit } = useSelector((state) => state.write);
+  const postData = useSelector((state) => state.write.data);
+
+  const { loggedIn } = useContext(Context);
   const navigation = useNavigate();
-
-  ///
   const dispatch = useDispatch();
-  ///
-
-  const MenuOnOff = () => {
-    setUpComming(!upComming);
-    dispatch(writeActions.onToggleVisible());
-  };
-
-  const changeTitle = (e) => {
-    setTitle(e.target.value);
-  };
-  // 새 글 작성이 아니라 수정 하는 경우
-  useEffect(() => {
-    setIndex(query.get("index"));
-  }, [query]);
-
-  useEffect(() => {
-    if (index) {
-      getPostByIndex(index).then((data) => {
-        setContents(data.contents);
-        setTitle(data.title);
-        if (data.preview !== "null") {
-          setPrivew(data.preview);
-        }
-        setData(data);
-      });
-    }
-  }, [index]);
 
   useLogin();
 
+  useEffect(() => {
+    return () => {
+      dispatch(writeActions.clearData());
+    };
+  }, []);
+
+  //uri에 인덱스 쿼리스트링 존재하면 수정으로 판단
+  useEffect(() => {
+    const index = query.get("index");
+    if (index) {
+      dispatch(writeActions.setEdit(index));
+    }
+  }, [dispatch, query]);
+
+  // 수정 시 포스트 정보 불러옴
+  const { data } = useQuery(
+    "myQuery",
+    async () => {
+      const response = await fetch(`${domain}/posts/${postNumber}`);
+      return await response.json();
+    },
+    {
+      enabled: postNumber > 0,
+    }
+  );
+
+  const seriesQuery = useQuery(
+    "series",
+    async () => {
+      const response = await fetch(
+        `${domain}/series/ForPost?postId=${postNumber}`
+      );
+      return response.json();
+    },
+    {
+      enabled: postNumber > 0,
+    }
+  );
+
+  useEffect(() => {
+    if (seriesQuery.data) {
+      dispatch(
+        writeActions.selectSeries({
+          id: seriesQuery.data._id,
+          title: seriesQuery.data.title,
+        })
+      );
+    }
+  }, [seriesQuery.data, dispatch]);
+
+  // redux store 에 불러온 포스트 정보 저장
+  useEffect(() => {
+    if (data && edit) {
+      dispatch(writeActions.setData({ ...data }));
+    }
+  }, [data, dispatch, edit]);
+
+  // 로그인 검증 // TODO 로그인한 유저와 작성자가 일치하는지 확인할 필요 있음
   useEffect(() => {
     if (!loggedIn) {
       alert("로그인이 필요합니다.");
@@ -183,57 +194,23 @@ export default function NewPost() {
     }
   }, [loggedIn, navigation]);
 
-  const openPublishWindow = () => {
-    dispatch(writeActions.setTitle(title));
-    dispatch(writeActions.setContent(contents));
-    upComming();
-  };
+  useEffect(() => {
+    console.log(write);
+  }, [write]);
 
   return (
     <Container>
-      {/* 좌측 화면 */}
-      <Left className=' writeSection'>
-        <div className='inputArea' action='/Posts'>
-          <div className='titleAndHr'>
-            <Title
-              type='text'
-              placeholder='제목을 입력하세요...'
-              value={title || ""}
-              onChange={changeTitle}
-              onBlur={() => {
-                dispatch(writeActions.setTitle(title));
-              }}
-            />
-            <hr />
-          </div>
-          <MarkdownInput
-            data={contents}
-            setData={setContents}
-            onBlur={() => {
-              dispatch(writeActions.setContent(contents));
-            }}
-          />
-          <StringLength string={contents} />
-        </div>
-        <UnderMenu index={index} onClick={MenuOnOff} />
+      <Left className='writeSection'>
+        <PostEditor />
       </Left>
 
-      {/* 우측 화면  */}
-      <Right className=' writeSection'>
+      <Right className='writeSection'>
         <MarkdownCss>
-          <h1 style={{ marginBottom: "6rem" }}>{title}</h1>
-          <CustomMD>{contents}</CustomMD>
+          <h1 style={{ marginBottom: "6rem" }}>{postData.title}</h1>
+          <CustomMD>{postData.contents}</CustomMD>
         </MarkdownCss>
       </Right>
-      {/* <WritePostSetting
-        onOff={upComming}
-        onOffEvent={MenuOnOff}
-        obj={newPost}
-        index={index}
-        lastPreview={index ? preview : null}
-        serverData={data}
-      /> */}
-      <NewPostPublishScreen onOff={openPublishWindow} onOffEvent={MenuOnOff} />
+      <NewPostPublishScreen />
     </Container>
   );
 }

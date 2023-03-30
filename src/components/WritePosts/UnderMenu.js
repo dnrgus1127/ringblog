@@ -1,6 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { writeActions } from "../../redux/writeReducer";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement2};
@@ -54,18 +56,25 @@ const Button = styled(Btn)`
   }
 `;
 
-export default function UnderMenu({ index, onClick }) {
+export default function UnderMenu({ onClick }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { postNumber } = useSelector((state) => state.write);
   return (
     <Container>
-      <Link to={"/"}>
-        <BtnBack>나가기</BtnBack>
-      </Link>
+      <BtnBack
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        나가기
+      </BtnBack>
       <div className='btnWrap'>
         <Button onClick={onClick} bg={false}>
           임시저장
         </Button>
         <Button bg={true} onClick={onClick}>
-          {index ? "수정하기" : "제출하기"}
+          {postNumber ? "수정하기" : "제출하기"}
         </Button>
       </div>
     </Container>

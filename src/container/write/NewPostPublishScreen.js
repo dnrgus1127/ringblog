@@ -5,7 +5,7 @@ import PublishSeriesConfig from "./PublishSeriesConfig";
 import PublishSetting from "./PublishSetting";
 import PublishThumbnailContainer from "./PublishThumbnailContainer";
 
-export default function NewPostPublishScreen({ onOff, onOffEvent }) {
+export default function NewPostPublishScreen() {
   const { visible, seriesSelect } = useSelector((state) => state.write);
 
   return (
