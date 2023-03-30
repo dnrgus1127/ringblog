@@ -44,7 +44,7 @@ const writeSlice = createSlice({
       state.selectedSeries = action.payload;
     },
     delSelectedSeries(state) {
-      state.selectedSeries = null;
+      state.selectedSeries = initialState.selectedSeries;
     },
     clearData(state) {
       state.data = initialState.data;

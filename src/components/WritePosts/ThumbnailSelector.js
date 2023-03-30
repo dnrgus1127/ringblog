@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRef } from "react";
 import styled from "styled-components";
-import { updatePost, uploadPost } from "../../functions/fetch";
 import { BtnCss } from "../Button";
 import thumbnailDefault from "../../images/thumbnail2.jpg";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { writeActions } from "../../redux/writeReducer";
 

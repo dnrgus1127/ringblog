@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { MarkdownCss } from "../components/common/markdown/MarkdownCss";
 import { useEffect } from "react";
 import CustomMD from "../components/common/markdown/CustomMD";
 import { useQuery as paramQuery } from "../functions/urlQuery";
-import MarkdownInput from "../components/WritePosts/MarkdownInput";
-import StringLength from "../components/WritePosts/StringLength";
-import UnderMenu from "../components/WritePosts/UnderMenu";
-import { getPostByIndex } from "../functions/fetch";
 import { useLogin } from "../Hooks/useLogin";
 import { useContext } from "react";
 import { Context } from "../functions/Login/LoginProvider";
 import { useNavigate } from "react-router-dom";
-import WritePostSetting from "../components/WritePosts/WritePostSetting";
 import NewPostPublishScreen from "../container/write/NewPostPublishScreen";
 import { useDispatch, useSelector } from "react-redux";
 import { writeActions } from "../redux/writeReducer";
@@ -132,8 +127,9 @@ export default function NewPost() {
   useEffect(() => {
     return () => {
       dispatch(writeActions.clearData());
+      console.log(1);
     };
-  }, []);
+  }, [dispatch]);
 
   //uri에 인덱스 쿼리스트링 존재하면 수정으로 판단
   useEffect(() => {
@@ -193,10 +189,6 @@ export default function NewPost() {
       navigation("/");
     }
   }, [loggedIn, navigation]);
-
-  useEffect(() => {
-    console.log(write);
-  }, [write]);
 
   return (
     <Container>

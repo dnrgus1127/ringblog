@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useQuery } from "react-query";
+import React from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { writeActions } from "../../redux/writeReducer";
