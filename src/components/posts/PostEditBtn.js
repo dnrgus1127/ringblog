@@ -35,7 +35,13 @@ export default function PostEditBtn({ index }) {
       <Link to={`/writeNewPost?index=${index}`}>
         <Btn>수정</Btn>
       </Link>
-
+      <Btn
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        목록
+      </Btn>
       <Btn
         onClick={() => {
           if (window.confirm("정말로 삭제하시겠습니까?") === true) {

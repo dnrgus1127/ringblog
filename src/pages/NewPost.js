@@ -14,6 +14,7 @@ import { writeActions } from "../redux/writeReducer";
 import PostEditor from "../components/WritePosts/PostEditor";
 import { domain } from "../lib/fetch/domain";
 import { useQuery } from "react-query";
+import Loading from "../components/Loading";
 
 const Container = styled.div`
   width: 100wh;
@@ -114,7 +115,7 @@ const Right = styled.div`
 
 export default function NewPost() {
   let query = paramQuery();
-  const write = useSelector((state) => state.write);
+
   const { postNumber, edit } = useSelector((state) => state.write);
   const postData = useSelector((state) => state.write.data);
 
@@ -127,7 +128,6 @@ export default function NewPost() {
   useEffect(() => {
     return () => {
       dispatch(writeActions.clearData());
-      console.log(1);
     };
   }, [dispatch]);
 
@@ -140,8 +140,8 @@ export default function NewPost() {
   }, [dispatch, query]);
 
   // 수정 시 포스트 정보 불러옴
-  const { data } = useQuery(
-    "myQuery",
+  const { data, isLoading } = useQuery(
+    ["postQuery", postNumber],
     async () => {
       const response = await fetch(`${domain}/posts/${postNumber}`);
       return await response.json();
@@ -176,7 +176,9 @@ export default function NewPost() {
   }, [seriesQuery.data, dispatch]);
 
   // redux store 에 불러온 포스트 정보 저장
+  // useQuery onSuccess 내부에서 dispatch 실행 시 입력한 데이터가 날라가는 문제가 있어서 useEffect로 분리하였음
   useEffect(() => {
+    // 수정중이고 데이터가 불러와졌다면
     if (data && edit) {
       dispatch(writeActions.setData({ ...data }));
     }
@@ -192,6 +194,7 @@ export default function NewPost() {
 
   return (
     <Container>
+      {isLoading ? <Loading text={"로딩중"} /> : null}
       <Left className='writeSection'>
         <PostEditor />
       </Left>

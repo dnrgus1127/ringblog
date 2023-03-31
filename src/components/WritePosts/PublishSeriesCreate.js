@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { useContext } from "react";
 import styled from "styled-components";
-import { Context } from "../../functions/Login/LoginProvider";
 import useBoolean from "../../Hooks/useBoolean";
-import useFetchPost from "../../Hooks/useFetchPost";
 import { BtnCss, ColorButton } from "../Button";
 
 const PublishCreateBlock = styled.div`
@@ -37,16 +34,7 @@ const ConfirmButton = styled(ColorButton)``;
 export default function PublishSeriesCreate({ onCreateSeries }) {
   const [showBtns, onToggleShowBtns] = useBoolean(false);
   const [seriesTitle, setSeriesTitle] = useState("");
-  const { loggedUser } = useContext(Context);
-  const [fetchSeries, data] = useFetchPost();
 
-  const createNewSeries = () => {
-    fetchSeries(`/series/newSeries`, {
-      title: seriesTitle,
-      writer: loggedUser.userId,
-    });
-    onToggleShowBtns();
-  };
   return (
     <PublishCreateBlock>
       <input

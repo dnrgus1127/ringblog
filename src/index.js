@@ -12,6 +12,7 @@ let store = configureStore({
   reducer: {
     write: writeReducer,
   },
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -57,11 +57,17 @@ const Button = styled(Btn)`
 
 export default function UnderMenu({ onClick }) {
   const { postNumber } = useSelector((state) => state.write);
+  const navigate = useNavigate();
   return (
     <Container>
-      <Link to={"/"}>
-        <BtnBack>나가기</BtnBack>
-      </Link>
+      <BtnBack
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        나가기
+      </BtnBack>
+
       <div className='btnWrap'>
         <Button onClick={onClick} bg={false}>
           임시저장

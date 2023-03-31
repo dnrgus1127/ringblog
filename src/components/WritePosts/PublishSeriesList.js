@@ -1,9 +1,6 @@
 import React from "react";
-import { useContext } from "react";
-import { Context } from "../../functions/Login/LoginProvider";
-import { useFetch } from "../../Hooks/useFetch";
+
 import styled from "styled-components";
-import { useMutation } from "react-query";
 
 const SeriesList = styled.div`
   width: 100%;

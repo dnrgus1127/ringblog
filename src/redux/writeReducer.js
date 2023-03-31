@@ -57,6 +57,11 @@ const writeSlice = createSlice({
       state.data = {
         ...state.data,
         ...action.payload,
+        thumbnailPath:
+          action.payload.thumbnailPath === "undefined" ||
+          action.payload.thumbnailPath === "null"
+            ? null
+            : action.payload.thumbnailPath,
       };
     },
 

@@ -1,9 +1,7 @@
 import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import styled from "styled-components";
 import media from "../../lib/style/media";
-import { writeActions } from "../../redux/writeReducer";
 
 const Container = styled.div`
   position: absolute;
@@ -42,9 +40,6 @@ const Separator = styled.div`
 `;
 
 export default function WritePostSettingTemplate({ visible, left, right }) {
-  const write = useSelector((state) => state.write);
-  const dispatch = useDispatch();
-
   return (
     <Container slide={visible}>
       <Wrapper>
