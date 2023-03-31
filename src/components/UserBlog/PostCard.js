@@ -63,7 +63,7 @@ export default function PostCard({ item }) {
   return (
     <Link to={`/Post?index=${item._id}`}>
       <Container>
-        {item.thumbnailPath !== "null" ? (
+        {item.thumbnailPath !== "null" && item.thumbnailPath !== "undefined" ? (
           <div className='thumbnail'>
             <img alt='썸네일' src={item.thumbnailPath} />
           </div>
