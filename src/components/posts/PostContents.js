@@ -12,6 +12,7 @@ import CommentBox from "./comments/CommentBox";
 import SideMenu from "./SideMenu";
 import SubscriptionButton from "./Subscription/SubscriptionButton";
 import SeriesInPosts from "./SeriesInPosts";
+import PostThumbnail from "./PostThumbnail";
 
 const Container = styled.div`
   position: relative;
@@ -185,6 +186,7 @@ export default function PostContents({ post, index }) {
         </div>
       </div>
       <SeriesInPosts index={index} />
+      <PostThumbnail src={post.thumbnailPath} />
 
       <MarkdownCss ref={markdownRef}>
         <CustomMD>{post.contents}</CustomMD>

@@ -141,7 +141,7 @@ export default function NewPost() {
 
   // 수정 시 포스트 정보 불러옴
   const { data, isLoading } = useQuery(
-    ["postQuery", postNumber],
+    ["postDataQuery", postNumber],
     async () => {
       const response = await fetch(`${domain}/posts/${postNumber}`);
       return await response.json();

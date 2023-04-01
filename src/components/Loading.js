@@ -89,7 +89,7 @@ const LoadingSpinner = styled.div`
   }
 `;
 
-export default function Loading({ text }) {
+export default function Loading({ text = "로딩중" }) {
   return (
     <LoadingBox>
       <div>

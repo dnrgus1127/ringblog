@@ -7,10 +7,14 @@ import { commentValid } from "../../../functions/comments/commentValidation";
 import { Context } from "../../../functions/Login/LoginProvider";
 import { FullStamp } from "../../../functions/time";
 import { ColorButton } from "../../Button";
-import { Fetch } from "../../Fetch";
 import LoginForm from "../../common/Login/LoginForm";
 import CommentList from "./CommentList";
 import CommentTA from "./CommentTA";
+import { domain } from "../../../lib/fetch/domain";
+import { useMutation, useQuery } from "react-query";
+import ComponentLoading from "../../common/ComponentLoading";
+import { useDispatch, useSelector } from "react-redux";
+import { postActions } from "../../../redux/postState";
 
 const Container = styled.div`
   .loginUser {
@@ -54,43 +58,53 @@ const LoginButton = styled(ColorButton)`
 `;
 
 export default function CommentBox({ index }) {
-  const [comments, setComments] = useState("");
+  const { newComment } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+
   const { loggedUser, loggedIn, setLoggedIn } = useContext(Context);
-  const [update, setUpdate] = useState();
   const [onOffLogin, setLogin] = useState();
-  const forceUpdate = useCallback(() => setUpdate({}), []);
 
-  const submit = (e) => {
-    e.preventDefault();
+  const setNewcomment = (value) => {
+    dispatch(postActions.setNewComment(value));
+  };
 
-    // 댓글 작성
-    fetch("/comments", {
+  const { data, isLoading, refetch } = useQuery(
+    ["comments", index],
+    async () => {
+      const response = await fetch(`${domain}/comments?postId=${index}`);
+      return response.json();
+    }
+  );
+
+  const { mutate } = useMutation("writeComment", async () => {
+    const response = await fetch(`/comments`, {
       method: "POST",
       body: JSON.stringify({
-        comments: comments,
+        comments: newComment,
         userId: loggedUser.userId,
         createTime: FullStamp(),
         postId: index,
       }),
       headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.type === 100) {
-          setLoggedIn(false);
-          alert("다시 로그인해 주세요");
-          return;
-        }
-        if (data.success) {
-          setComments("");
-          forceUpdate();
-          alert("댓글을 작성했습니다.");
-        } else {
-          alert("댓글 작성 실패");
-        }
-      });
-  };
+    });
+    const data = await response.json();
+    if (data.type === 100) {
+      setLoggedIn(false);
+      alert("다시 로그인해 주세요");
+      return;
+    }
+    if (data.success) {
+      setNewcomment("");
+      alert("댓글을 작성했습니다.");
+    } else {
+      alert("댓글 작성 실패");
+    }
+  });
 
+  const submit = (e) => {
+    e.preventDefault();
+    mutate();
+  };
   const NewComments = (
     <React.Fragment>
       <p className='loginUser'>{loggedUser.username}</p>
@@ -99,12 +113,12 @@ export default function CommentBox({ index }) {
           placeholder='댓글을 작성하세요'
           onChange={(e) => {
             if (commentValid(e.target.value)) {
-              setComments(e.target.value);
+              setNewcomment(e.target.value);
             } else {
               alert("!@#$%^&*를 제외한 특수문자를 입력할 수 없습니다.");
             }
           }}
-          value={comments}
+          value={newComment}
           name='comments'
           id='comments'
         ></CommentTA>
@@ -112,10 +126,6 @@ export default function CommentBox({ index }) {
       </WriteComment>
     </React.Fragment>
   );
-
-  function loadComments({ data }) {
-    return <CommentList data={data} update={forceUpdate} />;
-  }
 
   return (
     <Container>
@@ -132,11 +142,8 @@ export default function CommentBox({ index }) {
           <LoginForm onOff={() => setLogin(false)} />
         </LoginFormWrap>
       ) : null}
-      <Fetch
-        uri={`/comments?postId=${index}`}
-        options={update}
-        renderSuccess={loadComments}
-      ></Fetch>
+      {isLoading && <ComponentLoading text='댓글' />}
+      {data && <CommentList data={data} update={refetch} />}
     </Container>
   );
 }

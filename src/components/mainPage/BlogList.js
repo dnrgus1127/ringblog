@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import BlogItem from "./BlogItem";
-import { useGetPost } from "./hook/useGetPost";
 import Loading from "../Loading";
 import SearchBox from "../UserBlog/SearchBox";
+import { useQuery } from "react-query";
 
 const GridLayout = styled.div`
   width: var(--width);
@@ -58,11 +58,18 @@ const EmptyData = styled.div`
 
 export default function BlogList() {
   const [search, setSearch] = useState("");
-  const { data, loading, error } = useGetPost(search);
 
-  function BlogItems() {
+  const { data, isLoading, error } = useQuery(
+    [`PostList`, search],
+    async () => {
+      const response = await fetch(`/posts${search && `?search=${search}`}`);
+      return response.json();
+    }
+  );
+
+  function RenderItems() {
     if (error) return <div>에러</div>;
-    if (loading) return <Loading text='로딩 중' />;
+    if (isLoading) return <Loading text='로딩 중' />;
     if (data.length === 0) {
       return <EmptyData>"{search}" 검색 결과가 존재하지 않습니다.</EmptyData>;
     }
@@ -80,11 +87,10 @@ export default function BlogList() {
     <React.Fragment>
       <SearchWrap>
         <div className='searchBoxSize'>
-          {/* <Search onBlur={setSearch} /> */}
           <SearchBox onBlur={setSearch} />
         </div>
       </SearchWrap>
-      <BlogItems />
+      <RenderItems />
     </React.Fragment>
   );
 }

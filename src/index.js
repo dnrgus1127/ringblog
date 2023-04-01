@@ -7,10 +7,12 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import writeReducer from "./redux/writeReducer";
+import postState from "./redux/postState";
 
 let store = configureStore({
   reducer: {
     write: writeReducer,
+    post: postState,
   },
   devTools: process.env.NODE_ENV !== "production",
 });

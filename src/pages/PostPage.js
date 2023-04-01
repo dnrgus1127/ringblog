@@ -1,9 +1,11 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import styled from "styled-components";
-import { useQuery } from "../functions/urlQuery";
+import { useQuery as uriQuery } from "../functions/urlQuery";
 import PostContents from "../components/posts/PostContents";
-import { Fetch } from "../components/Fetch";
+import Loading from "../components/Loading";
+import { domain } from "../lib/fetch/domain";
+import { useQuery } from "react-query";
 
 const Body = styled.div`
   padding: calc(var(--header) * 1.5) 0;
@@ -17,21 +19,31 @@ const Body = styled.div`
 `;
 
 export default function PostPage({ theme, toggleTheme }) {
-  let query = useQuery();
+  let query = uriQuery();
   const index = query.get("index");
-  const uri = `/posts/${index}`;
+  const useQueryUri = `${domain}/posts/${index}`;
 
-  function fetchSucces({ data }) {
-    return <PostContents post={data} index={index} />;
+  const { isLoading, data } = useQuery(
+    ["postQuery", index],
+    async () => {
+      const response = await fetch(useQueryUri);
+      return response.json();
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  function RenderPost() {
+    if (isLoading) return <Loading text='포스트 열어보는 중' />;
+    if (data) return <PostContents post={data} index={index} />;
   }
 
   return (
     <React.Fragment>
       <Header theme={theme} toggleTheme={toggleTheme} />
       <Body>
-        <div>
-          <Fetch uri={uri} renderSuccess={fetchSucces}></Fetch>
-        </div>
+        <RenderPost />
       </Body>
     </React.Fragment>
   );
