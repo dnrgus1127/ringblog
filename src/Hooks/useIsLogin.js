@@ -1,12 +1,12 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loginActions } from "../redux/loginState";
 
 export default function useIsLogin(dependency) {
   const dispatch = useDispatch();
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch(loginActions.setLogout());
-  };
+  }, [dispatch]);
   useEffect(() => {
     fetch("/login")
       .then((res) => res.json())
@@ -15,7 +15,7 @@ export default function useIsLogin(dependency) {
           logout(false);
         }
       });
-  }, [dependency]);
+  }, [dependency, logout]);
 
   return;
 }

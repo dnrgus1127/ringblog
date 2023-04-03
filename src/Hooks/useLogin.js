@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginActions } from "../redux/loginState";
@@ -6,12 +7,15 @@ function useLogin() {
   const { loggedIn } = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
-  const login = (data) => {
-    dispatch(loginActions.setLogin(data));
-  };
-  const logout = () => {
+  const login = useCallback(
+    (data) => {
+      dispatch(loginActions.setLogin(data));
+    },
+    [dispatch]
+  );
+  const logout = useCallback(() => {
     dispatch(loginActions.setLogout());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     fetch("/login")
@@ -23,7 +27,7 @@ function useLogin() {
           logout(false);
         }
       });
-  }, [loggedIn]);
+  }, [loggedIn, login, logout]);
 }
 
 export { useLogin };
