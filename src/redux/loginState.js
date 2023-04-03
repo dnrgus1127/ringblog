@@ -6,8 +6,6 @@ const initialState = {
     userId: "",
   },
   loggedIn: false,
-
-  en,
 };
 
 const loginSlice = createSlice({
