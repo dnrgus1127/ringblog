@@ -33,6 +33,12 @@ const Confirm = styled(Button)`
   color: ${({ theme }) => theme.oppositeColor};
 `;
 
+const Setting = styled(Button)`
+  background-color: ${({ theme }) => theme.btnColor2};
+  color: ${({ theme }) => theme.Color};
+  border-radius: 6px;
+`;
+
 export const CancelButton = ({ onClick, children, size = "medium" }) => {
   return (
     <Button onClick={onClick} size={size}>
@@ -46,5 +52,13 @@ export const ConfirmButton = ({ onClick, children, size = "medium" }) => {
     <Confirm onClick={onClick} size={size}>
       {children}
     </Confirm>
+  );
+};
+
+export const SettingButton = ({ onClick, children, size = "medium" }) => {
+  return (
+    <Setting onClick={onClick} size={size}>
+      {children}
+    </Setting>
   );
 };

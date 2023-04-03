@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { settingActions } from "../../redux/settingState";
-import ProfileSection from "./ProfileSection";
 
 const Menu = styled.div`
   width: 100%;
@@ -15,7 +14,6 @@ const MenuItem = styled.div`
   padding: 1rem;
   margin-bottom: 1rme;
   font-size: 1.4rem;
-  /* font-weight: 800; */
   cursor: pointer;
   border-radius: 6px;
 

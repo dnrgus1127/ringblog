@@ -1,6 +1,7 @@
 // 일반,다크모드 공통 색상 속성
 const theme = {
   tmp: "#FF5F9E",
+  btnColor2: "#2ea043",
 };
 
 // 일반 모드 색상
@@ -37,6 +38,7 @@ const darkTheme = {
   mdColor: "#0c0c0c",
   tableColor: "#A0A0A0",
   btnColor: "#96f2d7",
+
   btnHover: "#63E6BE",
   warning: "rgba(256, 150, 23, 0.9)",
   ...theme,
