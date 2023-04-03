@@ -1,6 +1,6 @@
-import { useContext } from "react";
 import { useState } from "react";
-import { Context } from "../../functions/Login/LoginProvider";
+import { useDispatch } from "react-redux";
+import { loginActions } from "../../redux/loginState";
 
 /**
  *
@@ -8,7 +8,11 @@ import { Context } from "../../functions/Login/LoginProvider";
  */
 export default function useCmtDel(afterFetch, successFetch) {
   const [result, setResult] = useState();
-  const { setLoggedIn } = useContext(Context);
+  const dispatch = useDispatch();
+
+  const setLogout = () => {
+    dispatch(loginActions.setLogout());
+  };
 
   const delCmt = (id) => {
     fetch(`/comments?commentId=${id}`, {
@@ -19,7 +23,7 @@ export default function useCmtDel(afterFetch, successFetch) {
         let type = result.type;
         if (type !== 0) {
           if (type === 100) {
-            setLoggedIn(false);
+            setLogout();
           } else if (type === 101) {
           }
           alert(result.msg);

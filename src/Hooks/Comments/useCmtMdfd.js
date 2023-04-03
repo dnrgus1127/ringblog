@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useCallback } from "react";
-import { Context } from "../../functions/Login/LoginProvider";
+import { useSelector } from "react-redux";
 import { FullStamp } from "../../functions/time";
 
 export default function useCmtMdfd(commentId, initState, afterFetch) {
   const [comment, setComment] = useState(initState);
-  const { setLoggedIn } = useContext(Context);
+  const { setLoggedIn } = useSelector((state) => state.login);
 
   const commentMdfd = useCallback(() => {
     fetch(`comments?commentId=${commentId}`, {

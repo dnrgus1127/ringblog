@@ -1,8 +1,7 @@
 // ! 폐기
 import React from "react";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { Context } from "../../functions/Login/LoginProvider";
 import CustomCheckBox from "../common/CustomCheckBox";
 
 const Container = styled.div`
@@ -22,7 +21,7 @@ export default function ChoosePosts({
   delNumbers,
   postList,
 }) {
-  const { loggedIn } = useContext(Context);
+  const { loggedIn } = useSelector((state) => state.login);
 
   if (!loggedIn) return;
   return (

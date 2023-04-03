@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { relativeDate } from "../../../functions/dateFormat";
-import { Context } from "../../../functions/Login/LoginProvider";
 import useBoolean from "../../../Hooks/useBoolean";
 import { BtnCss } from "../../Button";
 import MdfdComment from "./MdfdComment";
@@ -95,7 +94,7 @@ const hideComment = (
 export default function CommentItem({ data, commentsUpdate, onDelete }) {
   const [hide, setHide] = useState(false);
 
-  const { loggedUser } = useContext(Context);
+  const { loggedUser } = useSelector((state) => state.login);
 
   const [mdfd, onToggleMdfd, setMdfd] = useBoolean(false);
 

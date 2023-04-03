@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
-import { useContext } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { Context } from "../../functions/Login/LoginProvider";
 import useBoolean from "../../Hooks/useBoolean";
 import useFetchPost from "../../Hooks/useFetchPost";
 import { BtnCss, ColorButton } from "../Button";
@@ -97,7 +96,7 @@ export default function NewPostSeries({ data, cancel, update, index, select }) {
 }
 
 function NewItem({ cancel, update }) {
-  const { loggedUser } = useContext(Context);
+  const { loggedUser } = useSelector((state) => state.login);
   const [title, setTitle] = useState("");
 
   const [fetchNewSeries, result] = useFetchPost();

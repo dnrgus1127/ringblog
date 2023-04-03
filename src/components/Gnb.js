@@ -3,8 +3,8 @@ import styled from "styled-components";
 import searchW from "../images/SearchW.png";
 import searchB from "../images/SearchB.png";
 import NewPostBtn from "./NewPostBtn";
-import { useContext } from "react";
-import { Context } from "../functions/Login/LoginProvider";
+
+import { useSelector } from "react-redux";
 
 const MenuSection = styled.div`
   display: flex;
@@ -71,7 +71,7 @@ export default function Gnb({ theme, setHideMenu, hideMenu, toggleTheme }) {
     </svg>
   );
 
-  const { loggedIn } = useContext(Context);
+  const { loggedIn } = useSelector((state) => state.login);
 
   return (
     <MenuSection>

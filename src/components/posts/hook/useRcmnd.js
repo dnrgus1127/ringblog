@@ -1,7 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { alertMsg } from "../../../functions/alerts";
-import { Context } from "../../../functions/Login/LoginProvider";
+import { loginActions } from "../../../redux/loginState";
 
 /**
  *
@@ -10,7 +11,12 @@ import { Context } from "../../../functions/Login/LoginProvider";
  */
 export function useRcmnd(postId) {
   const [rcmnd, setRcmnd] = useState();
-  const { loggedUser, loggedIn, setLoggedIn } = useContext(Context);
+  const { loggedUser, loggedIn } = useSelector((state) => state.login);
+
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(loginActions.setLogout());
+  };
 
   // 로그인 되어 있을 때만
   useEffect(() => {
@@ -31,7 +37,7 @@ export function useRcmnd(postId) {
       .then((res) => res.json())
       .then((data) => {
         if (alertMsg(data.type)) {
-          setLoggedIn(false);
+          logout();
         } else {
           setRcmnd(data.result);
         }
@@ -47,7 +53,7 @@ export function useRcmnd(postId) {
       .then((res) => res.json())
       .then((data) => {
         if (alertMsg(data.type)) {
-          setLoggedIn(false);
+          logout();
         } else {
           setRcmnd(data.result);
         }

@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Error from "../../components/common/Error/Error";
-import { Context } from "../../functions/Login/LoginProvider";
 
 export default function useRcmndList() {
   const [userComments, setData] = useState([]);
-  const { loggedIn, loggedUser } = useContext(Context);
+  const { loggedIn, loggedUser } = useSelector((state) => state.login);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 

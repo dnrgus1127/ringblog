@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Context } from "../../functions/Login/LoginProvider";
 import { useLogin } from "../../Hooks/useLogin";
 import { ColorButton } from "../Button";
 import Gnb from "../Gnb";
 import HideMenu from "./HideMenu";
-
+import { useSelector } from "react-redux";
+import SettingScreen from "../../container/Setting/SettingPage";
 import LoginForm from "../common/Login/LoginForm";
 import LogOutButton from "../common/Login/LogOutButton";
 
@@ -68,7 +67,8 @@ const LoginButton = styled(ColorButton)`
 export default function Header({ toggleTheme, theme }) {
   const [hideMenu, setHideMenu] = useState(false);
   const [loginForm, setLoginFrom] = useState(false);
-  const { loggedUser, loggedIn } = useContext(Context);
+  const { loggedUser, loggedIn } = useSelector((state) => state.login);
+  const { settingVisible } = useSelector((state) => state.setting);
 
   const ControllLoginForm = () => {
     setLoginFrom(!loginForm);
@@ -109,6 +109,7 @@ export default function Header({ toggleTheme, theme }) {
             hideMenu={hideMenu}
           />
         </div>
+        {settingVisible && <SettingScreen />}
       </ContentWrap>
     </HeaderCon>
   );

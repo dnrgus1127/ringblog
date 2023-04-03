@@ -1,10 +1,7 @@
 import React from "react";
-import { useCallback } from "react";
-import { useContext } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { commentValid } from "../../../functions/comments/commentValidation";
-import { Context } from "../../../functions/Login/LoginProvider";
 import { FullStamp } from "../../../functions/time";
 import { ColorButton } from "../../Button";
 import LoginForm from "../../common/Login/LoginForm";
@@ -15,6 +12,7 @@ import { useMutation, useQuery } from "react-query";
 import ComponentLoading from "../../common/ComponentLoading";
 import { useDispatch, useSelector } from "react-redux";
 import { postActions } from "../../../redux/postState";
+import { loginActions } from "../../../redux/loginState";
 
 const Container = styled.div`
   .loginUser {
@@ -61,7 +59,11 @@ export default function CommentBox({ index }) {
   const { newComment } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
-  const { loggedUser, loggedIn, setLoggedIn } = useContext(Context);
+  const { loggedUser, loggedIn } = useSelector((state) => state.login);
+
+  const logout = () => {
+    dispatch(loginActions.setLogout());
+  };
   const [onOffLogin, setLogin] = useState();
 
   const setNewcomment = (value) => {
@@ -89,7 +91,7 @@ export default function CommentBox({ index }) {
     });
     const data = await response.json();
     if (data.type === 100) {
-      setLoggedIn(false);
+      logout(false);
       alert("다시 로그인해 주세요");
       return;
     }

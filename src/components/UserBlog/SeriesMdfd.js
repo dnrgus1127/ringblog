@@ -1,8 +1,8 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { Context } from "../../functions/Login/LoginProvider";
 import useBoolean from "../../Hooks/useBoolean";
 import { useFetch } from "../../Hooks/useFetch";
 import { BtnCss, ColorButton } from "../Button";
@@ -113,7 +113,7 @@ export default function SeriesMdfd({ close, data, refresh }) {
   const [choosePosts, onToggleChoose, setChoosePosts] = useBoolean(false);
   const [showPostList, onToggleShowPostList] = useBoolean(false);
 
-  const { loggedUser } = useContext(Context);
+  const { loggedUser } = useSelector((state) => state.login);
   const notHaveSeries = useFetch(
     `/series/unSeriesPosts?writer=${loggedUser.userId}`
   );

@@ -5,14 +5,13 @@ import { onlyDate } from "../../functions/dateFormat";
 import CustomMD from "../common/markdown/CustomMD";
 import MarkdownNav from "../common/markdown/MarkdownNav";
 import PostEditBtn from "./PostEditBtn";
-import { useContext } from "react";
-import { Context } from "../../functions/Login/LoginProvider";
 import { Link } from "react-router-dom";
 import CommentBox from "./comments/CommentBox";
 import SideMenu from "./SideMenu";
 import SubscriptionButton from "./Subscription/SubscriptionButton";
 import SeriesInPosts from "./SeriesInPosts";
 import PostThumbnail from "./PostThumbnail";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   position: relative;
@@ -84,7 +83,7 @@ export default function PostContents({ post, index }) {
   const [mdList, setMdList] = useState([]);
   const [nodeList, setNodeList] = useState([]);
   const [fixed, setfixed] = useState(false);
-  const { loggedUser } = useContext(Context);
+  const { loggedUser } = useSelector((state) => state.login);
   const underRef = useRef();
 
   /**

@@ -1,7 +1,9 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useEffect } from "react";
+import { useMutation } from "react-query";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Context } from "../../../functions/Login/LoginProvider";
+import { loginActions } from "../../../redux/loginState";
 import { InputCss } from "../../../styledCss/InputCss";
 import { ColorButton } from "../../Button";
 import Loading from "../../Loading";
@@ -24,11 +26,29 @@ const Form = styled.form`
 export default function LoginComponent({ onOff }) {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const { setLoggedUser, setLoggedIn } = useContext(Context);
   const [authFail, setAuthFail] = useState(false);
   const [failType, setFailType] = useState(999);
-  const [loading, setLoading] = useState(false);
   const inputRef = useRef();
+
+  const dispatch = useDispatch();
+
+  const loginQuery = useMutation("login", async () => {
+    const response = await fetch(`/login`, {
+      method: "POST",
+      body: JSON.stringify({ userId: id, password: pw }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const result = await response.json();
+    // 로그인 실패 시 {authSuccess(bool), failMessage(String)}
+    if (!result.authSuccess) {
+      setAuthFail(true);
+      setFailType(result.failType);
+    } else {
+      // 로그인 성공 시 {userId(String), username(String)} Object result
+      dispatch(loginActions.setLogin(result));
+      onOff();
+    }
+  });
 
   // 로그인 요청
   const submit = (e) => {
@@ -38,28 +58,7 @@ export default function LoginComponent({ onOff }) {
         `${id.length === 0 ? "아이디" : "비밀번호"}를 빈칸으로 둘 수 없습니다.`
       );
     } else {
-      //Fetch Component 실행
-      //!- Fetch Component 수정 필요
-      setLoading(true);
-      fetch("/login", {
-        method: "POST",
-        body: JSON.stringify({ userId: id, password: pw }),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((data) => data.json())
-        .then((result) => {
-          // 로그인 실패 시 {authSuccess(bool), failMessage(String)}
-          setLoading(false);
-          if (!result.authSuccess) {
-            setAuthFail(true);
-            setFailType(result.failType);
-          } else {
-            // 로그인 성공 시 {userId(String), username(String)} Object result
-            setLoggedUser(result);
-            setLoggedIn(true);
-            onOff();
-          }
-        });
+      loginQuery.mutate();
     }
   };
 
@@ -100,7 +99,7 @@ export default function LoginComponent({ onOff }) {
       </Form>
 
       {/* <h3>소셜 계정 ID 로그인</h3> */}
-      {loading ? <Loading text='로그인 중' /> : null}
+      {loginQuery.isLoading && <Loading text='로그인 중' />}
     </React.Fragment>
   );
 }

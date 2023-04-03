@@ -1,13 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useMemo } from "react";
 import { useMutation, useQuery } from "react-query";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PublishSeriesConfigBtn from "../../components/WritePosts/PublishSeriesConfigBtn";
 import PublishSeriesConfigTemp from "../../components/WritePosts/PublishSeriesConfigTemp";
 import PublishSeriesCreate from "../../components/WritePosts/PublishSeriesCreate";
 import PublishSeriesList from "../../components/WritePosts/PublishSeriesList";
-import { Context } from "../../functions/Login/LoginProvider";
 import { domain } from "../../lib/fetch/domain";
 import { writeActions } from "../../redux/writeReducer";
 
@@ -16,7 +15,7 @@ const PublishSeriesBlock = styled.div``;
 export default function PublishSeriesConfig() {
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState();
-  const { loggedUser } = useContext(Context);
+  const { loggedUser } = useSelector((state) => state.login);
 
   // 시리즈 리스트 fetch
   const seriesList = useQuery(`seriesList`, async () => {

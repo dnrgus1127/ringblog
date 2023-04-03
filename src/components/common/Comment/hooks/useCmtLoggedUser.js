@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useContext } from "react";
-import { Context } from "../../../../functions/Login/LoginProvider";
+import { useSelector } from "react-redux";
 
 export default function useCmtLoggedUser(reFetch) {
-  const { loggedUser, loggedIn } = useContext(Context);
+  const { loggedUser, loggedIn } = useSelector((state) => state.login);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();

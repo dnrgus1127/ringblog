@@ -8,11 +8,15 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import writeReducer from "./redux/writeReducer";
 import postState from "./redux/postState";
+import settingState from "./redux/settingState";
+import loginState from "./redux/loginState";
 
 let store = configureStore({
   reducer: {
     write: writeReducer,
     post: postState,
+    setting: settingState,
+    login: loginState,
   },
   devTools: process.env.NODE_ENV !== "production",
 });

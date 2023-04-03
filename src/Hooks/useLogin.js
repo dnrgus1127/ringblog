@@ -1,23 +1,29 @@
-import { useContext } from "react";
 import { useEffect } from "react";
-import { Context } from "../functions/Login/LoginProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { loginActions } from "../redux/loginState";
 
 function useLogin() {
-  const { loggedIn, setLoggedUser, setLoggedIn } = useContext(Context);
+  const { loggedIn } = useSelector((state) => state.login);
+  const dispatch = useDispatch();
+
+  const login = (data) => {
+    dispatch(loginActions.setLogin(data));
+  };
+  const logout = () => {
+    dispatch(loginActions.setLogout());
+  };
+
   useEffect(() => {
     fetch("/login")
       .then((data) => data.json())
       .then((result) => {
         if (result.isLogined === true) {
-          setLoggedUser({ username: result.username, userId: result.userId });
-          if (loggedIn === false) {
-            setLoggedIn(true);
-          }
+          login({ username: result.username, userId: result.userId });
         } else {
-          setLoggedIn(false);
+          logout(false);
         }
       });
-  }, [loggedIn, setLoggedIn, setLoggedUser]);
+  }, [loggedIn]);
 }
 
 export { useLogin };

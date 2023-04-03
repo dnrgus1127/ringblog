@@ -5,8 +5,6 @@ import { useEffect } from "react";
 import CustomMD from "../components/common/markdown/CustomMD";
 import { useQuery as paramQuery } from "../functions/urlQuery";
 import { useLogin } from "../Hooks/useLogin";
-import { useContext } from "react";
-import { Context } from "../functions/Login/LoginProvider";
 import { useNavigate } from "react-router-dom";
 import NewPostPublishScreen from "../container/write/NewPostPublishScreen";
 import { useDispatch, useSelector } from "react-redux";
@@ -119,7 +117,7 @@ export default function NewPost() {
   const { postNumber, edit } = useSelector((state) => state.write);
   const postData = useSelector((state) => state.write.data);
 
-  const { loggedIn } = useContext(Context);
+  const { loggedIn } = useSelector((state) => state.login);
   const navigation = useNavigate();
   const dispatch = useDispatch();
 

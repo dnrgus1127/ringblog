@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Context } from "../../functions/Login/LoginProvider";
+import { settingActions } from "../../redux/settingState";
 
 const Container = styled.div`
   position: absolute;
@@ -53,7 +54,12 @@ const UserMenu = styled.div`
 `;
 
 export default function HideMenu({ trigger }) {
-  const { loggedUser, loggedIn } = useContext(Context);
+  const { loggedUser, loggedIn } = useSelector((state) => state.login);
+  const dispatch = useDispatch();
+
+  const toggleSetting = () => {
+    dispatch(settingActions.onToggleVisible());
+  };
 
   const userInfo = (
     <UserMenu>
@@ -66,7 +72,7 @@ export default function HideMenu({ trigger }) {
           <Link to={"/RecordPage"}>
             <li>읽기 목록</li>
           </Link>
-          <li>설정</li>
+          <li onClick={toggleSetting}>설정</li>
           <li>로그아웃</li>
         </ul>
       </div>

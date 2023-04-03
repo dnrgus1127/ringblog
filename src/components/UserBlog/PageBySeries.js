@@ -1,12 +1,12 @@
 import React, { useCallback, useState } from "react";
-import { useContext } from "react";
-import { Context } from "../../functions/Login/LoginProvider";
+import { useSelector } from "react-redux";
+
 import Error from "../common/Error/Error";
 import { Fetch } from "../Fetch";
 import SeriesList from "./SeriesList";
 
 export default function PageBySeries() {
-  const { loggedUser, loggedIn } = useContext(Context);
+  const { loggedUser, loggedIn } = useSelector((state) => state.login);
   const [reFetch, setReFetch] = useState();
   const forceUpdate = useCallback(() => setReFetch({}), []);
 

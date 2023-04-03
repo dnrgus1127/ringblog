@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { Context } from "../../../functions/Login/LoginProvider";
 import Error from "../../common/Error/Error";
 import SubPostPreview from "./SubPostPreview";
 import SubUserInfo from "./SubUserInfo";
@@ -15,7 +15,7 @@ const Container = styled.div`
 
 export default function RecordSubscription() {
   const [subscribed, setSubscribed] = useState([]);
-  const { loggedUser, loggedIn } = useContext(Context);
+  const { loggedUser, loggedIn } = useSelector((state) => state.login);
 
   useEffect(() => {
     if (!loggedIn) return;
