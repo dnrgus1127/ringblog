@@ -1,12 +1,24 @@
 import React from "react";
+import { useEffect } from "react";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Container = styled.div`
-  text-align: right;
-  padding-top: 1rem;
-  padding-right: 2rem;
-  font-size: 1rem;
+  ${(props) =>
+    props.size === "small" &&
+    css`
+      font-size: 1rem;
+    `}
+  ${(props) =>
+    props.size === "medium" &&
+    css`
+      font-size: 1.4rem;
+    `}
+  ${(props) =>
+    props.size === "large" &&
+    css`
+      font-size: 1.6rem;
+    `}
 `;
 
 /**
@@ -15,11 +27,21 @@ const Container = styled.div`
  * @param {*}
  * @returns
  */
-export default function StringLength({ string }) {
-  const maxLength = 5000;
-
+export default function StringLength({
+  string,
+  maxLength = 5000,
+  overLimit,
+  size = "medium",
+}) {
+  useEffect(() => {
+    if (string.length > maxLength) {
+      overLimit(true);
+    } else {
+      overLimit(false);
+    }
+  }, [string, overLimit, maxLength]);
   return (
-    <Container>
+    <Container size={size}>
       <span
         style={string.length > maxLength ? { color: "red" } : { color: "grey" }}
       >
