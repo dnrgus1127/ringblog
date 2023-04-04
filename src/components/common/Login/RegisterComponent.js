@@ -99,7 +99,6 @@ export default function RegisterComponent() {
   };
 
   const validUserName = () => {
-    console.log(name);
     checkName(name, setIsCheckName);
   };
 
