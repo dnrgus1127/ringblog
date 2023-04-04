@@ -26,6 +26,11 @@ const Button = styled.button`
       font-size: 1.8rem;
       padding: 1rem 2rem;
     `}
+
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.greyColor};
+  }
 `;
 
 const Confirm = styled(Button)`
@@ -55,9 +60,14 @@ export const ConfirmButton = ({ onClick, children, size = "medium" }) => {
   );
 };
 
-export const SettingButton = ({ onClick, children, size = "medium" }) => {
+export const SettingButton = ({
+  onClick,
+  children,
+  size = "medium",
+  disabled,
+}) => {
   return (
-    <Setting onClick={onClick} size={size}>
+    <Setting onClick={onClick} size={size} disabled={disabled}>
       {children}
     </Setting>
   );
