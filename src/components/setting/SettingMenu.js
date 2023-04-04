@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import media from "../../lib/style/media";
 import { settingActions } from "../../redux/settingState";
 
 const Menu = styled.div`
@@ -8,6 +9,18 @@ const Menu = styled.div`
   height: 100%;
   /* background-color: ${({ theme }) => theme.bgElement}; */
   padding: 1rem 0.8rem;
+
+  hr {
+    display: none;
+  }
+  ${media.small} {
+    padding: 0;
+    margin-bottom: 2rem;
+    hr {
+      display: inherit;
+      margin-top: 1rem;
+    }
+  }
 `;
 
 const MenuItem = styled.div`
@@ -23,9 +36,13 @@ const MenuItem = styled.div`
   &:hover {
     background-color: ${({ theme }) => theme.bgElement};
   }
+
+  ${media.small} {
+    font-weight: 800;
+  }
 `;
 
-const menus = ["메뉴1", "메뉴2", "메뉴3", "메뉴4"];
+const menus = ["프로필", "메뉴2", "메뉴3", "메뉴4"];
 
 export default function SettingMenu() {
   const { selectedMenuNumber } = useSelector((state) => state.setting);
@@ -47,6 +64,7 @@ export default function SettingMenu() {
           {item}
         </MenuItem>
       ))}
+      <hr />
     </Menu>
   );
 }

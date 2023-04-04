@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import media from "../../lib/style/media";
 
 const Section = styled.div`
   width: 100%;
@@ -40,11 +41,30 @@ const Section = styled.div`
     width: 80%;
     height: 20%;
     overflow-y: auto;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
   }
 
   .btnWrap {
     margin-top: 6rem;
+  }
+
+  .errorMsg {
+    color: ${({ theme }) => theme.warning};
+  }
+
+  .checkLength {
+    width: 80%;
+    div {
+      text-align: end;
+    }
+  }
+
+  ${media.small} {
+    input,
+    textarea,
+    .checkLength {
+      width: 100%;
+    }
   }
 `;
 export default function SettingSectionTemplate({ children }) {

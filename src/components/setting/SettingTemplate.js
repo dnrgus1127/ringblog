@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import media from "../../lib/style/media";
 import { settingActions } from "../../redux/settingState";
 import { CancelButton } from "../common/Button";
 import ProfileSection from "./ProfileSection";
@@ -16,12 +17,24 @@ const Screen = styled.div`
   top: 0;
   left: 0;
   z-index: 10003;
+
+  ${media.small} {
+    padding: 0;
+    padding-right: 1rem;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  ${media.xsmall} {
+    padding-right: 0;
+  }
 `;
 
 const ScreenContents = styled.div`
   border-radius: 4px;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  overflow-y: auto;
+
   background-color: ${({ theme }) => theme.bgElement2};
   padding: 0.5rem 1.5rem;
 
@@ -31,17 +44,31 @@ const ScreenContents = styled.div`
   }
   .top {
     margin-bottom: 1rem;
+    align-items: center;
   }
   .settingContents {
     height: 90%;
+  }
+
+  ${media.small} {
+    padding: 1rem 1.5rem;
+    .settingContents {
+      display: block;
+    }
   }
 `;
 
 const Pane = styled.div`
   width: 69%;
+  ${media.small} {
+    width: 100%;
+  }
 `;
 const MenuPane = styled(Pane)`
   width: 30%;
+  ${media.small} {
+    width: 100%;
+  }
 `;
 const itemList = (index) => {
   if (index === 0) {
