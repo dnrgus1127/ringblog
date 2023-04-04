@@ -11,7 +11,7 @@ function validPassword(password) {
 }
 
 function validName(name) {
-  const reg = /^[A-Za-z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{1,10}$/g;
+  const reg = /^[A-Za-z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,10}$/g;
 
   return reg.test(name);
 }
