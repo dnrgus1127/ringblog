@@ -3,10 +3,11 @@ import Header from "../components/Header/Header";
 import styled from "styled-components";
 import XNavgation from "../components/common/XNavgation";
 import { useState } from "react";
-import RecordSubscription from "../components/page/RecordPage/RecordSubscription";
+// import RecordSubscription from "../components/page/RecordPage/RecordSubscription";
 import RecordComments from "../components/page/RecordPage/RecordComments";
 import useIsLogin from "../Hooks/useIsLogin";
 import RecordRcmnd from "../components/page/RecordPage/RecordRcmnd";
+import RecordSubscription from "../container/record/RecordSubscription";
 
 const Container = styled.div`
   padding-top: calc(var(--header) * 2);

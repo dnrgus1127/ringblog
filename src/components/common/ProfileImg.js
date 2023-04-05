@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import media from "../../lib/style/media";
 
 const ProfilePreview = styled.div`
@@ -13,15 +13,37 @@ const ProfilePreview = styled.div`
     height: 100%;
     object-fit: cover;
   }
+
+  ${(props) =>
+    props.size === "small" &&
+    css`
+      width: 13rem;
+      height: 13rem;
+    `}
+  ${(props) =>
+    props.size === "medium" &&
+    css`
+      width: 15rem;
+      height: 15rem;
+    `}
+  ${(props) =>
+    props.size === "large" &&
+    css`
+      width: 17rem;
+      height: 17rem;
+    `}
+
+
+
+
   ${media.small} {
     width: 50vw;
     height: 50vw;
   }
 `;
-export default function ProfileImg({ src }) {
+export default function ProfileImg({ src, size = "medium" }) {
   return (
-    <ProfilePreview>
-      {" "}
+    <ProfilePreview size={size}>
       <img src={src} alt='유저 프로필' />
     </ProfilePreview>
   );
