@@ -11,10 +11,13 @@ import PostPage from "./pages/PostPage";
 import UserBlog from "./pages/UserBlog";
 import Recordpage from "./pages/Recordpage";
 import { QueryClient, QueryClientProvider } from "react-query";
+import AlertWindow from "./components/common/AlertWindow";
+import { useSelector } from "react-redux";
 
 function App() {
   const [themeMode, setThemeMode] = useState("dark");
   const theme = themeMode === "light" ? lightTheme : darkTheme;
+  const { showAlert } = useSelector((state) => state.common.alert);
 
   const toggleTheme = () =>
     setThemeMode(themeMode === "light" ? "dark" : "light");
@@ -46,6 +49,7 @@ function App() {
               }
             />
           </Routes>
+          {showAlert && <AlertWindow />}
         </ThemeProvider>
       </div>
     </QueryClientProvider>

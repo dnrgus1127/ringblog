@@ -3,12 +3,53 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import { checkName } from "../../functions/Login/AccountValidation";
-import { settingActions } from "../../redux/settingState";
+import media from "../../lib/style/media";
+import { loginActions } from "../../redux/loginState";
 import { CancelButton, SettingButton } from "../common/Button";
+import useAlert from "../common/hooks/useAlert";
+import ProfileImg from "../common/ProfileImg";
 import Loading from "../Loading";
 import StringLength from "../WritePosts/StringLength";
 import SettingSectionTemplate from "./SettingSectionTemplate";
+
+const NickNameAndImg = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-right: 8rem;
+  .nickName {
+    width: 60%;
+  }
+
+  ${media.small} {
+    flex-direction: column;
+    padding: 0;
+    .nickName {
+      width: 100%;
+    }
+    & > :nth-child(2) {
+      order: -1;
+    }
+  }
+`;
+const IntroHeadAndLength = styled.div`
+  width: 80%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  h4,
+  div {
+    display: inline-block;
+  }
+  ${media.small} {
+    .introHeadAndLength {
+      width: 100%;
+    }
+  }
+`;
 
 const namePlaceholder =
   "이름(닉네임)은 한글, 영어, 숫자만 사용하여 2~10자 이내로 작성할 수 있습니다.";
@@ -23,6 +64,7 @@ export default function ProfileSection() {
   const [introdution, setIntrodution] = useState("");
   const [introdutionCheck, setIntrodutionCheck] = useState(false);
   const { loggedUser } = useSelector((state) => state.login);
+  const { onToggleAlert } = useAlert();
   const dispatch = useDispatch();
 
   // 서버 profile 불러오기
@@ -56,10 +98,10 @@ export default function ProfileSection() {
     const result = await response.json();
 
     if (result.success) {
-      alert("수정 성공!");
-      dispatch(settingActions.onToggleVisible());
+      dispatch(loginActions.setLoggedUser(nickName));
+      onToggleAlert("프로필 수정 성공!");
     } else {
-      alert("수정 실패");
+      onToggleAlert("프로필 수정 실패", true);
     }
   });
 
@@ -78,30 +120,36 @@ export default function ProfileSection() {
   return (
     <SettingSectionTemplate>
       <h3>프로필 수정</h3>
-      <h4>닉네임</h4>
-      <input
-        type='text'
-        placeholder={namePlaceholder}
-        value={nickName}
-        onChange={(e) => {
-          setNickName(e.target.value);
-        }}
-        onBlur={() => {
-          if (nickName !== queryProfile.data.nickName) {
-            checkName(nickName, setNickNameError);
-          } else {
-            setNickNameError({ isCheck: false });
-          }
-        }}
-      />
+      <NickNameAndImg>
+        <div className='nickName'>
+          <h4>닉네임</h4>
+          <input
+            type='text'
+            placeholder={namePlaceholder}
+            value={nickName}
+            onChange={(e) => {
+              setNickName(e.target.value);
+            }}
+            onBlur={() => {
+              if (nickName !== queryProfile.data.nickName) {
+                checkName(nickName, setNickNameError);
+              } else {
+                setNickNameError({ isCheck: false });
+              }
+            }}
+          />
+          <p>
+            새로운 닉네임을 입력하여, 자신만의 독특한 아이덴티티를 만들어보세요.
+          </p>
+        </div>
+        <ProfileImg initImg={queryProfile.data.profileImg} />
+      </NickNameAndImg>
       {nickNameError.isCheck && (
         <p className='errorMsg'>{nickNameError.message}</p>
       )}
-      <p>
-        새로운 닉네임을 입력하여, 자신만의 독특한 아이덴티티를 만들어보세요.
-      </p>
-      <h4>소개글</h4>
-      <div className='checkLength'>
+
+      <IntroHeadAndLength>
+        <h4>소개글</h4>
         <StringLength
           string={introdution}
           maxLength={500}
@@ -110,7 +158,7 @@ export default function ProfileSection() {
           }}
           size={"small"}
         />
-      </div>
+      </IntroHeadAndLength>
       <textarea
         name=''
         id=''

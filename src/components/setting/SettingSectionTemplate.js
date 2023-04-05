@@ -31,7 +31,7 @@ const Section = styled.div`
     padding: 0 1rem;
   }
   input {
-    width: 60%;
+    width: 100%;
     height: 2.5rem;
 
     padding: 0 1rem;
@@ -52,17 +52,10 @@ const Section = styled.div`
     color: ${({ theme }) => theme.warning};
   }
 
-  .checkLength {
-    width: 80%;
-    div {
-      text-align: end;
-    }
-  }
-
   ${media.small} {
     input,
     textarea,
-    .checkLength {
+    .introHeadAndLength {
       width: 100%;
     }
   }

@@ -10,6 +10,7 @@ import writeReducer from "./redux/writeReducer";
 import postState from "./redux/postState";
 import settingState from "./redux/settingState";
 import loginState from "./redux/loginState";
+import commonState from "./redux/commonState";
 
 let store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ let store = configureStore({
     post: postState,
     setting: settingState,
     login: loginState,
+    common: commonState,
   },
   devTools: process.env.NODE_ENV !== "production",
 });
