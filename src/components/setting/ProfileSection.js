@@ -9,9 +9,9 @@ import media from "../../lib/style/media";
 import { loginActions } from "../../redux/loginState";
 import { CancelButton, SettingButton } from "../common/Button";
 import useAlert from "../common/hooks/useAlert";
-import ProfileImg from "../common/ProfileImg";
 import Loading from "../Loading";
 import StringLength from "../WritePosts/StringLength";
+import ProfileImgSelector from "./ProfileImgSelector";
 import SettingSectionTemplate from "./SettingSectionTemplate";
 
 const NickNameAndImg = styled.div`
@@ -142,7 +142,7 @@ export default function ProfileSection() {
             새로운 닉네임을 입력하여, 자신만의 독특한 아이덴티티를 만들어보세요.
           </p>
         </div>
-        <ProfileImg initImg={queryProfile.data.profileImg} />
+        <ProfileImgSelector initImg={queryProfile.data.profileImg} />
       </NickNameAndImg>
       {nickNameError.isCheck && (
         <p className='errorMsg'>{nickNameError.message}</p>
