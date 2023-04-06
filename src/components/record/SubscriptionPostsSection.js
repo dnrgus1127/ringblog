@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
 import Loading from "../Loading";
-import SubPostItem from "./SubPostItem";
 import SubPostList from "./SubPostList";
 
 export default function SubscriptionPostsSection({ userId }) {
@@ -15,5 +14,5 @@ export default function SubscriptionPostsSection({ userId }) {
   );
 
   if (isLoading) return <Loading />;
-  return <SubPostList data={data} />;
+  return <SubPostList data={data.data} cnt={data.count} />;
 }
