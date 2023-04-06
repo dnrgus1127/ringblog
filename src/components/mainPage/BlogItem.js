@@ -124,12 +124,7 @@ export default function BlogItem({ data }) {
       <Link to={`/Post?index=${data._id}`}>
         <div className='thumbnail'>
           <img
-            src={
-              data.thumbnailPath !== "undefined" &&
-              data.thumbnailPath !== "null"
-                ? data.thumbnailPath
-                : blog1
-            }
+            src={data.thumbnailPath ? data.thumbnailPath : blog1}
             alt={"썸네일"}
           ></img>
         </div>
