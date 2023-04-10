@@ -6,7 +6,7 @@ import media from "../../lib/style/media";
 import useAlert from "./hooks/useAlert";
 
 const Window = styled.div`
-  position: absolute;
+  position: fixed;
   top: 1rem;
   left: 40vw;
   width: 20vw;
