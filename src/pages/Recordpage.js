@@ -37,7 +37,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const menuItems = ["구독한 블로거", "좋아요 누른 글", "내가 쓴 댓글"];
+const menuItems = ["구독한 블로그", "좋아요 누른 글", "내가 쓴 댓글"];
 export default function Recordpage({ theme, toggleTheme }) {
   const [menuIndex, setIndex] = useState(0);
 

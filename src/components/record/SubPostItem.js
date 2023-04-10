@@ -5,9 +5,8 @@ import { onlyDate } from "../../functions/dateFormat";
 import { Link } from "react-router-dom";
 
 const PostItem = styled.div`
-  width: 32rem;
-  min-width: 32rem;
-  height: 37rem;
+  width: 28rem;
+  height: 33rem;
   border-radius: 4px;
   overflow: hidden;
   margin-right: 2rem;
@@ -21,13 +20,13 @@ const PostItem = styled.div`
 
   .thumbnail {
     width: 100%;
-    height: 16rem;
+    height: 14rem;
     object-fit: cover;
     display: block;
   }
   .infomation {
-    padding: 1rem 2rem;
-    height: 16.5rem;
+    padding: 1.5rem 1.5rem;
+    height: 15.5rem;
     border-bottom: 1px solid ${({ theme }) => theme.borderColor};
   }
 
@@ -61,7 +60,7 @@ const SubInfomation = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  height: 4.5rem;
+  height: 3.5rem;
 
   p {
     font-size: 1rem;
@@ -71,7 +70,7 @@ const SubInfomation = styled.div`
   }
 `;
 
-export default function SubPostItem({ data, cnt }) {
+export default function SubPostItem({ data }) {
   const thumbnailPath = data.thumbnailPath ? data.thumbnailPath : defaultImg;
   const createDateTime = onlyDate(data.createDateTime);
 

@@ -139,7 +139,7 @@ export default function RecordSubscriptionBlock({ userId }) {
           #태그 #태그2 #태그3 #좋아요 #인스타그램 #REDUX #REACT #JAVASCRIPT
         </div>
       </OrderAndTag>
-      <SubscriptionPostsSection userId={userId} />
+      <SubscriptionPostsSection userId={userId} order={order} />
     </SubscriptionBox>
   );
 }
