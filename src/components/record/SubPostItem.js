@@ -3,6 +3,7 @@ import styled from "styled-components";
 import defaultImg from "../../images/blogThum.jpg";
 import { onlyDate } from "../../functions/dateFormat";
 import { Link } from "react-router-dom";
+import media from "../../lib/style/media";
 
 const PostItem = styled.div`
   width: 28rem;
@@ -12,7 +13,8 @@ const PostItem = styled.div`
   margin-right: 2rem;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
   background-color: ${({ theme }) => theme.bgElement};
-  transition: 0.3s all ease-in-out;
+  transition: 0.3s transform ease-in-out;
+
   &:hover {
     transform: translateY(-1.5rem);
   }
@@ -27,9 +29,12 @@ const PostItem = styled.div`
     display: block;
   }
   .infomation {
-    padding: 1.5rem 1.5rem;
+    padding: 1.5rem;
     height: 15.5rem;
     border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .title {
@@ -55,6 +60,59 @@ const PostItem = styled.div`
     color: ${({ theme }) => theme.greyColor};
     text-align: end;
   }
+
+  ${media.large} {
+    width: 22rem;
+    height: 26rem;
+    margin-right: 1rem;
+
+    .thumbnail {
+      height: 11rem;
+    }
+    .infomation {
+      height: 12rem;
+      padding: 1rem;
+    }
+    .preview {
+      height: 4rem;
+      -webkit-line-clamp: 2;
+      font-size: 1.2rem;
+    }
+
+    .date {
+      font-size: 1rem;
+    }
+
+    h4 {
+      font-size: 1.4rem;
+    }
+  }
+
+  ${media.medium} {
+    width: 100%;
+    height: 16rem;
+    margin-bottom: 1rem;
+    &:hover {
+      transform: none;
+    }
+    .thumbnail {
+      display: none;
+    }
+    .infomation {
+      height: 8em;
+    }
+    .preview {
+      height: 4rem;
+
+      -webkit-line-clamp: 2;
+    }
+    h4 {
+      font-size: 1.8rem;
+    }
+    .date {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 const SubInfomation = styled.div`
@@ -69,6 +127,17 @@ const SubInfomation = styled.div`
   }
   p:nth-child(1) {
     color: ${({ theme }) => theme.greyColor};
+  }
+
+  ${media.large} {
+    height: 3rem;
+
+    p {
+      font-size: 1rem;
+    }
+  }
+  ${media.medium} {
+    height: 3rem;
   }
 `;
 

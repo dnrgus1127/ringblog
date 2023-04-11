@@ -7,10 +7,18 @@ import Loading from "../Loading";
 import SubscriptionPostsSection from "./SubscriptionPostsSection";
 import useSubscription from "../../Hooks/Subscribe/useSubscription";
 import { Link } from "react-router-dom";
+import media from "../../lib/style/media";
 
 const SubscriptionBox = styled.div`
   margin-bottom: 2rem;
   overflow-x: hidden;
+
+  hr {
+    height: 1px;
+    border: none;
+    background-color: ${({ theme }) => theme.borderColor};
+    margin: 1rem 0;
+  }
 `;
 
 const BlogerInfomation = styled.div`
@@ -36,12 +44,17 @@ const BlogerInfomation = styled.div`
     color: ${({ theme }) => theme.btnColor};
   }
   .introdution {
+    display: -webkit-box;
+
     font-size: 1.6rem;
     color: ${({ theme }) => theme.greyColor};
     height: 7rem;
 
     overflow: hidden;
     text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
   .totalRcmnd {
     display: flex;
@@ -53,6 +66,25 @@ const BlogerInfomation = styled.div`
       margin-left: 0.2rem;
       height: 1.4rem;
       fill: ${({ theme }) => theme.color};
+    }
+  }
+
+  ${media.small} {
+    flex-direction: column;
+    align-items: center;
+
+    .textBox {
+      margin: 0;
+      width: 100%;
+    }
+    .introdution {
+      font-size: 1.4rem;
+      height: auto;
+      max-height: 6rem;
+    }
+
+    .unSubscribe {
+      display: none;
     }
   }
 `;
@@ -85,6 +117,13 @@ const OrderAndTag = styled.div`
   .hashTag {
     font-size: 1.2rem;
     color: ${({ theme }) => theme.greyColor};
+  }
+
+  ${media.small} {
+    flex-direction: column-reverse;
+    .orderBtns {
+      margin: 0;
+    }
   }
 `;
 
@@ -167,6 +206,7 @@ export default function RecordSubscriptionBlock({ userId }) {
         </div>
       </OrderAndTag>
       <SubscriptionPostsSection userId={userId} order={order} />
+      <hr></hr>
     </SubscriptionBox>
   );
 }

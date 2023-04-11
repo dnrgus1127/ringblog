@@ -1,7 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import useBoolean from "../../Hooks/useBoolean";
-import media from "../../lib/style/media";
 import FullScreenProfile from "./FullScreenProfile";
 
 const ProfilePreview = styled.div`
@@ -35,14 +34,6 @@ const ProfilePreview = styled.div`
       width: 17rem;
       height: 17rem;
     `}
-
-
-
-
-  ${media.small} {
-    width: 50vw;
-    height: 50vw;
-  }
 `;
 
 export default function ProfileImg({ src, size = "medium" }) {

@@ -2,10 +2,11 @@ import React from "react";
 import SubPostItem from "./SubPostItem";
 
 import styled from "styled-components";
+import media from "../../lib/style/media";
 
 const PostList = styled.div`
   display: flex;
-  width: 100vw;
+  width: 100%;
   padding: 2rem 0;
   align-items: center;
 
@@ -18,6 +19,30 @@ const PostList = styled.div`
     margin-right: 2rem;
     height: 9rem;
     padding: 0 0.5rem;
+  }
+
+  ${media.large} {
+    & > button {
+      font-size: 1.2rem;
+      padding: 0 0.2rem;
+    }
+  }
+  ${media.medium} {
+    flex-direction: column;
+    a {
+      width: 100%;
+    }
+
+    & > button {
+      width: 100%;
+      height: 3rem;
+      margin: 0;
+      margin-bottom: 1rem;
+    }
+  }
+
+  ${media.small} {
+    padding: 1rem 0;
   }
 `;
 

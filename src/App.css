@@ -65,7 +65,7 @@ body {
 }
 @media (max-width: 832px) {
   :root {
-    --width: 500px;
+    --width: 610px;
   }
 }
 @media (max-width: 640px) {
@@ -76,6 +76,9 @@ body {
   body {
     font-size: 1.4rem;
   }
+}
+
+@media (max-width: 375px) {
 }
 
 @media (min-width: 1400px) {
