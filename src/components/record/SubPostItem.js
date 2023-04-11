@@ -22,6 +22,8 @@ const PostItem = styled.div`
     width: 100%;
     height: 14rem;
     object-fit: cover;
+
+    //감싸고 있는 div가 텍스트를 위한 공간을 남기는것을 막기 위해서 display block 부여
     display: block;
   }
   .infomation {

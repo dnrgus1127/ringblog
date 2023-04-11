@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import useBoolean from "../../Hooks/useBoolean";
 import media from "../../lib/style/media";
+import FullScreenProfile from "./FullScreenProfile";
 
 const ProfilePreview = styled.div`
   border: 2px solid ${({ theme }) => theme.borderColor};
@@ -12,6 +14,7 @@ const ProfilePreview = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
 
   ${(props) =>
@@ -41,10 +44,17 @@ const ProfilePreview = styled.div`
     height: 50vw;
   }
 `;
+
 export default function ProfileImg({ src, size = "medium" }) {
+  const [onFullScreen, onToggleFullscreen] = useBoolean(false);
   return (
-    <ProfilePreview size={size}>
-      <img src={src} alt='유저 프로필' />
-    </ProfilePreview>
+    <>
+      {onFullScreen && (
+        <FullScreenProfile src={src} close={onToggleFullscreen} />
+      )}
+      <ProfilePreview size={size}>
+        <img src={src} alt='유저 프로필' onClick={onToggleFullscreen} />
+      </ProfilePreview>
+    </>
   );
 }

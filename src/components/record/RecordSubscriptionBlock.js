@@ -8,6 +8,7 @@ import SubscriptionPostsSection from "./SubscriptionPostsSection";
 
 const SubscriptionBox = styled.div`
   margin-bottom: 2rem;
+  overflow-x: hidden;
 `;
 
 const BlogerInfomation = styled.div`
@@ -40,6 +41,7 @@ const BlogerInfomation = styled.div`
     justify-content: end;
     svg {
       margin-top: 0.2rem;
+      margin-left: 0.2rem;
       height: 1.4rem;
       fill: ${({ theme }) => theme.color};
     }
@@ -84,6 +86,11 @@ export default function RecordSubscriptionBlock({ userId }) {
     return await response.json();
   });
 
+  const totalRcmnd = useQuery(["totlRcmnd", userId], async () => {
+    const response = await fetch(`/rcmnd/usersTotalRcmnd?userId=${userId}`);
+    return response.json();
+  });
+
   if (isLoading) return <Loading />;
   return (
     <SubscriptionBox>
@@ -99,7 +106,9 @@ export default function RecordSubscriptionBlock({ userId }) {
             {data.introdution.length === 0 && "소개글이 없습니다."}
           </p>
           <p className='totalRcmnd'>
-            234
+            {!totalRcmnd.isLoading && totalRcmnd.data.totalRcmnd
+              ? totalRcmnd.data.totalRcmnd
+              : 0}
             <svg
               clipRule='evenodd'
               fillRule='evenodd'
