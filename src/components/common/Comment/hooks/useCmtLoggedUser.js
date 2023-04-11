@@ -1,23 +1,18 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 
-export default function useCmtLoggedUser(reFetch) {
-  const { loggedUser, loggedIn } = useSelector((state) => state.login);
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState();
-  const [error, setError] = useState();
+export default function useCmtLoggedUser() {
+  const { loggedUser } = useSelector((state) => state.login);
 
-  useEffect(() => {
-    if (!loggedIn) {
-      setLoading(false);
-      return;
+  const { data, isLoading, isError, refetch } = useQuery(
+    ["commentsWrittenUsers", loggedUser.userId],
+    async () => {
+      const response = await fetch(
+        `/allCommentByUser?userId=${loggedUser.userId}`
+      );
+      return response.json();
     }
-    fetch(`/allCommentByUser?userId=${loggedUser.userId}`)
-      .then((res) => res.json())
-      .then((result) => setData(result))
-      .then(() => setLoading(false))
-      .catch(setError);
-  }, [loggedUser, loggedIn, reFetch]);
+  );
 
-  return { data, loading, error };
+  return { data, isLoading, isError, refetch };
 }

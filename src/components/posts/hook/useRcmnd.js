@@ -21,7 +21,7 @@ export function useRcmnd(postId) {
   // 로그인 되어 있을 때만
   useEffect(() => {
     if (loggedIn) {
-      fetch(`/rcmnd?postId=${postId}&username=${loggedUser.username}`)
+      fetch(`/rcmnd?postId=${postId}&userId=${loggedUser.userId}`)
         .then((res) => res.json())
         .then((data) => {
           setRcmnd(data.result);
@@ -31,7 +31,7 @@ export function useRcmnd(postId) {
 
   // 좋아요 해제
   const unRcmnd = () => {
-    fetch(`/rcmnd?postId=${postId}&username=${loggedUser.username}`, {
+    fetch(`/rcmnd?postId=${postId}&userId=${loggedUser.userId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -47,7 +47,7 @@ export function useRcmnd(postId) {
   const doRcmnd = () => {
     fetch(`/rcmnd`, {
       method: "POST",
-      body: JSON.stringify({ postId: postId, username: loggedUser.username }),
+      body: JSON.stringify({ postId: postId, userId: loggedUser.userId }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())

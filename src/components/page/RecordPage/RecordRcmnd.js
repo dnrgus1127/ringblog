@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useRcmndList from "../../../Hooks/Rcmnd/useRcmndList";
 import Error from "../../common/Error/Error";
@@ -31,16 +32,19 @@ const GridLayout = styled.div`
 `;
 
 export default function RecordRcmnd() {
-  const { loading, error, userComments } = useRcmndList();
+  const { rcmndPostList, isError, rcmndListLoading } = useRcmndList();
+  const { loggedIn } = useSelector((state) => state.login);
 
-  if (loading) return <Loading text={"로딩중"} />;
-  if (error) return error;
-  if (userComments.length === 0)
+  if (!loggedIn) return <Error text={"로그인이 필요합니다."} />;
+  if (rcmndListLoading) return <Loading text={"로딩중"} />;
+  if (isError) return <Error text={"오류 발생"} />;
+
+  if (rcmndPostList.length === 0)
     return <Error text={"좋아요한 글이 없습니다."} icon={"💔"} />;
 
   return (
     <GridLayout>
-      {userComments.map((i, idx) => (
+      {rcmndPostList.map((i, idx) => (
         <BlogItem key={idx} idx={idx} data={i} />
       ))}
     </GridLayout>

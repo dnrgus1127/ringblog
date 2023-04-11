@@ -1,23 +1,23 @@
-import React, { useCallback } from "react";
+import React from "react";
 import useCmtLoggedUser from "../../common/Comment/hooks/useCmtLoggedUser";
 import Loading from "../../Loading";
 import Error from "../../common/Error/Error";
 import CommentList from "../../posts/comments/CommentList";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function RecordComments() {
-  const [reFetch, setReFetch] = useState();
-  const forceUpdate = useCallback(() => setReFetch({}), []);
+  const { loggedIn } = useSelector((state) => state.login);
 
-  const { loading, data, error } = useCmtLoggedUser(reFetch);
+  const { data: CmtList, isLoading, isError, refetch } = useCmtLoggedUser();
+  //로그인 검증 추가 필요
 
-  if (loading) return <Loading text={"로딩중"} />;
-  if (error) return <div>Error</div>;
-  if (data) {
-    if (data.length === 0) {
-      return <Error text={"작성한 댓글이 없습니다."} icon={"💬"} />;
-    }
-    return <CommentList data={data} update={forceUpdate} />;
+  if (!loggedIn) return <Error text={"로그인이 필요합니다."} />;
+
+  if (isLoading) return <Loading text={"로딩중"} />;
+  if (isError) return <Error text='데이터 에러' />;
+
+  if (CmtList.length === 0) {
+    return <Error text={"작성한 댓글이 없습니다."} icon={"💬"} />;
   }
-  return <Error text={"로그인이 필요합니다."} />;
+  return <CommentList data={CmtList} update={refetch} />;
 }
