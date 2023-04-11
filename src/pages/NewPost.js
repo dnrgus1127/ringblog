@@ -145,6 +145,7 @@ export default function NewPost() {
       return await response.json();
     },
     {
+      refetchOnWindowFocus: false,
       enabled: postNumber > 0,
     }
   );
@@ -158,6 +159,8 @@ export default function NewPost() {
       return response.json();
     },
     {
+      refetchOnWindowFocus: false,
+
       enabled: postNumber > 0,
     }
   );
