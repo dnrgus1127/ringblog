@@ -1,9 +1,12 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import useAlert from "../common/hooks/useAlert";
 import Loading from "../Loading";
 import SubPostList from "./SubPostList";
+
+// 보여지는 포스트 수
 const limit = 3;
 
 export default function SubscriptionPostsSection({ userId, order }) {
@@ -44,7 +47,12 @@ export default function SubscriptionPostsSection({ userId, order }) {
     setPageIndex((prev) => (prev > 0 ? prev - 1 : 0));
   };
 
+  useEffect(() => {
+    setPageIndex(0);
+  }, [order]);
+
   if (isLoading || isFetchingNextPage) return <Loading />;
+  if (!data.pages[pageIndex]) return;
   return (
     <SubPostList
       data={data.pages[pageIndex]}
