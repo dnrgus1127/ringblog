@@ -27,33 +27,37 @@ const Btn = styled.button`
   }
 `;
 
-export default function PostEditBtn({ index }) {
+export default function PostEditBtn({ index, auth }) {
   const navigate = useNavigate();
 
   return (
     <Wrapper>
-      <Link to={`/writeNewPost?index=${index}`}>
-        <Btn>수정</Btn>
-      </Link>
+      {auth && (
+        <>
+          <Link to={`/writeNewPost?index=${index}`}>
+            <Btn>수정</Btn>
+          </Link>
+          <Btn
+            onClick={() => {
+              if (window.confirm("정말로 삭제하시겠습니까?") === true) {
+                deletePost(index)
+                  .then(alert("삭제되었습니다."))
+                  .then(navigate("/"));
+              } else {
+                alert("삭제되지 않습니다.");
+              }
+            }}
+          >
+            삭제
+          </Btn>
+        </>
+      )}
       <Btn
         onClick={() => {
           navigate(-1);
         }}
       >
         목록
-      </Btn>
-      <Btn
-        onClick={() => {
-          if (window.confirm("정말로 삭제하시겠습니까?") === true) {
-            deletePost(index)
-              .then(alert("삭제되었습니다."))
-              .then(navigate("/"));
-          } else {
-            alert("삭제되지 않습니다.");
-          }
-        }}
-      >
-        삭제
       </Btn>
     </Wrapper>
   );

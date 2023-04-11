@@ -136,9 +136,7 @@ export default function PostContents({ post, index }) {
     <Container>
       <Title as={"h1"}>{post.title}</Title>
 
-      {loggedUser.username === post.name ? (
-        <PostEditBtn index={post._id} />
-      ) : null}
+      <PostEditBtn index={post._id} auth={loggedUser.username === post.name} />
 
       <div className='writerAndWriteDate'>
         <Link to={`/UserBlog?writer=${post.writer}`}>
