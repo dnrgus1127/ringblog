@@ -129,15 +129,27 @@ const OrderAndTag = styled.div`
 
 export default function RecordSubscriptionBlock({ userId }) {
   const [order, setOrder] = useState(0);
-  const { data, isLoading } = useQuery(["getProfileImg", userId], async () => {
-    const response = await fetch(`/setting/userProfile?userId=${userId}`);
-    return await response.json();
-  });
+  const { data, isLoading } = useQuery(
+    ["getProfileImg", userId],
+    async () => {
+      const response = await fetch(`/setting/userProfile?userId=${userId}`);
+      return await response.json();
+    },
+    {
+      staleTime: 60000,
+    }
+  );
 
-  const totalRcmnd = useQuery(["totlRcmnd", userId], async () => {
-    const response = await fetch(`/rcmnd/usersTotalRcmnd?userId=${userId}`);
-    return response.json();
-  });
+  const totalRcmnd = useQuery(
+    ["totlRcmnd", userId],
+    async () => {
+      const response = await fetch(`/rcmnd/usersTotalRcmnd?userId=${userId}`);
+      return response.json();
+    },
+    {
+      staleTime: 60000,
+    }
+  );
 
   const { unSubscribe } = useSubscription({ writer: userId });
 

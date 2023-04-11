@@ -29,6 +29,7 @@ export default function SubscriptionPostsSection({ userId, order }) {
           return null;
         }
       },
+      staleTime: 60000,
     });
 
   const handlepage = () => {

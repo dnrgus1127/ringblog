@@ -7,12 +7,18 @@ import RecordSubscriptionBlock from "../../components/record/RecordSubscriptionB
 export default function RecordSubscription() {
   const { userId } = useSelector((state) => state.login.loggedUser);
 
-  const { data, isLoading } = useQuery(["loadSubscribed", userId], async () => {
-    const response = await fetch(`/subscribed?userId=${userId}`);
-    const result = await response.json();
+  const { data, isLoading } = useQuery(
+    ["loadSubscribed", userId],
+    async () => {
+      const response = await fetch(`/subscribed?userId=${userId}`);
+      const result = await response.json();
 
-    return result;
-  });
+      return result;
+    },
+    {
+      staleTime: 60000,
+    }
+  );
 
   if (isLoading) return <Loading />;
   return (
