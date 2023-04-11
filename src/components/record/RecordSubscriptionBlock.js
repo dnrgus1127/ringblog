@@ -5,6 +5,8 @@ import ProfileImg from "../common/ProfileImg";
 import defaultImg from "../../images/thumbnail.jpg";
 import Loading from "../Loading";
 import SubscriptionPostsSection from "./SubscriptionPostsSection";
+import useSubscription from "../../Hooks/Subscribe/useSubscription";
+import { Link } from "react-router-dom";
 
 const SubscriptionBox = styled.div`
   margin-bottom: 2rem;
@@ -17,6 +19,13 @@ const BlogerInfomation = styled.div`
   .textBox {
     margin-left: 3rem;
     width: 80%;
+  }
+  .unSubscribe {
+    text-decoration: underline;
+    color: ${({ theme }) => theme.warning};
+    &:hover {
+      font-weight: 800;
+    }
   }
   .nickName,
   .introdution,
@@ -91,6 +100,8 @@ export default function RecordSubscriptionBlock({ userId }) {
     return response.json();
   });
 
+  const { unSubscribe } = useSubscription({ writer: userId });
+
   if (isLoading) return <Loading />;
   return (
     <SubscriptionBox>
@@ -100,7 +111,14 @@ export default function RecordSubscriptionBlock({ userId }) {
           size='small'
         />
         <div className='textBox'>
-          <h2 className='nickName'>{data.nickName}</h2>
+          <div className='flex-between'>
+            <Link to={`/UserBlog?writer=${data.userId}`}>
+              <h2 className='nickName'>{data.nickName}</h2>
+            </Link>
+            <button className='unSubscribe' onClick={unSubscribe}>
+              이 블로그 구독 취소하기
+            </button>
+          </div>
           <p className='introdution'>
             {data.introdution}
             {data.introdution.length === 0 && "소개글이 없습니다."}

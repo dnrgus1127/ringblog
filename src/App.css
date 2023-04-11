@@ -27,6 +27,17 @@ body {
   font-size: 1.6rem;
 }
 
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 :root {
   --bg-page: #121212;
   --gap: 80px;
