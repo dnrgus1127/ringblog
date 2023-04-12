@@ -5,6 +5,7 @@ const SettingSection = styled.div`
   h3 {
     margin-bottom: 1rem;
   }
+  margin-bottom: 1rem;
 `;
 export default function PublishSettingSection({ title, children }) {
   return (

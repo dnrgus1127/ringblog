@@ -46,7 +46,6 @@ export default function PublishSeriesBlock() {
   };
   return (
     <div>
-      {" "}
       {selectedSeries.id ? (
         <SelectedSeries>
           <div className='seriesName' onClick={onSelectSeries}>
