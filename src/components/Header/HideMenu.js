@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import useAuth from "../../Hooks/login/useAuth";
+import { loginActions } from "../../redux/loginState";
 import { settingActions } from "../../redux/settingState";
+import { CancelButton } from "../common/Button";
 
 const Container = styled.div`
   position: absolute;
@@ -65,35 +67,33 @@ export default function HideMenu({ trigger, onToggleTrigger }) {
   const { logout } = useAuth();
 
   const userInfo = (
-    <UserMenu>
-      <div className='border'>
-        <h2>{loggedUser.username}님</h2>
-        <ul>
-          <Link to={`/UserBlog?writer=${loggedUser.userId}`}>
-            <li>내 블로그</li>
-          </Link>
-          <Link to={"/RecordPage"}>
-            <li>읽기 목록</li>
-          </Link>
-          <li
-            onClick={() => {
-              toggleSetting();
-              onToggleTrigger();
-            }}
-          >
-            설정
-          </li>
-          <li
-            onClick={() => {
-              logout();
-              onToggleTrigger();
-            }}
-          >
-            로그아웃
-          </li>
-        </ul>
-      </div>
-    </UserMenu>
+    <div className='border'>
+      <h2>{loggedUser.username}님</h2>
+      <ul>
+        <Link to={`/UserBlog?writer=${loggedUser.userId}`}>
+          <li>내 블로그</li>
+        </Link>
+        <Link to={"/RecordPage"}>
+          <li>읽기 목록</li>
+        </Link>
+        <li
+          onClick={() => {
+            toggleSetting();
+            onToggleTrigger();
+          }}
+        >
+          설정
+        </li>
+        <li
+          onClick={() => {
+            logout();
+            onToggleTrigger();
+          }}
+        >
+          로그아웃
+        </li>
+      </ul>
+    </div>
   );
 
   return (
@@ -105,7 +105,21 @@ export default function HideMenu({ trigger, onToggleTrigger }) {
       }
     >
       <div className='wrap'>
-        {loggedIn ? userInfo : null}
+        <UserMenu>
+          {!loggedIn && (
+            <CancelButton
+              size='small'
+              onClick={() => {
+                dispatch(loginActions.onToggleLoginForm());
+                onToggleTrigger();
+              }}
+            >
+              로그인
+            </CancelButton>
+          )}
+          {loggedIn && userInfo}
+        </UserMenu>
+
         <SiteMap></SiteMap>
       </div>
     </Container>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LoginComponent from "./LoginComponent";
 import RegisterComponent from "./RegisterComponent";
 import { ColorButton } from "../../Button";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   width: 100vw;
@@ -18,7 +19,7 @@ const CenterWrap = styled.div`
   width: calc(var(--width) / 2);
   background-color: ${({ theme }) => theme.bgColor};
   padding: 2rem 4rem;
-  border-radius: 8px;
+  border-radius: 4px;
 
   h1,
   h2,
@@ -61,11 +62,14 @@ const XButton = styled(ColorButton)`
 `;
 
 export default function LoginForm({ onOff }) {
+  const { loggedIn } = useSelector((state) => state.login);
   const [sign, setSign] = useState(false);
 
   const changeSign = () => {
     setSign((prevState) => !prevState);
   };
+
+  if (loggedIn) return;
 
   return (
     <Container>

@@ -5,10 +5,12 @@ import { useLogin } from "../../Hooks/useLogin";
 import { ColorButton } from "../Button";
 import Gnb from "../Gnb";
 import HideMenu from "./HideMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SettingScreen from "../../container/Setting/SettingPage";
 import LoginForm from "../common/Login/LoginForm";
 import LogOutButton from "../common/Login/LogOutButton";
+import media from "../../lib/style/media";
+import { loginActions } from "../../redux/loginState";
 
 const HeaderCon = styled.header`
   position: fixed;
@@ -52,7 +54,7 @@ const ContentWrap = styled.div`
   .loginMenus {
     display: flex;
     align-items: center;
-    @media (max-width: 1100px) {
+    ${media.small} {
       display: none;
     }
   }
@@ -71,12 +73,15 @@ const LoginButton = styled(ColorButton)`
 
 export default function Header({ toggleTheme, theme }) {
   const [hideMenu, setHideMenu] = useState(false);
-  const [loginForm, setLoginFrom] = useState(false);
+  const dispatch = useDispatch();
+  const { onLoginForm: loginForm } = useSelector(
+    (state) => state.login.loginForm
+  );
   const { loggedUser, loggedIn } = useSelector((state) => state.login);
   const { settingVisible } = useSelector((state) => state.setting);
 
   const ControllLoginForm = () => {
-    setLoginFrom(!loginForm);
+    dispatch(loginActions.onToggleLoginForm());
   };
 
   // 새로고침 시 로그인 여부 확인
@@ -88,13 +93,13 @@ export default function Header({ toggleTheme, theme }) {
       <ContentWrap>
         <Logo />
 
+        {loginForm ? (
+          <LoginFromWrap>
+            <LoginForm onOff={ControllLoginForm} />
+          </LoginFromWrap>
+        ) : null}
         <div style={{ display: "flex", alignItems: "center" }}>
           <div className='loginMenus'>
-            {loginForm ? (
-              <LoginFromWrap>
-                <LoginForm onOff={ControllLoginForm} />
-              </LoginFromWrap>
-            ) : null}
             {loggedIn === true ? (
               <p className='userName'>
                 <span>{loggedUser.username}</span>님 환영합니다.

@@ -6,6 +6,9 @@ const initialState = {
     userId: "",
   },
   loggedIn: false,
+  loginForm: {
+    onLoginForm: false,
+  },
 };
 
 const loginSlice = createSlice({
@@ -25,6 +28,9 @@ const loginSlice = createSlice({
         userId: "",
       };
       state.loggedIn = false;
+    },
+    onToggleLoginForm(state) {
+      state.loginForm.onLoginForm = !state.loginForm.onLoginForm;
     },
   },
 });
