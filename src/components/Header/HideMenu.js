@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import useAuth from "../../Hooks/login/useAuth";
 import { settingActions } from "../../redux/settingState";
 
 const Container = styled.div`
@@ -53,13 +54,15 @@ const UserMenu = styled.div`
   }
 `;
 
-export default function HideMenu({ trigger }) {
+export default function HideMenu({ trigger, onToggleTrigger }) {
   const { loggedUser, loggedIn } = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   const toggleSetting = () => {
     dispatch(settingActions.onToggleVisible());
   };
+
+  const { logout } = useAuth();
 
   const userInfo = (
     <UserMenu>
@@ -72,8 +75,22 @@ export default function HideMenu({ trigger }) {
           <Link to={"/RecordPage"}>
             <li>읽기 목록</li>
           </Link>
-          <li onClick={toggleSetting}>설정</li>
-          <li>로그아웃</li>
+          <li
+            onClick={() => {
+              toggleSetting();
+              onToggleTrigger();
+            }}
+          >
+            설정
+          </li>
+          <li
+            onClick={() => {
+              logout();
+              onToggleTrigger();
+            }}
+          >
+            로그아웃
+          </li>
         </ul>
       </div>
     </UserMenu>
