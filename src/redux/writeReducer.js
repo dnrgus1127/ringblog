@@ -14,6 +14,7 @@ const initialState = {
     title: "",
     preview: "",
     contents: "",
+    permission: true,
   },
 };
 
@@ -68,6 +69,10 @@ const writeSlice = createSlice({
     setEdit(state, action) {
       state.edit = true;
       state.postNumber = action.payload;
+    },
+
+    setPermission(state, action) {
+      state.data.permission = action.payload;
     },
   },
 });
