@@ -92,6 +92,7 @@ const PostItem = styled.div`
     width: 100%;
     height: 16rem;
     margin-bottom: 1rem;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
     &:hover {
       transform: none;
     }
@@ -146,8 +147,8 @@ export default function SubPostItem({ data }) {
   const createDateTime = onlyDate(data.createDateTime);
 
   return (
-    <Link to={`/Post?index=${data._id}`}>
-      <PostItem>
+    <PostItem>
+      <Link to={`/Post?index=${data._id}`}>
         <img
           className='thumbnail'
           src={thumbnailPath}
@@ -163,7 +164,7 @@ export default function SubPostItem({ data }) {
           <p>좋아요 : {data.rcmnd_cnt ? data.rcmnd_cnt : 0}개</p>
           <p>댓글 : {data.comment_cnt ? data.comment_cnt : 0}개</p>
         </SubInfomation>
-      </PostItem>
-    </Link>
+      </Link>
+    </PostItem>
   );
 }

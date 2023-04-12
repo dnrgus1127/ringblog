@@ -11,7 +11,6 @@ import media from "../../lib/style/media";
 
 const SubscriptionBox = styled.div`
   margin-bottom: 2rem;
-  overflow-x: hidden;
 
   hr {
     height: 1px;
