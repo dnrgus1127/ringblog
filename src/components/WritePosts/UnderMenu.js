@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import media from "../../lib/style/media";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement2};
@@ -25,6 +26,10 @@ const Btn = styled.button`
   cursor: pointer;
   &:hover {
     background-color: rgba(64, 64, 64, 0.7);
+  }
+
+  ${media.medium} {
+    font-size: 1.4rem;
   }
 
   @media (max-width: 640px) {

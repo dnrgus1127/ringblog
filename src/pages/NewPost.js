@@ -13,6 +13,7 @@ import PostEditor from "../components/WritePosts/PostEditor";
 import { domain } from "../lib/fetch/domain";
 import { useQuery } from "react-query";
 import Loading from "../components/Loading";
+import media from "../lib/style/media";
 
 const Container = styled.div`
   width: 100wh;
@@ -27,7 +28,7 @@ const Container = styled.div`
 
   position: relative;
 
-  @media (max-width: 640px) {
+  ${media.medium} {
     .writeSection {
       width: 100%;
     }
@@ -74,7 +75,7 @@ const Left = styled.div`
     border: 1.5px solid ${({ theme }) => theme.lineColor};
   }
 
-  @media (max-width: 640px) {
+  ${media.medium} {
     .inputArea {
       padding: 0 2rem;
     }
@@ -106,7 +107,7 @@ const Right = styled.div`
   &::-webkit-scrollbar-track {
     background-color: ${({ theme }) => theme.oppositeColor};
   }
-  @media (max-width: 640px) {
+  ${media.medium} {
     display: none;
   }
 `;
@@ -185,7 +186,7 @@ export default function NewPost() {
     }
   }, [data, dispatch, edit]);
 
-  // 로그인 검증 // TODO 로그인한 유저와 작성자가 일치하는지 확인할 필요 있음
+  // 로그인 검증 // TODO 로그인한 유저와 작성자가 일치하는지 확인할 필요 있음 when 수정 시에
   useEffect(() => {
     if (!loggedIn) {
       alert("로그인이 필요합니다.");
