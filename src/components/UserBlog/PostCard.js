@@ -56,6 +56,11 @@ const TitleBox = styled.div`
       fill: currentColor;
     }
   }
+  .permission {
+    background-color: ${({ theme }) => theme.warning};
+    padding: 0.2rem 1rem;
+    border-radius: 4px;
+  }
 `;
 
 export default function PostCard({ item }) {
@@ -69,7 +74,10 @@ export default function PostCard({ item }) {
           </div>
         )}
         <TitleBox>
-          <h2>{item.title}</h2>
+          <div className='flex-between'>
+            <h2>{item.title}</h2>
+            {!item.permission && <p className='permission'> 비공개</p>}
+          </div>
           <p className='preview'>{item.preview}</p>
           <div className='subInfo'>
             <div className='rcmndCount'>

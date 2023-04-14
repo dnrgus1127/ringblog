@@ -42,7 +42,7 @@ export default function UserBlog({ theme, toggleTheme }) {
       case 1:
         return <PostCardList writer={writer} uri={"/popularPosts"} />;
       case 2:
-        return <PageBySeries>3</PageBySeries>;
+        return <PageBySeries />;
       default:
         return <div>error</div>;
     }

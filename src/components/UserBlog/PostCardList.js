@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
-import { Fetch } from "../Fetch";
+import Error from "../common/Error/Error";
+import Loading from "../Loading";
 import PostCard from "./PostCard";
 import SearchBox from "./SearchBox";
 
@@ -29,21 +31,26 @@ const NoPost = styled.div`
 `;
 
 export default function PostCardList({ uri, writer }) {
-  const [fetchUri, setUri] = useState();
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    if (searchTerm === "") {
-      setUri(`${uri}?writer=${writer}`);
-    } else {
-      setUri(`${uri}?writer=${writer}&search=${searchTerm}`);
+  const { data, isLoading, isError } = useQuery(
+    ["posts", uri, searchTerm],
+    async () => {
+      const response = await fetch(
+        `${uri}?writer=${writer}${
+          searchTerm !== "" ? `&search=${searchTerm}` : ``
+        }`
+      );
+
+      return response.json();
     }
-  }, [writer, searchTerm, uri]);
+  );
+  if (isLoading) return <Loading />;
+  if (isError) return <Error text='데이터 로딩 에러' />;
   return (
     <Container>
       <SearchBox onBlur={setSearchTerm} />
-
-      <Fetch uri={fetchUri} renderSuccess={Contents} />
+      {data && <Contents data={data} />}
     </Container>
   );
 }

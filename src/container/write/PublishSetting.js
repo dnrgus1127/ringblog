@@ -56,9 +56,6 @@ export default function PublishSetting() {
     if (publishData.thumbnailPath) {
       serverThumbNailPath = await uploadThumbNail();
     }
-    if (!serverThumbNailPath) {
-      //왜 추가한거지?
-    }
 
     if (!edit) {
       publish({
