@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 
 import styled from "styled-components";
 
@@ -21,6 +22,9 @@ const SeriesItem = styled.div`
 `;
 
 export default function PublishSeriesList({ list, selectedId, onSelectedId }) {
+  useEffect(() => {
+    onSelectedId(list[0]._id);
+  }, [list, onSelectedId]);
   return (
     <SeriesList>
       {list.map((item) => (

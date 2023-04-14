@@ -32,7 +32,7 @@ const CancelButton = styled(BtnCss)``;
 const ConfirmButton = styled(ColorButton)``;
 
 export default function PublishSeriesCreate({ onCreateSeries }) {
-  const [showBtns, onToggleShowBtns] = useBoolean(false);
+  const [showBtns, onToggleShowBtns, setShowBtns] = useBoolean(false);
   const [seriesTitle, setSeriesTitle] = useState("");
 
   return (
@@ -42,7 +42,7 @@ export default function PublishSeriesCreate({ onCreateSeries }) {
         value={seriesTitle}
         placeholder='시리즈 이름을 입력하세요..'
         onFocus={() => {
-          onToggleShowBtns();
+          setShowBtns(true);
         }}
         onChange={(e) => setSeriesTitle(e.target.value)}
       />
@@ -51,7 +51,11 @@ export default function PublishSeriesCreate({ onCreateSeries }) {
           <CancelButton onClick={onToggleShowBtns}>취소</CancelButton>
           <ConfirmButton
             onClick={() => {
-              onCreateSeries(seriesTitle);
+              const result = onCreateSeries(seriesTitle);
+              if (result) {
+                setSeriesTitle("");
+                onToggleShowBtns();
+              }
             }}
           >
             시리즈 추가
