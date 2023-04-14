@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BlogItem from "./BlogItem";
 import Loading from "../Loading";
 import SearchBox from "../UserBlog/SearchBox";
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
+
+import { useRef } from "react";
+import { useCallback } from "react";
 
 const GridLayout = styled.div`
   width: var(--width);
@@ -58,14 +61,52 @@ const EmptyData = styled.div`
 
 export default function BlogList() {
   const [search, setSearch] = useState("");
+  const containRef = useRef(null);
 
-  const { data, isLoading, error } = useQuery(
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery(
     [`PostList`, search],
-    async () => {
-      const response = await fetch(`/posts${search && `?search=${search}`}`);
+    async ({ pageParam = 0 }) => {
+      const response = await fetch(
+        `/posts/Infinite?${search && `search=${search}`}&offset=${pageParam}`
+      );
       return response.json();
+    },
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.nextPage;
+      },
+      refetchOnWindowFocus: false,
     }
   );
+
+  const handleNextPage = useCallback(() => {
+    hasNextPage && fetchNextPage();
+  }, [hasNextPage, fetchNextPage]);
+
+  useEffect(() => {
+    const handleScroll = (event) => {
+      const { clientHeight } = containRef.current;
+      const { scrollY } = window;
+      // 스크롤이 끝에 닿으면 다음 페이지를 가져옵니다.
+      if (clientHeight < scrollY + 1000) {
+        !isFetchingNextPage && handleNextPage();
+      }
+    };
+    const timer = setInterval(() => {
+      window.addEventListener("scroll", handleScroll);
+    }, 100);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleNextPage, isFetchingNextPage]);
 
   function RenderItems() {
     if (error) return <div>에러</div>;
@@ -75,11 +116,13 @@ export default function BlogList() {
     }
     if (data)
       return (
-        <GridLayout>
-          {data.map((i, idx) => (
-            <BlogItem key={idx} idx={idx} data={i} />
-          ))}
-        </GridLayout>
+        <>
+          {data.pages.map((page, idx) =>
+            page.postList.map((i, idx) => (
+              <BlogItem key={idx} idx={idx} data={i} />
+            ))
+          )}
+        </>
       );
   }
 
@@ -90,7 +133,9 @@ export default function BlogList() {
           <SearchBox onBlur={setSearch} />
         </div>
       </SearchWrap>
-      <RenderItems />
+      <GridLayout ref={containRef}>
+        <RenderItems />
+      </GridLayout>
     </React.Fragment>
   );
 }
