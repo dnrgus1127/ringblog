@@ -32,6 +32,7 @@ export default function StringLength({
   maxLength = 5000,
   overLimit,
   size = "medium",
+  className,
 }) {
   useEffect(() => {
     if (string.length > maxLength) {
@@ -41,7 +42,7 @@ export default function StringLength({
     }
   }, [string, overLimit, maxLength]);
   return (
-    <Container size={size}>
+    <Container size={size} className={className}>
       <span
         style={string.length > maxLength ? { color: "red" } : { color: "grey" }}
       >

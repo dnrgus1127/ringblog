@@ -51,7 +51,11 @@ export default function PostEditor() {
           <hr />
         </div>
         <MarkdownInput data={postData.contents} onChange={changeContents} />
-        <StringLength string={postData.contents} overLimit={() => {}} />
+        <StringLength
+          string={postData.contents}
+          overLimit={() => {}}
+          className='length'
+        />
       </div>
       <UnderMenu onClick={MenuOnOff} />
     </>
