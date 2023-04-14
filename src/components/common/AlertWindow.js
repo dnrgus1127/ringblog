@@ -9,7 +9,7 @@ const Window = styled.div`
   position: fixed;
   top: 1rem;
   left: 40vw;
-  width: 20vw;
+  min-width: 20vw;
   background-color: ${({ theme }) => theme.bgElement3};
   border: 1px solid ${({ theme }) => theme.borderColor};
   border-radius: 4px;

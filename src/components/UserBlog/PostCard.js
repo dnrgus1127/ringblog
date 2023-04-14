@@ -37,6 +37,8 @@ const TitleBox = styled.div`
     font-weight: 400;
     color: ${({ theme }) => theme.greyColor};
     margin-bottom: 4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .subInfo {
