@@ -1,7 +1,7 @@
 import { useMutation } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { timeStamp } from "../../../functions/time";
+import { FullStamp } from "../../../functions/time";
 
 export default function useWrite() {
   const { loggedUser } = useSelector((state) => state.login);
@@ -15,8 +15,8 @@ export default function useWrite() {
       body: JSON.stringify({
         ...data,
         writer: loggedUser.userId,
-        createDateTime: timeStamp(),
-        lastMdfdDay: timeStamp(),
+        createDateTime: FullStamp(),
+        lastMdfdDay: FullStamp(),
         seriesId: selectedSeries.id && selectedSeries.id,
       }),
       headers: { "Content-Type": "application/json" },
@@ -34,7 +34,7 @@ export default function useWrite() {
       method: "PATCH",
       body: JSON.stringify({
         ...data,
-        lastMdfdDay: timeStamp(),
+        lastMdfdDay: FullStamp(),
         seriesId: selectedSeries.id && selectedSeries.id,
       }),
       headers: { "Content-Type": "application/json" },
