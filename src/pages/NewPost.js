@@ -142,7 +142,7 @@ export default function NewPost() {
   const { data, isLoading } = useQuery(
     ["postDataQuery", postNumber],
     async () => {
-      const response = await fetch(`${domain}/posts/${postNumber}`);
+      const response = await fetch(`/posts/${postNumber}`);
       return await response.json();
     },
     {
