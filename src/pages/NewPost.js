@@ -38,6 +38,10 @@ const Container = styled.div`
 const Left = styled.div`
   background-color: ${({ theme }) => theme.bgElement};
 
+  .length {
+    text-align: end;
+    padding-right: 2rem;
+  }
   .titleAndHr {
     padding: calc(var(--gap) / 2);
   }
