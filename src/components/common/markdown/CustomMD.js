@@ -22,7 +22,9 @@ export default function CustomMD({ children }) {
             return !inline && match ? (
               // ? 언어에 따라서 코드 구문 스타일 지정
               <SyntaxHighlighter
-                children={String(children).replace(/\n$/, "")}
+                children={String(children)
+                  .replace(/\n$/, "")
+                  .replaceAll('"', '""')}
                 language={match[1]}
                 style={stackoverflowDark}
                 customStyle={{ display: "inline-block" }}
