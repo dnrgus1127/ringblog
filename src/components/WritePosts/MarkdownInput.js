@@ -49,6 +49,9 @@ export default function MarkdownInput({ data, onChange, onBlur }) {
         } else if (e.key === "Enter") {
           e.preventDefault();
           enterSpecialChar(e.target, "  \n", 3);
+        } else if (e.key === '"') {
+          e.preventDefault();
+          enterSpecialChar(e.target, '"', 1);
         }
       }}
       value={data}
