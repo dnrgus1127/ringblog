@@ -9,7 +9,10 @@ export default function useWrite() {
 
   const navigate = useNavigate();
 
-  const { mutate: publish } = useMutation(async (data) => {
+  const { mutate: publish } = useMutation(async (inputData) => {
+    let data = inputData;
+    data.contents = data.contents.replaceAll('"', '""');
+
     const response = await fetch(`/posts`, {
       method: "POST",
       body: JSON.stringify({
@@ -29,7 +32,10 @@ export default function useWrite() {
     }
   });
 
-  const { mutate: modifyPost } = useMutation(async (data) => {
+  const { mutate: modifyPost } = useMutation(async (inputData) => {
+    let data = inputData;
+    data.contents = data.contents.replaceAll('"', '""');
+
     const response = await fetch(`/posts/${postNumber}`, {
       method: "PATCH",
       body: JSON.stringify({
