@@ -4,7 +4,7 @@ import BlogItem from "./BlogItem";
 import Loading from "../Loading";
 import SearchBox from "../UserBlog/SearchBox";
 import { useInfiniteQuery } from "react-query";
-
+import Error from "../common/Error/Error";
 import { useRef } from "react";
 import { useCallback } from "react";
 
@@ -136,6 +136,7 @@ export default function BlogList() {
       <GridLayout ref={containRef}>
         <RenderItems />
       </GridLayout>
+      {!hasNextPage && <Error text='포스트를 전부 불러왔습니다.' />}
     </React.Fragment>
   );
 }
