@@ -11,6 +11,7 @@ import postState from "./redux/postState";
 import settingState from "./redux/settingState";
 import loginState from "./redux/loginState";
 import commonState from "./redux/commonState";
+import colorState from "./redux/colorState";
 
 let store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ let store = configureStore({
     setting: settingState,
     login: loginState,
     common: commonState,
+    color: colorState,
   },
   devTools: process.env.NODE_ENV !== "production",
 });
