@@ -10,7 +10,7 @@ const lightTheme = {
   oppositeColor: "white",
   bgElement: "#ffffff",
   bgElement2: "#ffffff",
-  bgElement3: "#ffffff",
+  bgElement3: "#f8f9fa",
   bgColor: "#F8F9FA",
   greyColor: "#868e96",
   greyText: "#acacac",
@@ -22,6 +22,8 @@ const lightTheme = {
   btnHover: "#20C997",
   warning: "rgba(236, 130, 03, 0.9)",
 
+  codeColor: "#e9ecef",
+  preColor: "#f6f6f6",
   ...theme,
 };
 
@@ -43,6 +45,8 @@ const darkTheme = {
 
   btnHover: "#63E6BE",
   warning: "rgba(256, 150, 23, 0.9)",
+  codeColor: "#363636",
+  preColor: "#1c1b1b",
   ...theme,
 };
 

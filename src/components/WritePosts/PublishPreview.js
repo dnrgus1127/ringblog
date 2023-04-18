@@ -6,8 +6,9 @@ import { writeActions } from "../../redux/writeReducer";
 const Preview = styled.div`
   width: 100%;
   height: 10vh;
-  background-color: ${({ theme }) => theme.bgElement3};
-  border-radius: 4px;
+  background-color: ${({ theme }) => theme.bgElement2};
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+
   margin-bottom: 1.5rem;
 
   textarea {

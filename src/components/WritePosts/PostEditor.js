@@ -11,10 +11,10 @@ const Input = styled.input`
   background: none;
   border: 0;
   outline: none;
-  color: white;
 `;
 const Title = styled(Input)`
   width: 100%;
+  font-weight: 800;
 
   font-size: 3rem;
   @media (max-width: 640px) {

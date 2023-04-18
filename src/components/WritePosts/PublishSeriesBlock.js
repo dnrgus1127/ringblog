@@ -6,8 +6,9 @@ import { BtnCss } from "../Button";
 
 const SeriesSelect = styled(BtnCss)`
   width: 100%;
-  color: ${({ theme }) => theme.warning};
-  background-color: ${({ theme }) => theme.bgElement3};
+  color: ${({ theme }) => theme.btnColor};
+  background-color: ${({ theme }) => theme.bgElement2};
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 `;
 
 const SelectedSeries = styled.div`

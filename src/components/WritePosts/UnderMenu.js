@@ -6,7 +6,7 @@ import media from "../../lib/style/media";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement2};
-  box-shadow: 0px 0p 5px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   height: 8vh;
   padding: 0 2rem;
   display: flex;

@@ -1,13 +1,16 @@
 import React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { stackoverflowDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { stackoverflowLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import remarkGfm from "remark-gfm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
 import { ReloadButton } from "../../Button";
+import { useSelector } from "react-redux";
 
 // TODO - 다크모드 아닐 때 SyntaxHighlighter style 추가 필요
 export default function CustomMD({ children }) {
+  const { theme } = useSelector((state) => state.color);
   return (
     <ErrorBoundary>
       <ReactMarkdown
@@ -24,7 +27,9 @@ export default function CustomMD({ children }) {
               <SyntaxHighlighter
                 children={String(children).replace(/\n$/, "")}
                 language={match[1]}
-                style={stackoverflowDark}
+                style={
+                  theme === "dark" ? stackoverflowDark : stackoverflowLight
+                }
                 customStyle={{ display: "inline-block" }}
                 PreTag='div'
                 {...props}

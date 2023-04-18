@@ -58,7 +58,8 @@ const MarkdownCss = styled.div`
   pre {
     padding: 1.5rem 1rem;
     border-radius: 4px;
-    background-color: rgb(28, 27, 27);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    background-color: ${({ theme }) => theme.preColor};
     overflow-x: auto;
   }
 
@@ -73,9 +74,9 @@ const MarkdownCss = styled.div`
   }
 
   p > code {
-    background-color: rgba(87, 86, 86);
-    padding: 0.5rem;
-    border-radius: 4px;
+    background-color: ${({ theme }) => theme.codeColor};
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
     font-size: 1.3rem;
     margin: 0.1rem 0;
   }
@@ -103,6 +104,8 @@ const MarkdownCss = styled.div`
 
   img {
     max-width: 100%;
+    display: block;
+    margin: 0 auto;
   }
 `;
 
