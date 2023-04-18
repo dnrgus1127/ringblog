@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const ContentNav = styled.ul`
@@ -30,9 +30,12 @@ const ContentNav = styled.ul`
   }
 `;
 
-export default function MarkdownNav({ list, nodes }) {
+export default function MarkdownNav({ mdRef }) {
+  const [mdList, setMdList] = useState([]);
+  const [nodeList, setNodeList] = useState([]);
+
   const scrollRef = useRef([]);
-  scrollRef.current = nodes;
+  scrollRef.current = nodeList;
   const scrollHeading = (idx) => {
     scrollRef.current[idx].scrollIntoView({
       behavior: "auto",
@@ -41,9 +44,33 @@ export default function MarkdownNav({ list, nodes }) {
     });
   };
 
+  //? 헤딩 태그 네비게이션 에 들어갈 헤더 리스트 구하는 Hook
+  useEffect(() => {
+    let arr = [];
+    let nodes = [];
+    let list = mdRef.current.children;
+    if (list[0]) {
+      for (let i = 0; i < list.length; i++) {
+        if (
+          list[i].localName === "h1" ||
+          list[i].localName === "h2" ||
+          list[i].localName === "h3"
+        ) {
+          arr.push({
+            text: list[i].innerText,
+            tag: list[i].localName,
+          });
+          nodes.push(list[i]);
+        }
+      }
+      setNodeList([...nodes]);
+      setMdList([...arr]);
+    }
+  }, [mdRef]);
+
   return (
     <ContentNav>
-      {list.map((item, idx) => (
+      {mdList.map((item, idx) => (
         <li
           key={idx}
           className={`md-${item.tag}`}
