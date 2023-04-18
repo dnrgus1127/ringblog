@@ -13,6 +13,7 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement3};
   border: 1px solid ${({ theme }) => theme.bgElement2};
   border-radius: 32px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   @media (max-width: 640px) {
     display: none;
   }
