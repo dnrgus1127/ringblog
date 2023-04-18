@@ -28,7 +28,7 @@ const BlogContents = styled.div`
   }
 `;
 
-export default function UserBlog({ theme, toggleTheme }) {
+export default function UserBlog() {
   const [navType, setNavType] = useState(0);
 
   let query = useQuery();
@@ -49,7 +49,7 @@ export default function UserBlog({ theme, toggleTheme }) {
   };
   return (
     <Container>
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header />
       <BlogContents>
         <h1>정욱현's Ring</h1>
         <BlogNavigation navType={navType} setNavType={setNavType} />

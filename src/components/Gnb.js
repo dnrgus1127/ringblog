@@ -49,7 +49,8 @@ const MenuSection = styled.div`
   }
 `;
 
-export default function Gnb({ theme, setHideMenu, hideMenu, toggleTheme }) {
+export default function Gnb({ setHideMenu, hideMenu, toggleTheme }) {
+  const { theme } = useSelector((state) => state.color);
   const Sun = (
     <svg
       xmlns='http://www.w3.org/2000/svg'

@@ -18,7 +18,7 @@ const Body = styled.div`
   }
 `;
 
-export default function PostPage({ theme, toggleTheme }) {
+export default function PostPage() {
   let query = uriQuery();
   const index = query.get("index");
   const useQueryUri = `${domain}/posts/${index}`;
@@ -30,20 +30,20 @@ export default function PostPage({ theme, toggleTheme }) {
       return response.json();
     },
     {
+      staleTime: 600000,
       refetchOnWindowFocus: false,
     }
   );
 
-  function RenderPost() {
-    if (isLoading) return <Loading text='포스트 열어보는 중' />;
-    if (data) return <PostContents post={data} index={index} />;
-  }
-
   return (
     <React.Fragment>
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header />
       <Body>
-        <RenderPost />
+        {isLoading ? (
+          <Loading text='포스트 열어보는 중' />
+        ) : (
+          <PostContents post={data} index={index} />
+        )}
       </Body>
     </React.Fragment>
   );

@@ -4,8 +4,6 @@ import { Route, Routes } from "react-router-dom";
 import NewPost from "./pages/NewPost";
 import MainPage from "./pages/MainPage";
 import { ThemeProvider } from "styled-components";
-import { useState } from "react";
-import { darkTheme, lightTheme } from "./theme/theme";
 import GlobalStyle from "./theme/GlobalStyle";
 import PostPage from "./pages/PostPage";
 import UserBlog from "./pages/UserBlog";
@@ -15,39 +13,21 @@ import AlertWindow from "./components/common/AlertWindow";
 import { useSelector } from "react-redux";
 
 function App() {
-  const [themeMode, setThemeMode] = useState("dark");
-  const theme = themeMode === "light" ? lightTheme : darkTheme;
+  const { themePalette } = useSelector((state) => state.color);
   const { showAlert } = useSelector((state) => state.common.alert);
-
-  const toggleTheme = () =>
-    setThemeMode(themeMode === "light" ? "dark" : "light");
 
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
       <div className='App'>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themePalette}>
           <GlobalStyle />
           <Routes>
-            <Route
-              path='/'
-              element={<MainPage toggleTheme={toggleTheme} theme={themeMode} />}
-            ></Route>
+            <Route path='/' element={<MainPage />}></Route>
             <Route path='/WriteNewPost' element={<NewPost />}></Route>
-            <Route
-              path='/Post'
-              element={<PostPage theme={themeMode} toggleTheme={toggleTheme} />}
-            ></Route>
-            <Route
-              path='/userBlog'
-              element={<UserBlog theme={themeMode} toggleTheme={toggleTheme} />}
-            ></Route>
-            <Route
-              path='/RecordPage'
-              element={
-                <Recordpage theme={themeMode} toggleTheme={toggleTheme} />
-              }
-            />
+            <Route path='/Post' element={<PostPage />}></Route>
+            <Route path='/userBlog' element={<UserBlog />}></Route>
+            <Route path='/RecordPage' element={<Recordpage />} />
           </Routes>
           {showAlert && <AlertWindow />}
         </ThemeProvider>

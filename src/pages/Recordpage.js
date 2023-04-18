@@ -38,7 +38,7 @@ const Wrapper = styled.div`
 `;
 
 const menuItems = ["구독한 블로그", "좋아요 누른 글", "내가 쓴 댓글"];
-export default function Recordpage({ theme, toggleTheme }) {
+export default function Recordpage() {
   const [menuIndex, setIndex] = useState(0);
 
   useIsLogin(menuIndex);
@@ -62,7 +62,7 @@ export default function Recordpage({ theme, toggleTheme }) {
 
   return (
     <Container>
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header />
       <Wrapper>
         <div className='menuWrap'>
           <XNavgation items={menuItems} index={menuIndex} setIndex={setIndex} />

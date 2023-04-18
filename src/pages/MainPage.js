@@ -15,10 +15,10 @@ const Footer = styled.footer`
   background-color: ${({ theme }) => theme.bgColor};
 `;
 
-export default function MainPage({ toggleTheme, theme }) {
+export default function MainPage() {
   return (
     <React.Fragment>
-      <Header toggleTheme={toggleTheme} theme={theme} />
+      <Header />
       <Body>
         <BlogList />
       </Body>
