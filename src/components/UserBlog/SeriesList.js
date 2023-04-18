@@ -24,6 +24,7 @@ export default function SeriesList({ data, refresh }) {
     <div>
       {data.map((item, idx) => (
         <SeriesItem
+          data={item}
           key={idx}
           isBlog={true}
           refresh={refresh}

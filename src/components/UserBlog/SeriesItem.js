@@ -3,9 +3,8 @@ import styled from "styled-components";
 import useBoolean from "../../Hooks/useBoolean";
 import SeriesPosts from "./SeriesPosts";
 import ConfirmWindow from "../ConfirmWindow";
-import { useFetch } from "../../Hooks/useFetch";
-import { useEffect } from "react";
-import { useState } from "react";
+
+import useQueryUri from "../../Hooks/useQueryUri";
 
 const ArrowIcon = styled.svg`
   width: 3rem;
@@ -89,8 +88,8 @@ const arrowTop = (
   <ArrowIcon
     clipRule='evenodd'
     fillRule='evenodd'
-    stroke-linejoin='round'
-    stroke-miterlimit='2'
+    strokeinejoin='round'
+    strokeMiterlimit='2'
     viewBox='0 0 24 24'
     xmlns='http://www.w3.org/2000/svg'
   >
@@ -102,8 +101,8 @@ const arrowUnder = (
   <ArrowIcon
     clipRule='evenodd'
     fillRule='evenodd'
-    stroke-linejoin='round'
-    stroke-miterlimit='2'
+    strokeLinejoin='round'
+    strokeMiterlimit='2'
     viewBox='0 0 24 24'
     xmlns='http://www.w3.org/2000/svg'
   >
@@ -111,20 +110,19 @@ const arrowUnder = (
   </ArrowIcon>
 );
 
-export default function SeriesItem({ children, isBlog, refresh, mdfd }) {
+export default function SeriesItem({ data, isBlog, refresh, mdfd }) {
   const [showList, onToggleShowList] = useBoolean(false);
   const [askConfirm, onToggleAsk] = useBoolean(false);
-  const [reFetch, setRefetch] = useState();
 
-  const posts = useFetch(`/series/postsById?seriesId=${children._id}`, reFetch);
-
-  useEffect(() => {
-    setRefetch({});
-  }, [children]);
+  const posts = useQueryUri(
+    ["seriesPostById", data._id],
+    `/series/postsById?seriesId=${data._id}`,
+    100000
+  );
 
   const deleteSeries = () => {
     onToggleAsk();
-    fetch(`/series/delete?seriesId=${children._id}`, {
+    fetch(`/series/delete?seriesId=${data._id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -143,7 +141,7 @@ export default function SeriesItem({ children, isBlog, refresh, mdfd }) {
   return (
     <Container>
       <div className='titleAndDelete'>
-        <p className='title'>{children.title}</p>
+        <p className='title'>{data.title}</p>
         {isBlog && (
           <div className='btnWrap'>
             <button

@@ -12,6 +12,7 @@ import SubscriptionButton from "./Subscription/SubscriptionButton";
 import SeriesInPosts from "./SeriesInPosts";
 import PostThumbnail from "./PostThumbnail";
 import { useSelector } from "react-redux";
+import useQueryUri from "../../Hooks/useQueryUri";
 
 const Container = styled.div`
   position: relative;
@@ -80,8 +81,6 @@ const CreateDate = styled(Text)`
 export default function PostContents({ post, index }) {
   const createDate = onlyDate(post.createDateTime);
   const markdownRef = useRef({});
-  const [mdList, setMdList] = useState([]);
-  const [nodeList, setNodeList] = useState([]);
   const [fixed, setfixed] = useState(false);
   const { loggedUser } = useSelector((state) => state.login);
   const underRef = useRef();
@@ -108,29 +107,11 @@ export default function PostContents({ post, index }) {
     };
   }, [fixedNav]);
 
-  //? 헤딩 태그 네비게이션 에 들어갈 헤더 리스트 구하는 Hook
-  useEffect(() => {
-    let arr = [];
-    let nodes = [];
-    let list = markdownRef.current.children;
-    if (list[0]) {
-      for (let i = 0; i < list.length; i++) {
-        if (
-          list[i].localName === "h1" ||
-          list[i].localName === "h2" ||
-          list[i].localName === "h3"
-        ) {
-          arr.push({
-            text: list[i].innerText,
-            tag: list[i].localName,
-          });
-          nodes.push(list[i]);
-        }
-      }
-      setNodeList([...nodes]);
-      setMdList([...arr]);
-    }
-  }, [post]);
+  const { data: seriesByPosts, isLoading } = useQueryUri(
+    ["seriesForPost", index],
+    `/series/ForPost?postId=${index}`,
+    100000
+  );
 
   return (
     <Container>
@@ -143,7 +124,6 @@ export default function PostContents({ post, index }) {
           <Writer>{post.name}</Writer>
         </Link>
         <CreateDate>{createDate}</CreateDate>
-
         <div className='mdNav'>
           <div
             className='mdNavPosition'
@@ -155,7 +135,7 @@ export default function PostContents({ post, index }) {
                 : null
             }
           >
-            <MarkdownNav list={mdList} nodes={nodeList} />
+            <MarkdownNav mdRef={markdownRef} />
           </div>
         </div>
         <div className='sideMenu'>
@@ -182,7 +162,7 @@ export default function PostContents({ post, index }) {
           </div>
         </div>
       </div>
-      <SeriesInPosts index={index} />
+      {isLoading ? <div>로딩쓰</div> : <SeriesInPosts data={seriesByPosts} />}
       <PostThumbnail src={post.thumbnailPath} />
 
       <MarkdownCss ref={markdownRef}>
