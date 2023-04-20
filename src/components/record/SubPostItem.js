@@ -11,7 +11,7 @@ const PostItem = styled.div`
   border-radius: 4px;
   overflow: hidden;
   margin-right: 2rem;
-  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   background-color: ${({ theme }) => theme.bgElement};
   transition: 0.3s transform ease-in-out;
 

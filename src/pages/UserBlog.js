@@ -16,13 +16,6 @@ const BlogContents = styled.div`
   background-color: ${({ theme }) => theme.bgColor};
   margin-top: calc(var(--header) * 1.5);
 
-  hr {
-    border: 0;
-    background-color: ${({ theme }) => theme.greyColor};
-    box-shadow: 0px 0px 5px ${({ theme }) => theme.greyColor};
-    height: 1px;
-  }
-
   h1 {
     margin-bottom: 2rem;
   }

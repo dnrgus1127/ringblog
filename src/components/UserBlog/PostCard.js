@@ -19,10 +19,11 @@ const Container = styled.div`
     margin-bottom: 4rem;
     border: 0;
     background-color: lightgrey;
-    height: 1px;
+    height: ${({ theme }) => (theme.color === "white" ? "1px" : "0px")};
   }
 
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 5px
+    ${({ theme }) => (theme.color === "black" ? "rgba(0, 0, 0, 0.2)" : "null")};
 `;
 
 const TitleBox = styled.div`
@@ -59,9 +60,11 @@ const TitleBox = styled.div`
     }
   }
   .permission {
-    background-color: ${({ theme }) => theme.warning};
+    background-color: ${({ theme }) => theme.btnColor};
+    color: ${({ theme }) => theme.oppositeColor};
+    font-weight: 800;
     padding: 0.2rem 1rem;
-    border-radius: 4px;
+    border-radius: 2px;
   }
 `;
 

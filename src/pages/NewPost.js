@@ -37,64 +37,6 @@ const Container = styled.div`
 
 const Left = styled.div`
   background-color: ${({ theme }) => theme.bgElement};
-
-  .length {
-    text-align: end;
-    padding-right: 2rem;
-  }
-  .titleAndHr {
-    padding: calc(var(--gap) / 2);
-  }
-  .inputArea {
-    padding-bottom: 0;
-    height: 92vh;
-  }
-  input {
-    font-family: inherit;
-  }
-  textarea {
-    padding: 0 calc(var(--gap) / 2);
-
-    background: none;
-    outline: none;
-    border: none;
-    font-family: inherit;
-    font-size: 1.8rem;
-    width: 100%;
-    height: 70vh;
-    resize: none;
-  }
-  textarea::-webkit-scrollbar {
-    width: 3px;
-    height: 1rem;
-  }
-  textarea::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.color};
-  }
-  textarea::-webkit-scrollbar-track {
-    background-color: ${({ theme }) => theme.bgElement};
-  }
-  hr {
-    margin: 2rem 0;
-    border: 1.5px solid ${({ theme }) => theme.lineColor};
-  }
-
-  ${media.medium} {
-    .inputArea {
-      padding: 0 2rem;
-    }
-
-    hr {
-      margin: 1rem 0;
-    }
-    .titleAndHr {
-      padding: 2rem 1rem;
-    }
-
-    textarea {
-      font-size: 1.6rem;
-    }
-  }
 `;
 const Right = styled.div`
   background-color: ${({ theme }) => theme.mdColor};

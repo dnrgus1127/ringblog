@@ -7,10 +7,13 @@ const SeriesList = styled.div`
   width: 100%;
   height: 24rem;
   overflow-y: auto;
-  background-color: ${({ theme }) => theme.bgElement3};
+  background-color: ${({ theme }) => theme.bgElement2};
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   .selected {
-    color: ${({ theme }) => theme.color};
-    background-color: ${({ theme }) => theme.bgElement};
+    font-weight: 800;
+    color: ${({ theme }) =>
+      theme.color === "black" ? theme.btnColor : theme.color};
+    background-color: ${({ theme }) => theme.bgElement3};
   }
 `;
 const SeriesItem = styled.div`

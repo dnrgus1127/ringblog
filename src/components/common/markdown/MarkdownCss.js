@@ -63,9 +63,17 @@ const MarkdownCss = styled.div`
     overflow-x: auto;
   }
 
+  code {
+    font-family: "Fira Mono", monospace;
+    font-size: 1.4rem;
+
+    * {
+      font-family: inherit;
+    }
+  }
+
   code [class*="language-"] {
     font-size: 1.4rem;
-    font-family: "Fira Mono", monospace;
     font-weight: 400;
     line-height: 2.1px;
     tab-size: 4;
