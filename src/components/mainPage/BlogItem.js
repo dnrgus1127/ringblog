@@ -20,7 +20,7 @@ const ItemWrap = styled.div`
   }
   img {
     width: 100%;
-    /* max-height: 18vh; */
+    height: 100%;
     object-fit: cover;
   }
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);

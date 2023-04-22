@@ -15,6 +15,17 @@ const initialState = {
     preview: "",
     contents: "",
     permission: true,
+    hashTags: [
+      "냠",
+      "냠냠",
+      "Redux",
+      "Redux",
+      "냠냠",
+      "Redux",
+      "냠",
+      "냠",
+      "냠냠",
+    ],
   },
 };
 
