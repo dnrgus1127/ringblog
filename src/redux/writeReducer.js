@@ -15,17 +15,7 @@ const initialState = {
     preview: "",
     contents: "",
     permission: true,
-    hashTags: [
-      "냠",
-      "냠냠",
-      "Redux",
-      "Redux",
-      "냠냠",
-      "Redux",
-      "냠",
-      "냠",
-      "냠냠",
-    ],
+    hashTags: [],
   },
 };
 
@@ -84,6 +74,12 @@ const writeSlice = createSlice({
 
     setPermission(state, action) {
       state.data.permission = action.payload;
+    },
+    delHashTag(state, action) {
+      state.data.hashTags.splice(action.payload, 1);
+    },
+    addHashTag(state, action) {
+      state.data.hashTags.push(action.payload);
     },
   },
 });

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   newComment: "",
+  hashTags: [],
 };
 
 const postSlice = createSlice({
@@ -10,6 +11,9 @@ const postSlice = createSlice({
   reducers: {
     setNewComment(state, action) {
       state.newComment = action.payload;
+    },
+    setHashTags(state, action) {
+      state.hashTags = action.payload;
     },
   },
 });

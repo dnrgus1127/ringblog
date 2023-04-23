@@ -12,11 +12,17 @@ const TagBlock = styled.div`
   }
 `;
 
-export default function HashTagBlock({ hashTags }) {
+export default function HashTagBlock({ hashTags, onClick }) {
   return (
     <TagBlock>
       {hashTags.map((item, idx) => (
-        <HasTagItem key={idx} hashTag={item} />
+        <HasTagItem
+          key={idx}
+          hashTag={item.tag_name}
+          onClick={() => {
+            onClick(idx);
+          }}
+        />
       ))}
     </TagBlock>
   );

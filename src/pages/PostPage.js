@@ -4,8 +4,11 @@ import styled from "styled-components";
 import { useQuery as uriQuery } from "../functions/urlQuery";
 import PostContents from "../components/posts/PostContents";
 import Loading from "../components/Loading";
-import { domain } from "../lib/fetch/domain";
 import { useQuery } from "react-query";
+import useQueryUri from "../Hooks/useQueryUri";
+import { useDispatch } from "react-redux";
+import { postActions } from "../redux/postState";
+import { useEffect } from "react";
 
 const Body = styled.div`
   padding: calc(var(--header) * 1.5) 0;
@@ -21,12 +24,13 @@ const Body = styled.div`
 export default function PostPage() {
   let query = uriQuery();
   const index = query.get("index");
-  const useQueryUri = `${domain}/posts/${index}`;
+  const queryUri = `/posts/${index}`;
+  const dispatch = useDispatch();
 
   const { isLoading, data } = useQuery(
     ["postQuery", index],
     async () => {
-      const response = await fetch(useQueryUri);
+      const response = await fetch(queryUri);
       return response.json();
     },
     {
@@ -34,6 +38,22 @@ export default function PostPage() {
       refetchOnWindowFocus: false,
     }
   );
+
+  const { data: hashTags, isLoading: hashTagLoading } = useQueryUri(
+    ["hashTags", index],
+    `/write/hashTags?postId=${index}`,
+    0,
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  useEffect(() => {
+    if (!hashTagLoading) {
+      console.log(hashTags);
+      dispatch(postActions.setHashTags(hashTags));
+    }
+  }, [hashTagLoading, hashTags, dispatch]);
 
   return (
     <React.Fragment>

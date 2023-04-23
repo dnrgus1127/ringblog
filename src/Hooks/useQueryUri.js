@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 
-export default function useQueryUri(queryKey, uri, staleTime = 0) {
+export default function useQueryUri(queryKey, uri, staleTime = 0, options) {
   const { data, isLoading, refetch } = useQuery(
     queryKey,
     async () => {
@@ -10,6 +10,7 @@ export default function useQueryUri(queryKey, uri, staleTime = 0) {
     {
       staleTime: staleTime,
       cacheTime: staleTime,
+      ...options,
     }
   );
 

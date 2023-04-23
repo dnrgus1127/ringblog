@@ -13,6 +13,7 @@ import SeriesInPosts from "./SeriesInPosts";
 import PostThumbnail from "./PostThumbnail";
 import { useSelector } from "react-redux";
 import useQueryUri from "../../Hooks/useQueryUri";
+import HashTagBlock from "../hasTags/HashTagBlock";
 
 const Container = styled.div`
   position: relative;
@@ -83,6 +84,7 @@ export default function PostContents({ post, index }) {
   const markdownRef = useRef({});
   const [fixed, setfixed] = useState(false);
   const { loggedUser } = useSelector((state) => state.login);
+  const { hashTags } = useSelector((state) => state.post);
   const underRef = useRef();
 
   /**
@@ -170,6 +172,8 @@ export default function PostContents({ post, index }) {
       </MarkdownCss>
 
       <hr ref={underRef}></hr>
+      {/* onClick navgation 추가 */}
+      <HashTagBlock hashTags={hashTags} onClick={() => {}} />
 
       <div className='subscriptionWrap'>
         <SubscriptionButton writer={post.writer} />

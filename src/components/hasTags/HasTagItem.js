@@ -13,5 +13,5 @@ const HasTagBlock = styled.div`
 `;
 
 export default function HasTagItem({ hashTag, onClick }) {
-  return <HasTagBlock onClick={onClick}>{hashTag}</HasTagBlock>;
+  return <HasTagBlock onClick={onClick}>#{hashTag}</HasTagBlock>;
 }

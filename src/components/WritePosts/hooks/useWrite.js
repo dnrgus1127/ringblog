@@ -13,7 +13,7 @@ export default function useWrite() {
     let data = inputData;
     data.contents = data.contents.replaceAll('"', '""');
 
-    const response = await fetch(`/posts`, {
+    const response = await fetch(`/write/posts`, {
       method: "POST",
       body: JSON.stringify({
         ...data,
