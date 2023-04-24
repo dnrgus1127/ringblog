@@ -19,7 +19,6 @@ export default function CreateHashTag({ onEnter }) {
       <HashTagInput
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            console.log("enter");
             onEnter(e.target.value);
             e.target.value = "";
           }

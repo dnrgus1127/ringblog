@@ -50,7 +50,6 @@ export default function PostPage() {
 
   useEffect(() => {
     if (!hashTagLoading) {
-      console.log(hashTags);
       dispatch(postActions.setHashTags(hashTags));
     }
   }, [hashTagLoading, hashTags, dispatch]);

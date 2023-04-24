@@ -36,7 +36,7 @@ export default function useWrite() {
     let data = inputData;
     data.contents = data.contents.replaceAll('"', '""');
 
-    const response = await fetch(`/posts/${postNumber}`, {
+    const response = await fetch(`/write/posts/${postNumber}`, {
       method: "PATCH",
       body: JSON.stringify({
         ...data,

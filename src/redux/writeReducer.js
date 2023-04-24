@@ -81,6 +81,9 @@ const writeSlice = createSlice({
     addHashTag(state, action) {
       state.data.hashTags.push(action.payload);
     },
+    setHashTag(state, action) {
+      state.data.hashTags = action.payload;
+    },
   },
 });
 
