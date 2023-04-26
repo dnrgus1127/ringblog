@@ -23,17 +23,7 @@ export default function HashTagByPreview({ data }) {
   return (
     <HashTagBlock>
       {data.map(
-        (item, idx) =>
-          idx < 4 && (
-            <HashTagItem
-              key={idx}
-              onClick={() => {
-                con;
-              }}
-            >
-              # {item}
-            </HashTagItem>
-          )
+        (item, idx) => idx < 4 && <HashTagItem key={idx}># {item}</HashTagItem>
       )}
     </HashTagBlock>
   );
