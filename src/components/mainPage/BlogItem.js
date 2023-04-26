@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { onlyDate } from "../../functions/dateFormat";
 import blog1 from "../../images/blogThum.jpg";
+import HashTagByPreview from "../hasTags/HashTagByPreview";
 
 const ItemWrap = styled.div`
   width: 100%;
@@ -78,6 +79,12 @@ const ItemInfo = styled.div`
     right: 0;
     margin: 1.6rem;
   }
+  .hashTagSection {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 1.6rem;
+  }
 
   @media (max-width: 832px) {
     .postPreview {
@@ -135,6 +142,9 @@ export default function BlogItem({ data }) {
             {data.preview !== "null" ? data.preview : "미리보기가 없습니다."}
           </p>
           <p className='madeBy'>{createDate}</p>
+          <div className='hashTagSection'>
+            {data.hashTags && <HashTagByPreview data={data.hashTags} />}
+          </div>
         </ItemInfo>
         <UserInfo>
           <p className='user'>@{data.writer}</p>

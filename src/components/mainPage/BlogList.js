@@ -76,6 +76,7 @@ export default function BlogList() {
       const response = await fetch(
         `/posts/Infinite?${search && `search=${search}`}&offset=${pageParam}`
       );
+
       return response.json();
     },
     {
@@ -114,16 +115,16 @@ export default function BlogList() {
     if (data.length === 0) {
       return <EmptyData>"{search}" 검색 결과가 존재하지 않습니다.</EmptyData>;
     }
-    if (data)
-      return (
-        <>
-          {data.pages.map((page, idx) =>
-            page.postList.map((i, idx) => (
-              <BlogItem key={idx} idx={idx} data={i} />
-            ))
-          )}
-        </>
-      );
+    if (data) console.log(data);
+    return (
+      <>
+        {data.pages.map((page, idx) =>
+          page.postList.map((i, idx) => (
+            <BlogItem key={idx} idx={idx} data={i} />
+          ))
+        )}
+      </>
+    );
   }
 
   return (
