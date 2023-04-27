@@ -8,6 +8,7 @@ import SubscriptionPostsSection from "./SubscriptionPostsSection";
 import useSubscription from "../../Hooks/Subscribe/useSubscription";
 import { Link } from "react-router-dom";
 import media from "../../lib/style/media";
+import HashTagByPreview from "../hasTags/HashTagByPreview";
 
 const SubscriptionBox = styled.div`
   margin-bottom: 2rem;
@@ -116,6 +117,7 @@ const OrderAndTag = styled.div`
   .hashTag {
     font-size: 1.2rem;
     color: ${({ theme }) => theme.greyColor};
+    margin-bottom: 1rem;
   }
 
   ${media.small} {
@@ -147,6 +149,18 @@ export default function RecordSubscriptionBlock({ userId }) {
     },
     {
       staleTime: 60000,
+    }
+  );
+
+  const { data: hashTagList, isLoading: hashTagLoading } = useQuery(
+    ["user/hashTags", userId],
+    async () => {
+      const response = await fetch(`/hashTag/user?userId=${userId}`);
+      return response.json();
+    },
+    {
+      staleTime: 60000,
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -212,9 +226,8 @@ export default function RecordSubscriptionBlock({ userId }) {
             인기
           </button>
         </div>
-        <div className='hashTag'>
-          #태그 #태그2 #태그3 #좋아요 #인스타그램 #REDUX #REACT #JAVASCRIPT
-        </div>
+
+        {!hashTagLoading && <HashTagByPreview limit={5} data={hashTagList} />}
       </OrderAndTag>
       <SubscriptionPostsSection userId={userId} order={order} />
       <hr></hr>

@@ -7,6 +7,7 @@ import { useInfiniteQuery } from "react-query";
 import Error from "../common/Error/Error";
 import { useRef } from "react";
 import { useCallback } from "react";
+import BlogItemSekeletonList from "./BlogItemSekeletonList";
 
 const GridLayout = styled.div`
   width: var(--width);
@@ -115,7 +116,6 @@ export default function BlogList() {
     if (data.length === 0) {
       return <EmptyData>"{search}" 검색 결과가 존재하지 않습니다.</EmptyData>;
     }
-    if (data) console.log(data);
     return (
       <>
         {data.pages.map((page, idx) =>
@@ -136,6 +136,7 @@ export default function BlogList() {
       </SearchWrap>
       <GridLayout ref={containRef}>
         <RenderItems />
+        {isFetchingNextPage && <BlogItemSekeletonList />}
       </GridLayout>
       {!hasNextPage && <Error text='포스트를 전부 불러왔습니다.' />}
     </React.Fragment>
