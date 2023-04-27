@@ -12,18 +12,20 @@ const HashTagItem = styled.p`
   padding: 0 0.2rem;
   font-size: 1.3rem;
   color: ${({ theme }) => theme.greyColor};
-
+  cursor: pointer;
   &:hover {
     color: ${({ theme }) => theme.btnColor};
     font-weight: 800;
   }
 `;
 
-export default function HashTagByPreview({ data }) {
+export default function HashTagByPreview({ data, limit = 4 }) {
+  if (data.length === 0) return;
   return (
-    <HashTagBlock>
+    <HashTagBlock className='hashTag'>
       {data.map(
-        (item, idx) => idx < 4 && <HashTagItem key={idx}># {item}</HashTagItem>
+        (item, idx) =>
+          idx < limit && <HashTagItem key={idx}># {item}</HashTagItem>
       )}
     </HashTagBlock>
   );
