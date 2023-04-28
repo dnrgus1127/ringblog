@@ -9,6 +9,8 @@ import { useRef } from "react";
 import { useCallback } from "react";
 import BlogItemSekeletonList from "./BlogItemSekeletonList";
 
+import PostOrder from "../../container/main/PostOrder";
+
 const GridLayout = styled.div`
   width: var(--width);
   margin: 0 auto;
@@ -39,7 +41,7 @@ const SearchWrap = styled.div`
   width: var(--width);
   display: flex;
   margin: 2rem auto;
-  justify-content: end;
+  justify-content: space-between;
 
   @media (max-width: 1100px) {
     .searchBoxSize {
@@ -63,6 +65,7 @@ const EmptyData = styled.div`
 export default function BlogList() {
   const [search, setSearch] = useState("");
   const containRef = useRef(null);
+  const [orderIndex, setOrder] = useState(0);
 
   const {
     data,
@@ -72,10 +75,12 @@ export default function BlogList() {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(
-    [`PostList`, search],
+    [`PostList`, search, orderIndex],
     async ({ pageParam = 0 }) => {
       const response = await fetch(
-        `/posts/Infinite?${search && `search=${search}`}&offset=${pageParam}`
+        `/posts/Infinite?${
+          search && `search=${search}`
+        }&offset=${pageParam}&order=${orderIndex === 0 && `rcmnd`}`
       );
 
       return response.json();
@@ -130,6 +135,7 @@ export default function BlogList() {
   return (
     <React.Fragment>
       <SearchWrap>
+        <PostOrder buttonIndex={orderIndex} setButtonIndex={setOrder} />
         <div className='searchBoxSize'>
           <SearchBox onBlur={setSearch} />
         </div>
