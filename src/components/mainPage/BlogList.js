@@ -10,6 +10,7 @@ import { useCallback } from "react";
 import BlogItemSekeletonList from "./BlogItemSekeletonList";
 
 import PostOrder from "../../container/main/PostOrder";
+import media from "../../lib/style/media";
 
 const GridLayout = styled.div`
   width: var(--width);
@@ -46,6 +47,15 @@ const SearchWrap = styled.div`
   @media (max-width: 1100px) {
     .searchBoxSize {
       width: 100%;
+    }
+  }
+  ${media.xsmall} {
+    flex-direction: column;
+    & div:nth-child(1) {
+      order: 2;
+    }
+    & div:nth-child(2) {
+      order: 1;
     }
   }
 `;

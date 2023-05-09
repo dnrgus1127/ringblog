@@ -50,7 +50,7 @@ export default function UnderBarButtonsBox({
   return (
     <>
       <UnderBarBox>
-        <div>{children}</div>
+        {children}
         {underBar}
       </UnderBarBox>
     </>
