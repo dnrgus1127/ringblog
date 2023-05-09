@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import Header from "../components/Header/Header";
-import BlogNavigation from "../components/UserBlog/BlogNavigation";
-import PageBySeries from "../components/UserBlog/PageBySeries";
-import PostCardList from "../components/UserBlog/PostCardList";
-import { useQuery } from "../functions/urlQuery";
+import Header from "../../components/Header/Header";
+import BlogNavigation from "../../components/UserBlog/BlogNavigation";
+import PageBySeries from "../../components/UserBlog/PageBySeries";
+import PostCardList from "../../components/UserBlog/PostCardList";
+import { useQuery } from "../../functions/urlQuery";
 
 const Container = styled.div`
   display: flex;

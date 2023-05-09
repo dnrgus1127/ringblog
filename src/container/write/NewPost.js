@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { MarkdownCss } from "../components/common/markdown/MarkdownCss";
+import { MarkdownCss } from "../../components/common/markdown/MarkdownCss";
 import { useEffect } from "react";
-import CustomMD from "../components/common/markdown/CustomMD";
-import { useQuery as paramQuery } from "../functions/urlQuery";
-import { useLogin } from "../Hooks/useLogin";
+import CustomMD from "../../components/common/markdown/CustomMD";
+import { useQuery as paramQuery } from "../../functions/urlQuery";
+import { useLogin } from "../../Hooks/useLogin";
 import { useNavigate } from "react-router-dom";
-import NewPostPublishScreen from "../container/write/NewPostPublishScreen";
+import NewPostPublishScreen from "./NewPostPublishScreen";
 import { useDispatch, useSelector } from "react-redux";
-import { writeActions } from "../redux/writeReducer";
-import PostEditor from "../components/WritePosts/PostEditor";
-import { domain } from "../lib/fetch/domain";
+import { writeActions } from "../../redux/writeReducer";
+import PostEditor from "../../components/WritePosts/PostEditor";
+import { domain } from "../../lib/fetch/domain";
 import { useQuery } from "react-query";
-import Loading from "../components/Loading";
-import media from "../lib/style/media";
+import Loading from "../../components/Loading";
+import media from "../../lib/style/media";
 
 const Container = styled.div`
   width: 100wh;

@@ -1,13 +1,13 @@
 import React from "react";
-import Header from "../components/Header/Header";
+import Header from "../../components/Header/Header";
 import styled from "styled-components";
-import { useQuery as uriQuery } from "../functions/urlQuery";
-import PostContents from "../components/posts/PostContents";
-import Loading from "../components/Loading";
+import { useQuery as uriQuery } from "../../functions/urlQuery";
+import PostContents from "../../components/posts/PostContents";
+import Loading from "../../components/Loading";
 import { useQuery } from "react-query";
-import useQueryUri from "../Hooks/useQueryUri";
+import useQueryUri from "../../Hooks/useQueryUri";
 import { useDispatch } from "react-redux";
-import { postActions } from "../redux/postState";
+import { postActions } from "../../redux/postState";
 import { useEffect } from "react";
 
 const Body = styled.div`
