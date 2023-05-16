@@ -38,6 +38,10 @@ const GlobalStyle = createGlobalStyle`
         outline: none;
     }
 
+    .margin-bottom-2 {
+        margin-bottom: 2rem;
+    }
+
 `;
 
 export default GlobalStyle;

@@ -11,10 +11,10 @@ const ThumbnailImg = styled.img`
   height: 100%;
   object-fit: cover;
 `;
-export default function PostThumbnail({ src }) {
+export default function PostThumbnail({ src, className }) {
   if (src === "null" || src === "undefined") return;
   return (
-    <ThumbnailBlock>
+    <ThumbnailBlock className={className}>
       <ThumbnailImg src={src} />
     </ThumbnailBlock>
   );

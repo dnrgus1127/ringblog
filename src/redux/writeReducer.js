@@ -36,6 +36,9 @@ const writeSlice = createSlice({
     setThumbNailPath(state, action) {
       state.data.thumbnailPath = action.payload;
     },
+    delThumbNailPath(state) {
+      state.data.thumbnailPath = null;
+    },
     setPreview(state, action) {
       state.data.preview = action.payload;
     },

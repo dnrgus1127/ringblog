@@ -8,14 +8,16 @@ import { writeActions } from "../../redux/writeReducer";
 
 const ThumbnailBox = styled.div`
   width: 100%;
-  border-radius: 0.5rem;
   overflow: hidden;
   margin: 0 auto;
   margin-bottom: 1.5rem;
   position: relative;
   img {
     width: 100%;
+    height: 30rem;
+    border: 1px solid white;
     object-fit: cover;
+    display: block;
   }
   .btnWrap {
     position: absolute;
@@ -26,6 +28,10 @@ const ThumbnailBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+  }
+  button {
+    display: block;
   }
 `;
 
@@ -39,6 +45,17 @@ const SelectButton = styled(BtnCss)`
   }
 `;
 
+const DeleteButton = styled(SelectButton)`
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  color: ${({ theme }) => theme.warning};
+  margin: 1rem 0;
+
+  &:hover {
+    color: red;
+  }
+`;
+
 export default function ThumbnailSelector() {
   const { thumbnailPath } = useSelector((state) => state.write.data);
   const dispatch = useDispatch();
@@ -47,10 +64,12 @@ export default function ThumbnailSelector() {
   const clickSelecter = () => {
     fileSelector.current.click();
   };
+  const deleteThumbNail = () => {
+    dispatch(writeActions.delThumbNailPath());
+  };
   const fileOnChange = (e) => {
     // file에 대해서 리덕스에 blobURI만 저장해서 메모리 절감 및 non-serializable 경고 해결
     const file = e.target.files[0];
-    console.log(file);
     const reader = new FileReader();
 
     //읽기 동작이 성공적으로 완료되었을 떄 실행되는 onload함수
@@ -64,6 +83,7 @@ export default function ThumbnailSelector() {
     };
 
     reader.readAsArrayBuffer(file);
+    e.target.value = "";
   };
 
   return (
@@ -81,6 +101,9 @@ export default function ThumbnailSelector() {
           accept='image/*'
           hidden
         />
+        {thumbnailPath && (
+          <DeleteButton onClick={deleteThumbNail}>썸네일 제거</DeleteButton>
+        )}
       </div>
     </ThumbnailBox>
   );

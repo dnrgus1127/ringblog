@@ -165,7 +165,7 @@ export default function PostContents({ post, index }) {
         </div>
       </div>
       {isLoading ? <div>로딩쓰</div> : <SeriesInPosts data={seriesByPosts} />}
-      <PostThumbnail src={post.thumbnailPath} />
+      <PostThumbnail src={post.thumbnailPath} className='margin-bottom-2' />
 
       <MarkdownCss ref={markdownRef}>
         <CustomMD>{post.contents}</CustomMD>
