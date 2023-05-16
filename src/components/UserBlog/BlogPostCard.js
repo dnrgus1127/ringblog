@@ -68,7 +68,7 @@ const TitleBox = styled.div`
   }
 `;
 
-export default function PostCard({ item }) {
+export default function BlogPostCard({ item }) {
   const date = onlyDate(item.createDateTime);
   return (
     <Link to={`/Post?index=${item._id}`}>

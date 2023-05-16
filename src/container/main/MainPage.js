@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import BlogList from "../../components/mainPage/BlogList";
 import Header from "../../components/Header/Header";
+import PostListContainer from "./PostListContainer";
 
 const Body = styled.div`
   padding-top: calc(var(--header) * 1.5);
@@ -20,7 +21,8 @@ export default function MainPage() {
     <React.Fragment>
       <Header />
       <Body>
-        <BlogList />
+        {/* <BlogList /> */}
+        <PostListContainer />
       </Body>
       <Footer></Footer>
     </React.Fragment>

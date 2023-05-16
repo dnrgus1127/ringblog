@@ -4,7 +4,7 @@ import styled from "styled-components";
 import useRcmndList from "../../../Hooks/Rcmnd/useRcmndList";
 import Error from "../../common/Error/Error";
 import Loading from "../../Loading";
-import BlogItem from "../../mainPage/BlogItem";
+import PostCard from "../../mainPage/PostCard";
 
 const GridLayout = styled.div`
   margin: 0 auto;
@@ -45,7 +45,7 @@ export default function RecordRcmnd() {
   return (
     <GridLayout>
       {rcmndPostList.map((i, idx) => (
-        <BlogItem key={idx} idx={idx} data={i} />
+        <PostCard key={idx} idx={idx} data={i} />
       ))}
     </GridLayout>
   );

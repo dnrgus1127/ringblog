@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { onlyDate } from "../../functions/dateFormat";
-import blog1 from "../../images/blogThum.jpg";
 import HashTagByPreview from "../hasTags/HashTagByPreview";
+import media from "../../lib/style/media";
 
-const ItemWrap = styled.div`
+const CardBox = styled.div`
   width: 100%;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.bgElement};
@@ -30,18 +30,19 @@ const ItemWrap = styled.div`
     transform: translateY(-8px);
   }
 
-  @media (max-width: 640px) {
+  ${media.small} {
     img {
       max-height: 29vh;
     }
   }
 `;
 
-const ItemInfo = styled.div`
+const CardInfo = styled.div`
   position: relative;
   top: 0;
   left: 0;
   height: 45%;
+  ${(props) => !props.hasThumb && { height: "90%" }};
   padding: 1.6rem 1.6rem;
 
   h4 {
@@ -86,13 +87,13 @@ const ItemInfo = styled.div`
     margin: 1.6rem;
   }
 
-  @media (max-width: 832px) {
+  ${media.medium} {
     .postPreview {
       height: 120px;
       -webkit-line-clamp: 6;
     }
   }
-  @media (max-width: 640px) {
+  ${media.small} {
     .postPreview {
       height: 80px;
       -webkit-line-clamp: 4;
@@ -119,33 +120,33 @@ const UserInfo = styled.div`
     color: ${({ theme }) => theme.greyColor};
   }
 
-  @media (max-width: 640px) {
+  ${media.small} {
     padding: 0 1.6rem;
   }
 `;
 
-export default function BlogItem({ data }) {
-  const createDate = onlyDate(data.createDateTime);
+// TODO 썸네일이 없을 경우 추가
+export default function PostCard({ data }) {
+  const hasThumbnail = data.thumbnailPath ? true : false;
+
   return (
-    <ItemWrap>
+    <CardBox>
       <Link to={`/Post?index=${data._id}`}>
-        <div className='thumbnail'>
-          <img
-            src={data.thumbnailPath ? data.thumbnailPath : blog1}
-            alt={"썸네일"}
-          ></img>
-        </div>
-        <ItemInfo>
+        {hasThumbnail && (
+          <div className='thumbnail'>
+            <img src={data.thumbnailPath} alt={"썸네일"}></img>
+          </div>
+        )}
+        <CardInfo hasThumb={hasThumbnail}>
           <h4>{data.title}</h4>
           <p className='postPreview'>
-            {/* // ! null preview null값 처리 수정 필요 */}
             {data.preview !== "null" ? data.preview : "미리보기가 없습니다."}
           </p>
-          <p className='madeBy'>{createDate}</p>
+          <p className='madeBy'>{onlyDate(data.createDateTime)}</p>
           <div className='hashTagSection'>
             {data.hashTags && <HashTagByPreview data={data.hashTags} />}
           </div>
-        </ItemInfo>
+        </CardInfo>
         <UserInfo>
           <p className='user'>@{data.writer}</p>
           <p>좋아요 : {data.rcmnd_cnt ? data.rcmnd_cnt : 0}개</p>
@@ -154,6 +155,6 @@ export default function BlogItem({ data }) {
           </p>
         </UserInfo>
       </Link>
-    </ItemWrap>
+    </CardBox>
   );
 }

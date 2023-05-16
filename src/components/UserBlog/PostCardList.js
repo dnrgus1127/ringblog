@@ -3,12 +3,11 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import Error from "../common/Error/Error";
 import Loading from "../Loading";
-import PostCard from "./PostCard";
 import SearchBox from "./SearchBox";
-
+import PostCard from "../mainPage/PostCard";
+import GridLayout from "../common/Layout/GridLayOut";
 const Container = styled.div`
   width: calc(var(--width) * 0.6);
-  margin: 0 auto;
 
   @media (max-width: 1100px) {
     width: calc(var(--width) * 0.8);
@@ -58,11 +57,11 @@ export default function PostCardList({ uri, writer }) {
 function Contents({ data }) {
   if (data.length !== 0) {
     return (
-      <div>
+      <GridLayout>
         {data.map((item, idx) => (
-          <PostCard key={idx} item={item} />
+          <PostCard data={item} key={idx} />
         ))}
-      </div>
+      </GridLayout>
     );
   } else {
     return <NoPost>게시글이 없습니다.</NoPost>;
