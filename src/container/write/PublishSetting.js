@@ -72,10 +72,16 @@ export default function PublishSetting() {
   };
   return (
     <SettingTemplate>
-      <PublishSettingSection title='읽기 권한'>
+      <PublishSettingSection
+        title='읽기 권한'
+        description='비공개 선택 시 나만 포스트를 읽을수 있어요'
+      >
         <PublishPermissionBlock />
       </PublishSettingSection>
-      <PublishSettingSection title='시리즈 설정'>
+      <PublishSettingSection
+        title='시리즈 설정'
+        description='포스트를 시리즈에 추가하여 모아보거나 이어서 볼수 있습니다.'
+      >
         <PublishSeriesBlock />
       </PublishSettingSection>
       <PublishButtons onCancel={onCancel} onConfirm={uploadPost} />

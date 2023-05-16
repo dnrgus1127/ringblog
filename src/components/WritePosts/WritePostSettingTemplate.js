@@ -38,7 +38,6 @@ const Separator = styled.div`
   min-height: 468px;
   width: 1px;
   background-color: ${({ theme }) => theme.greyColor};
-  box-shadow: 0px 0px 12px rgba(255, 255, 255);
   margin: 0 2rem;
 
   ${media.small} {

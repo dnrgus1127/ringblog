@@ -31,6 +31,7 @@ export default function PublishHasTags() {
   return (
     <div>
       <CreateHashTag onEnter={addHashTag} />
+
       <HashTagBlock hashTags={hashTags} onClick={delHashTag} />
     </div>
   );
