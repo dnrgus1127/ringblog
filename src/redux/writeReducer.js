@@ -62,6 +62,7 @@ const writeSlice = createSlice({
       state.data = {
         ...state.data,
         ...action.payload,
+        hashTags: [],
         thumbnailPath:
           action.payload.thumbnailPath === "undefined" ||
           action.payload.thumbnailPath === "null"

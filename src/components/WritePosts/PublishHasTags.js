@@ -7,6 +7,7 @@ import HashTagBlock from "../hasTags/HashTagBlock";
 
 export default function PublishHasTags() {
   const { hashTags } = useSelector((state) => state.write.data);
+
   const { onToggleAlert } = useAlert();
 
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export default function PublishHasTags() {
 
   return (
     <div>
-      <CreateHashTag onEnter={addHashTag} />
+      <CreateHashTag onEnter={addHashTag} hashTags={hashTags} />
 
       <HashTagBlock hashTags={hashTags} onClick={delHashTag} />
     </div>

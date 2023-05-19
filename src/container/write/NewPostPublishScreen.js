@@ -19,11 +19,15 @@ export default function NewPostPublishScreen() {
     async () => {
       const response = await fetch(`/write/hashTags?postId=${postNumber}`);
       return response.json();
+    },
+    {
+      // 포스트 수정 일때만 hashtags 불러옴
+      enabled: !!postNumber,
     }
   );
 
   useEffect(() => {
-    !hashTagsIsLoading && dispatch(writeActions.setHashTag(hashTags));
+    hashTags && dispatch(writeActions.setHashTag(hashTags));
   }, [hashTags, dispatch, hashTagsIsLoading]);
 
   return (

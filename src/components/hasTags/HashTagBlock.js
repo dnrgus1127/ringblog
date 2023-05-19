@@ -13,6 +13,7 @@ const TagBlock = styled.div`
 `;
 
 export default function HashTagBlock({ hashTags, onClick }) {
+  if (!hashTags) return;
   return (
     <TagBlock>
       {hashTags.map((item, idx) => (

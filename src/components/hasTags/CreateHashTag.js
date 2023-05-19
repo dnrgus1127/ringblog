@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import useBoolean from "../../Hooks/useBoolean";
 import ToolTip from "../common/ToolTip";
-import { useSelector } from "react-redux";
 
 const HashTagBlock = styled.div`
   padding: 0.5rem;
@@ -23,9 +22,8 @@ const HashTagInput = styled.input`
   padding: 0 1rem;
 `;
 
-export default function CreateHashTag({ onEnter }) {
+export default function CreateHashTag({ onEnter, hashTags }) {
   const [showTooltip, onToggleToolTip] = useBoolean(false);
-  const { hashTags } = useSelector((state) => state.write.data);
   return (
     <>
       <HashTagBlock>
