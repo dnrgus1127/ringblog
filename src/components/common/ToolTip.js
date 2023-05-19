@@ -26,6 +26,7 @@ const Title = styled.p`
 const Description = styled.p`
   font-size: small;
   white-space: nowrap;
+  padding: 0 0.5rem;
 `;
 
 export default function ToolTip({
