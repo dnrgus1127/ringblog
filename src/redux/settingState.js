@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   settingVisible: false,
   selectedMenuNumber: 0,
+  setting: {
+    darkMode: 0,
+  },
 };
 
 const settingSlice = createSlice({
@@ -14,6 +17,9 @@ const settingSlice = createSlice({
     },
     setMenuNumber(state, action) {
       state.selectedMenuNumber = action.payload;
+    },
+    setSetting(state, action) {
+      state.setting = action.payload;
     },
   },
 });

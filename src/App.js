@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import AlertWindow from "./components/common/AlertWindow";
 import { useSelector } from "react-redux";
 import MainPage from "./container/main/MainPage";
+import QueryHooks from "./container/app/QueryHooks";
 
 function App() {
   const { themePalette } = useSelector((state) => state.color);
@@ -19,6 +20,7 @@ function App() {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
+      <QueryHooks />
       <div className='App'>
         <ThemeProvider theme={themePalette}>
           <GlobalStyle />

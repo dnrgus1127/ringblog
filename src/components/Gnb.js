@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import searchW from "../images/SearchW.png";
-import searchB from "../images/SearchB.png";
+// import searchW from "../images/SearchW.png";
+// import searchB from "../images/SearchB.png";
 import NewPostBtn from "./NewPostBtn";
 
 import { useSelector } from "react-redux";
@@ -28,9 +28,12 @@ const MenuSection = styled.div`
     width: 100%;
     height: 100%;
   }
+
   svg {
     display: block;
     fill: ${({ theme }) => theme.color};
+    width: 2.4rem;
+    height: 2.4rem;
   }
 
   .menuIcon {
@@ -88,7 +91,7 @@ export default function Gnb({ setHideMenu, hideMenu, toggleTheme }) {
         </a>
       </div>
 
-      <div className='menuHover'>
+      {/* <div className='menuHover'>
         <a
           href='/'
           onClick={(e) => {
@@ -97,7 +100,7 @@ export default function Gnb({ setHideMenu, hideMenu, toggleTheme }) {
         >
           <img src={theme === "dark" ? searchW : searchB} alt='' />
         </a>
-      </div>
+      </div> */}
       {loggedIn === true ? <NewPostBtn /> : null}
 
       <div

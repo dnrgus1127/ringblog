@@ -9,12 +9,17 @@ import useQueryUri from "../../Hooks/useQueryUri";
 import { useDispatch } from "react-redux";
 import { postActions } from "../../redux/postState";
 import { useEffect } from "react";
+import media from "../../lib/style/media";
 
 const Body = styled.div`
   padding: calc(var(--header) * 1.5) 0;
 
   width: calc(var(--width) * 0.65);
   margin: 0 auto;
+
+  ${media.medium} {
+    width: var(--width);
+  }
 
   @media (max-width: 640px) {
     width: 90vw;

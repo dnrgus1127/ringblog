@@ -4,6 +4,7 @@ import LoginComponent from "./LoginComponent";
 import RegisterComponent from "./RegisterComponent";
 import { ColorButton } from "../../Button";
 import { useSelector } from "react-redux";
+import media from "../../../lib/style/media";
 
 const Container = styled.div`
   width: 100vw;
@@ -27,7 +28,11 @@ const CenterWrap = styled.div`
     margin: 1.5rem 0;
   }
 
-  @media (max-width: 640px) {
+  ${media.large} {
+    width: calc(var(--width) * 0.75);
+  }
+
+  ${media.medium} {
     width: var(--width);
   }
 `;

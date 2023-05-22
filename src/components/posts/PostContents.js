@@ -59,9 +59,6 @@ const Container = styled.div`
       display: none;
     }
   }
-  @media screen and (max-width: 640px) {
-    width: var(--width);
-  }
 `;
 
 const Text = styled.p``;

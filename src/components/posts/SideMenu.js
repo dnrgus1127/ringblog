@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ColorButton } from "../Button";
 import { useRcmndCnt } from "./hook/useRcmndCnt";
 import { useRcmnd } from "./hook/useRcmnd";
+import media from "../../lib/style/media";
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.bgElement2};
   border-radius: 32px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  @media (max-width: 640px) {
+  ${media.medium} {
     display: none;
   }
   .countRcmnd {
