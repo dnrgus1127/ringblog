@@ -2,8 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { darkTheme, lightTheme } from "../theme/theme";
 
 const initialState = {
-  theme: "dark",
-  themePalette: darkTheme,
+  // 로컬 저장소의 값 호출, 값 없으면 자동으로 "light"
+  theme: localStorage.getItem("darkMode") === "dark" ? "dark" : "light",
+  themePalette:
+    localStorage.getItem("darkMode") === "dark" ? darkTheme : lightTheme,
 };
 
 const colorSlice = createSlice({

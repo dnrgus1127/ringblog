@@ -10,7 +10,6 @@ import LoginForm from "../common/Login/LoginForm";
 import LogOutButton from "../common/Login/LogOutButton";
 import media from "../../lib/style/media";
 import { loginActions } from "../../redux/loginState";
-import { colorActions } from "../../redux/colorState";
 import Logo from "./Logo";
 
 const HeaderCon = styled.header`
@@ -73,10 +72,6 @@ export default function Header() {
   const { loggedUser, loggedIn } = useSelector((state) => state.login);
   const { settingVisible } = useSelector((state) => state.setting);
 
-  const toggleTheme = () => {
-    dispatch(colorActions.onToggleTheme());
-  };
-
   const ControllLoginForm = () => {
     dispatch(loginActions.onToggleLoginForm());
   };
@@ -106,11 +101,7 @@ export default function Header() {
             )}
           </div>
 
-          <Gnb
-            toggleTheme={toggleTheme}
-            setHideMenu={setHideMenu}
-            hideMenu={hideMenu}
-          />
+          <Gnb setHideMenu={setHideMenu} hideMenu={hideMenu} />
         </div>
 
         {loginForm && (

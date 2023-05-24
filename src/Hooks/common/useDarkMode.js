@@ -4,9 +4,13 @@ import { colorActions } from "../../redux/colorState";
 
 export default function useDarkMode() {
   const { setting } = useSelector((state) => state.setting);
+  const { loggedIn } = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // 로그인 안되어 있으면 설정값 참조 X
+    if (!loggedIn) return;
+
     if (setting.darkMode === 0) {
       // 다크모드 아님
       dispatch(colorActions.setLightMod());
@@ -14,5 +18,5 @@ export default function useDarkMode() {
       // 다크모드
       dispatch(colorActions.setDarkMod());
     }
-  }, [setting.darkMode, dispatch]);
+  }, [loggedIn, setting.darkMode, dispatch]);
 }
