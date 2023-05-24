@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 
 const UnderBarBox = styled.div`
   margin: auto 0;
+  /* width: 100%; */
 `;
 
 const BounceFrame = (props) => keyframes`

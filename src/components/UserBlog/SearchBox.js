@@ -12,12 +12,13 @@ const Container = styled.div`
     border: 1px solid ${({ theme }) => theme.greyColor};
     display: flex;
     align-items: center;
+
     padding: 0.3rem 1rem;
   }
   @media (min-width: 1400px) {
   }
   @media (max-width: 1100px) {
-    width: calc(var(--width) * 0.8);
+    width: calc(var(--width) * 0.6);
   }
   @media (max-width: 832px) {
     width: 100%;

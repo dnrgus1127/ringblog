@@ -10,12 +10,7 @@ const SearchWrap = styled.div`
   margin: 2rem auto;
   justify-content: space-between;
 
-  @media (max-width: 1100px) {
-    .searchBoxSize {
-      width: 100%;
-    }
-  }
-  ${media.xsmall} {
+  ${media.small} {
     flex-direction: column;
     & div:nth-child(1) {
       order: 2;
