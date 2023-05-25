@@ -46,9 +46,9 @@ const Confirm = styled(Button)`
   color: ${({ theme }) => theme.oppositeColor};
 `;
 
-export const ConfirmButton = ({ onClick, children, size = "medium" }) => {
+export const ConfirmButton = ({ onClick, children, size = "medium", type }) => {
   return (
-    <Confirm onClick={onClick} size={size}>
+    <Confirm onClick={onClick} size={size} type={type}>
       {children}
     </Confirm>
   );
