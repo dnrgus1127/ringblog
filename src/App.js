@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 import NewPost from "./container/write/NewPost";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./theme/GlobalStyle";
-import PostPage from "./container/post/PostPage";
 import UserBlog from "./container/userBlog/UserBlog";
 import Recordpage from "./container/record/Recordpage";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -12,6 +11,7 @@ import AlertWindow from "./components/common/AlertWindow";
 import { useSelector } from "react-redux";
 import MainPage from "./container/main/MainPage";
 import QueryHooks from "./container/app/QueryHooks";
+import PostContainer from "./container/post/PostContainer";
 
 function App() {
   const { themePalette } = useSelector((state) => state.color);
@@ -27,7 +27,7 @@ function App() {
           <Routes>
             <Route path='/' element={<MainPage />}></Route>
             <Route path='/WriteNewPost' element={<NewPost />}></Route>
-            <Route path='/Post' element={<PostPage />}></Route>
+            <Route path='/Post' element={<PostContainer />}></Route>
             <Route path='/userBlog' element={<UserBlog />}></Route>
             <Route path='/RecordPage' element={<Recordpage />} />
           </Routes>
