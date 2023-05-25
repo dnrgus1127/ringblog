@@ -6,7 +6,7 @@ import PopupOkCancle from "../../common/PopupOkCancle";
 import useBoolean from "../../../Hooks/useBoolean";
 import useCmtDel from "../../../Hooks/Comments/useCmtDel";
 
-const Container = styled.div``;
+const PostCommentListBlock = styled.div``;
 
 const MoreButton = styled(ColorButton)`
   width: 100%;
@@ -19,12 +19,10 @@ const MoreButton = styled(ColorButton)`
   }
 `;
 
-export default function CommentList({ data, update }) {
+export default function PostCommentList({ data, update }) {
   const [value, setValue] = useState(5);
-
   const [removeId, setRemoveId] = useState();
   const [askRemove, onToggleRemove] = useBoolean(false);
-
   const { delCmt } = useCmtDel(update);
 
   // 확인창 에서 삭제 버튼
@@ -45,7 +43,7 @@ export default function CommentList({ data, update }) {
 
   const list = data.slice(0, value);
   return (
-    <Container>
+    <PostCommentListBlock>
       <p>{data.length}개의 댓글</p>
       {list.map((item, idx) => (
         <CommentItem
@@ -74,6 +72,6 @@ export default function CommentList({ data, update }) {
       >
         댓글을 정말로 삭제하시겠습니까?
       </PopupOkCancle>
-    </Container>
+    </PostCommentListBlock>
   );
 }

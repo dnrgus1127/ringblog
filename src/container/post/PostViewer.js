@@ -6,9 +6,8 @@ import CustomMD from "../../components/common/markdown/CustomMD";
 import MarkdownNav from "../../components/common/markdown/MarkdownNav";
 import PostEditBtn from "../../components/posts/PostEditBtn";
 import { Link } from "react-router-dom";
-import CommentBox from "../../components/posts/comments/CommentBox";
+import PostComments from "./PostComments.js";
 import SideMenu from "../../components/posts/SideMenu";
-
 import PostThumbnail from "../../components/posts/PostThumbnail";
 import { useSelector } from "react-redux";
 import useQueryUri from "../../Hooks/useQueryUri";
@@ -188,7 +187,7 @@ export default function PostViewer({ post, index }) {
           </ColorChangingButton>
         </div>
       )}
-      <CommentBox index={index} />
+      <PostComments index={index} />
     </Container>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import useCmtLoggedUser from "../../common/Comment/hooks/useCmtLoggedUser";
 import Loading from "../../Loading";
 import Error from "../../common/Error/Error";
-import CommentList from "../../posts/comments/CommentList";
+import CommentList from "../../posts/comments/PostCommentList";
 import { useSelector } from "react-redux";
 
 export default function RecordComments() {
