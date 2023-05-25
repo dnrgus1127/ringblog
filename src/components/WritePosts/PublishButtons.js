@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { CancelButton, ConfirmButton } from "../common/Button";
+import { CancelButton, ConfirmButton } from "../common/button/Button";
 
 const ButtonWrapper = styled.div`
   text-align: end;

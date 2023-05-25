@@ -26,24 +26,12 @@ const Button = styled.button`
       font-size: 1.8rem;
       padding: 1rem 2rem;
     `}
-
-
   &:disabled {
     background-color: ${({ theme }) => theme.greyColor};
   }
 `;
 
-const Confirm = styled(Button)`
-  background-color: ${({ theme }) => theme.btnColor};
-  color: ${({ theme }) => theme.oppositeColor};
-`;
-
-const Setting = styled(Button)`
-  background-color: ${({ theme }) => theme.btnColor2};
-  color: ${({ theme }) => theme.Color};
-  border-radius: 6px;
-`;
-
+// 일반 버튼
 export const CancelButton = ({ onClick, children, size = "medium" }) => {
   return (
     <Button onClick={onClick} size={size}>
@@ -51,6 +39,12 @@ export const CancelButton = ({ onClick, children, size = "medium" }) => {
     </Button>
   );
 };
+
+//  확인 버튼
+const Confirm = styled(Button)`
+  background-color: ${({ theme }) => theme.btnColor};
+  color: ${({ theme }) => theme.oppositeColor};
+`;
 
 export const ConfirmButton = ({ onClick, children, size = "medium" }) => {
   return (
@@ -60,6 +54,12 @@ export const ConfirmButton = ({ onClick, children, size = "medium" }) => {
   );
 };
 
+// 설정메뉴에서 사용하는 버튼
+const Setting = styled(Button)`
+  background-color: ${({ theme }) => theme.btnColor2};
+  color: ${({ theme }) => theme.Color};
+  border-radius: 6px;
+`;
 export const SettingButton = ({
   onClick,
   children,
@@ -70,5 +70,28 @@ export const SettingButton = ({
     <Setting onClick={onClick} size={size} disabled={disabled}>
       {children}
     </Setting>
+  );
+};
+
+// isChange 값에 따라서 색상이 변하는 버튼
+const ColorChanging = styled(Confirm)`
+  ${(props) => props.isChange && { backgroundColor: `${props.bgColor}` }}
+`;
+export const ColorChangingButton = ({
+  onClick,
+  children,
+  size = "medium",
+  isChange = false,
+  bgColor = "grey",
+}) => {
+  return (
+    <ColorChanging
+      onClick={onClick}
+      size={size}
+      bgColor={bgColor}
+      isChange={isChange}
+    >
+      {children}
+    </ColorChanging>
   );
 };

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import media from "../../lib/style/media";
 import { settingActions } from "../../redux/settingState";
-import { CancelButton } from "../common/Button";
+import { CancelButton } from "../common/button/Button";
 import ProfileSection from "./ProfileSection";
 import SettingMenu from "./SettingMenu";
 

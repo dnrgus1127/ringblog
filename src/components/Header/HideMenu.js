@@ -5,7 +5,7 @@ import styled from "styled-components";
 import useAuth from "../../Hooks/login/useAuth";
 import { loginActions } from "../../redux/loginState";
 import { settingActions } from "../../redux/settingState";
-import { CancelButton } from "../common/Button";
+import { CancelButton } from "../common/button/Button";
 
 const Container = styled.div`
   position: absolute;

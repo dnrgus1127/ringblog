@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { checkName } from "../../functions/Login/AccountValidation";
 import media from "../../lib/style/media";
 import { loginActions } from "../../redux/loginState";
-import { CancelButton, SettingButton } from "../common/Button";
+import { CancelButton, SettingButton } from "../common/button/Button";
 import useAlert from "../common/hooks/useAlert";
 import Loading from "../Loading";
 import StringLength from "../WritePosts/StringLength";
