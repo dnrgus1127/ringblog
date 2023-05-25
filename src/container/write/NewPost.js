@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { MarkdownCss } from "../../components/common/markdown/MarkdownCss";
 import { useEffect } from "react";
 import CustomMD from "../../components/common/markdown/CustomMD";
@@ -13,50 +12,7 @@ import PostEditor from "../../components/WritePosts/PostEditor";
 import { domain } from "../../lib/fetch/domain";
 import { useQuery } from "react-query";
 import Loading from "../../components/Loading";
-import media from "../../lib/style/media";
-
-const Container = styled.div`
-  width: 100wh;
-  height: 100vh;
-  display: flex;
-  font-family: "Noto Sans KR", sans-serif;
-  overflow: hidden;
-  .writeSection {
-    width: 50%;
-    height: 100vh;
-  }
-
-  position: relative;
-
-  ${media.medium} {
-    .writeSection {
-      width: 100%;
-    }
-  }
-`;
-
-const Left = styled.div`
-  background-color: ${({ theme }) => theme.bgElement};
-`;
-const Right = styled.div`
-  background-color: ${({ theme }) => theme.mdColor};
-  overflow: scroll;
-  overflow-x: hidden;
-  padding: calc(var(--gap) / 2);
-  &::-webkit-scrollbar {
-    width: 3px;
-    height: 1rem;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.color};
-  }
-  &::-webkit-scrollbar-track {
-    background-color: ${({ theme }) => theme.oppositeColor};
-  }
-  ${media.medium} {
-    display: none;
-  }
-`;
+import WriteTemplate from "../../components/WritePosts/WriteTemplate";
 
 export default function NewPost() {
   let query = paramQuery();
@@ -141,19 +97,17 @@ export default function NewPost() {
   }, [loggedIn, navigation]);
 
   return (
-    <Container>
-      {isLoading ? <Loading text={"로딩중"} /> : null}
-      <Left className='writeSection'>
-        <PostEditor />
-      </Left>
-
-      <Right className='writeSection'>
+    <WriteTemplate
+      left={<PostEditor />}
+      right={
         <MarkdownCss>
           <h1 style={{ marginBottom: "6rem" }}>{postData.title}</h1>
           <CustomMD>{postData.contents}</CustomMD>
         </MarkdownCss>
-      </Right>
+      }
+    >
+      {isLoading && <Loading text={"로딩중"} />}
       <NewPostPublishScreen />
-    </Container>
+    </WriteTemplate>
   );
 }
