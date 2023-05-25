@@ -1,12 +1,11 @@
 import React from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import media from "../../lib/style/media";
 import { writeActions } from "../../redux/writeReducer";
 import MarkdownInput from "./MarkdownInput";
 import StringLength from "./StringLength";
-import UnderMenu from "./UnderMenu";
+import PostEditorUnderMenu from "./PostEditorUnderMenu";
 
 const PostEditorBlock = styled.div`
   .length {
@@ -28,6 +27,8 @@ const PostEditorBlock = styled.div`
     }
   }
 `;
+
+const Editor = styled.div``;
 
 const MarkdownInputBlock = styled.div`
   textarea {
@@ -95,7 +96,8 @@ const Title = styled(Input)`
 
   font-size: 3rem;
   @media (max-width: 640px) {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
+    font-weight: 400;
   }
 `;
 
@@ -117,7 +119,7 @@ export default function PostEditor() {
 
   return (
     <PostEditorBlock>
-      <div className='inputArea'>
+      <Editor className='inputArea'>
         <TitleAndHr>
           <Title
             type='text'
@@ -135,8 +137,8 @@ export default function PostEditor() {
           overLimit={() => {}}
           className='length'
         />
-      </div>
-      <UnderMenu onClick={MenuOnOff} />
+      </Editor>
+      <PostEditorUnderMenu onClick={MenuOnOff} />
     </PostEditorBlock>
   );
 }

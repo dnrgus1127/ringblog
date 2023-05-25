@@ -60,7 +60,7 @@ const Button = styled(Btn)`
   }
 `;
 
-export default function UnderMenu({ onClick }) {
+export default function PostEditorUnderMenu({ onClick }) {
   const { postNumber } = useSelector((state) => state.write);
   const navigate = useNavigate();
   return (
