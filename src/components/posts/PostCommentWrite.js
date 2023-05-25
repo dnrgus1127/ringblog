@@ -7,6 +7,13 @@ const PostCommentWriteBlock = styled.div`
   form {
     text-align: end;
   }
+  .loginUser {
+    font-size: 1.4rem;
+    cursor: pointer;
+    border-bottom: 1px solid ${({ theme }) => theme.btnColor};
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
 `;
 
 export default function PostCommentWrite({

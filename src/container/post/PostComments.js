@@ -7,15 +7,7 @@ import PostWriteCommentContainer from "./PostWriteCommentContainer";
 import PostCommentNoLogin from "../../components/posts/PostCommentNoLogin";
 import PostCommentList from "../../components/posts/comments/PostCommentList";
 
-const PostCommentsBlock = styled.div`
-  .loginUser {
-    font-size: 1.4rem;
-    cursor: pointer;
-    border-bottom: 1px solid ${({ theme }) => theme.btnColor};
-    display: inline-block;
-    margin-bottom: 1rem;
-  }
-`;
+const PostCommentsBlock = styled.div``;
 
 export default function PostComments({ index }) {
   const { loggedIn } = useSelector((state) => state.login);
