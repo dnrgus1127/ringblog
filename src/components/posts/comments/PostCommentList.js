@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
-import CommentItem from "./CommentItem";
 import styled from "styled-components";
 import { ColorButton } from "../../Button";
 import PopupOkCancle from "../../common/PopupOkCancle";
 import useBoolean from "../../../Hooks/useBoolean";
 import useCmtDel from "../../../Hooks/Comments/useCmtDel";
+import PostCommentItem from "../PostCommentItem";
 
 const PostCommentListBlock = styled.div``;
 
@@ -46,7 +46,7 @@ export default function PostCommentList({ data, update }) {
     <PostCommentListBlock>
       <p>{data.length}개의 댓글</p>
       {list.map((item, idx) => (
-        <CommentItem
+        <PostCommentItem
           key={idx}
           commentsUpdate={update}
           data={item}

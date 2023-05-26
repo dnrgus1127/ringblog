@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { relativeDate } from "../../../functions/dateFormat";
-import useBoolean from "../../../Hooks/useBoolean";
-import { BtnCss } from "../../Button";
-import MdfdComment from "./MdfdComment";
+import { relativeDate } from "../../functions/dateFormat";
+import useBoolean from "../../Hooks/useBoolean";
+import { BtnCss } from "../Button";
+import MdfdComment from "./comments/MdfdComment";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.greyColor};
 
   margin: 1rem 0;
   padding: 1rem 0;
-  padding-bottom: 2rem; ;
+  padding-bottom: 2rem;
 `;
 
 const Comment = styled.div`
@@ -91,7 +92,7 @@ const hideComment = (
   </svg>
 );
 
-export default function CommentItem({ data, commentsUpdate, onDelete }) {
+export default function PostCommentItem({ data, commentsUpdate, onDelete }) {
   const [hide, setHide] = useState(false);
 
   const { loggedUser } = useSelector((state) => state.login);
@@ -102,7 +103,9 @@ export default function CommentItem({ data, commentsUpdate, onDelete }) {
     <Container>
       <CommentInfo>
         <div className='writerAndDate'>
-          <p>{data.name}</p>
+          <Link to={`/UserBlog?writer=${data.writer}`}>
+            <p>{data.name}</p>
+          </Link>
           <p className='date'>
             {relativeDate(data.mdfd === 0 ? data.createDate : data.mdfdDate)}
           </p>
