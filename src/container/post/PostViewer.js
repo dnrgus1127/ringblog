@@ -15,6 +15,7 @@ import HashTagBlock from "../../components/hasTags/HashTagBlock";
 import SeriesInPosts from "../../components/posts/SeriesInPosts";
 import { ColorChangingButton } from "../../components/common/button/Button";
 import useSubscription from "../../Hooks/Subscribe/useSubscription";
+import MobileScrollTopButton from "../../components/mobile/MobileScrollTopButton";
 
 const Container = styled.div`
   position: relative;
@@ -188,6 +189,7 @@ export default function PostViewer({ post, index }) {
         </div>
       )}
       <PostComments index={index} />
+      <MobileScrollTopButton />
     </Container>
   );
 }
