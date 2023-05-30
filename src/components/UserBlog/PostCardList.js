@@ -1,69 +1,68 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { useQuery as urlQuery } from '../../functions/urlQuery';
 import styled from "styled-components";
 import Error from "../common/Error/Error";
 import Loading from "../Loading";
 import SearchBox from "./SearchBox";
 import PostCard from "../mainPage/PostCard";
 import GridLayout from "../common/Layout/GridLayOut";
-const Container = styled.div`
+import media from "../../lib/style/media";
+const UserBlogPostCardListBlock = styled.div`
   width: calc(var(--width) * 0.6);
 
-  @media (max-width: 1100px) {
+  ${media.large} {
     width: calc(var(--width) * 0.8);
   }
 
-  @media (max-width: 832px) {
+  ${media.medium} {
     width: 100%;
   }
 
-  @media (max-width: 640px) {
+  ${media.small} {
     width: var(--width);
   }
 `;
-const NoPost = styled.div`
-  height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 4rem;
-`;
 
-export default function PostCardList({ uri, writer }) {
+export default function PostCardList({ uri }) {
   const [searchTerm, setSearchTerm] = useState("");
+
+  let query = urlQuery();
+  const writer = query.get("writer");
+
+  const defaultQuery = `${uri}?writer=${writer}`;
+  const searchQuery = defaultQuery + `&search=${searchTerm}`;
 
   const { data, isLoading, isError } = useQuery(
     ["posts", uri, searchTerm],
     async () => {
-      const response = await fetch(
-        `${uri}?writer=${writer}${
-          searchTerm !== "" ? `&search=${searchTerm}` : ``
-        }`
-      );
+      // const response = await fetch(
+      //   `${uri}?writer=${writer}${searchTerm !== "" ? `&search=${searchTerm}` : ``
+      //   }`
+      // );
+      const response = await fetch(`${searchTerm === "" ? defaultQuery : searchQuery}`)
 
       return response.json();
     }
   );
   if (isLoading) return <Loading />;
   if (isError) return <Error text='데이터 로딩 에러' />;
-  return (
-    <Container>
-      <SearchBox onBlur={setSearchTerm} />
-      {data && <Contents data={data} />}
-    </Container>
-  );
-}
 
-function Contents({ data }) {
-  if (data.length !== 0) {
-    return (
+  if (data.length === 0) return <div>
+    {/* ? SearchBox 안넣어주면 검색 결과 없을때 재검색 불가능 */}
+    <SearchBox onBlur={setSearchTerm} />
+    <Error text="게시글이 없습니다." />
+  </div>
+  return (
+    <UserBlogPostCardListBlock>
+      {/* // ! SearchBox CSS 위치 수정 필요 */}
+      <SearchBox onBlur={setSearchTerm} />
       <GridLayout>
         {data.map((item, idx) => (
           <PostCard data={item} key={idx} />
         ))}
       </GridLayout>
-    );
-  } else {
-    return <NoPost>게시글이 없습니다.</NoPost>;
-  }
+    </UserBlogPostCardListBlock>
+  );
 }
+
