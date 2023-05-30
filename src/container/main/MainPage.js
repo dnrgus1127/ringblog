@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import BlogList from "../../components/mainPage/BlogList";
 import Header from "../../components/Header/Header";
 import PostListContainer from "./PostListContainer";
 
@@ -21,7 +20,6 @@ export default function MainPage() {
     <React.Fragment>
       <Header />
       <Body>
-        {/* <BlogList /> */}
         <PostListContainer />
       </Body>
       <Footer></Footer>
