@@ -79,7 +79,7 @@ export default function ProfileSection() {
   );
   useEffect(() => {
     if (queryProfile.data) {
-      setNickName(queryProfile.data.nickName);
+      setNickName(queryProfile.data.name);
       setIntrodution(queryProfile.data.introdution);
     }
   }, [queryProfile.data]);
