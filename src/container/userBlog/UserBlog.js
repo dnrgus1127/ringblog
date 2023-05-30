@@ -1,53 +1,28 @@
 import React from "react";
 import { useState } from "react";
-import styled from "styled-components";
-import Header from "../../components/Header/Header";
 import BlogNavigation from "../../components/UserBlog/BlogNavigation";
-import PageBySeries from "../../components/UserBlog/PageBySeries";
-import PostCardList from "../../components/UserBlog/PostCardList";
-import { useQuery } from "../../functions/urlQuery";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-const BlogContents = styled.div`
-  width: var(--width);
-  background-color: ${({ theme }) => theme.bgColor};
-  margin-top: calc(var(--header) * 1.5);
-
-  h1 {
-    margin-bottom: 2rem;
-  }
-`;
+import BlogContentsProvider from "./BlogContentsProvider";
+import UserBlogTemplate from "../../components/UserBlog/UserBlogTemplate";
+import { useQuery } from "react-query";
+import { useQuery as urlQuery } from '../../functions/urlQuery';
+import Loading from "../../components/Loading";
+import Error from "../../components/common/Error/Error";
 
 export default function UserBlog() {
   const [navType, setNavType] = useState(0);
+  let query = urlQuery();
+  const userId = query.get("writer");
+  const { data, isLoading, isError } = useQuery(["userProfile", userId], async () => {
+    const res = await fetch(`/setting/userProfile?userId=${userId}`);
+    return res.json();
+  })
 
-  let query = useQuery();
-  const writer = query.get("writer");
-
-  // writer 기반으로 수정 필요
-  const RouteContents = (type) => {
-    switch (type) {
-      case 0:
-        return <PostCardList writer={writer} uri={"/posts/writer"} />;
-      case 1:
-        return <PostCardList writer={writer} uri={"/popularPosts"} />;
-      case 2:
-        return <PageBySeries />;
-      default:
-        return <div>error</div>;
-    }
-  };
+  if (isLoading) return <Loading text="로딩중" />
+  if (isError) return <Error text="데이터를 불러오는데 실패했습니다" />
   return (
-    <Container>
-      <Header />
-      <BlogContents>
-        <h1>정욱현's Ring</h1>
-        <BlogNavigation navType={navType} setNavType={setNavType} />
-        {RouteContents(navType)}
-      </BlogContents>
-    </Container>
-  );
+    <UserBlogTemplate blogerName={data.name} blogIntro={data.introdution} blogerId={data.userId} >
+      <BlogNavigation navType={navType} setNavType={setNavType} />
+      <BlogContentsProvider type={navType} />
+    </UserBlogTemplate>
+  )
 }
