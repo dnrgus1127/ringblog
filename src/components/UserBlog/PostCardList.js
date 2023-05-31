@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { useQuery as urlQuery } from '../../functions/urlQuery';
+import { useQuery as urlQuery } from "../../functions/urlQuery";
 import styled from "styled-components";
 import Error from "../common/Error/Error";
 import Loading from "../Loading";
@@ -22,6 +22,13 @@ const UserBlogPostCardListBlock = styled.div`
   ${media.small} {
     width: var(--width);
   }
+
+  .searchBoxWrap {
+    width: var(--width);
+    margin: 2rem auto;
+    display: flex;
+    justify-content: end;
+  }
 `;
 
 export default function PostCardList({ uri }) {
@@ -36,11 +43,9 @@ export default function PostCardList({ uri }) {
   const { data, isLoading, isError } = useQuery(
     ["posts", uri, searchTerm],
     async () => {
-      // const response = await fetch(
-      //   `${uri}?writer=${writer}${searchTerm !== "" ? `&search=${searchTerm}` : ``
-      //   }`
-      // );
-      const response = await fetch(`${searchTerm === "" ? defaultQuery : searchQuery}`)
+      const response = await fetch(
+        `${searchTerm === "" ? defaultQuery : searchQuery}`
+      );
 
       return response.json();
     }
@@ -48,15 +53,21 @@ export default function PostCardList({ uri }) {
   if (isLoading) return <Loading />;
   if (isError) return <Error text='데이터 로딩 에러' />;
 
-  if (data.length === 0) return <div>
-    {/* ? SearchBox 안넣어주면 검색 결과 없을때 재검색 불가능 */}
-    <SearchBox onBlur={setSearchTerm} />
-    <Error text="게시글이 없습니다." />
-  </div>
+  if (data.length === 0)
+    return (
+      <div>
+        {/* ? SearchBox 안넣어주면 검색 결과 없을때 재검색 불가능 */}
+        <div className='searchBoxWrap'>
+          <SearchBox onBlur={setSearchTerm} />
+        </div>
+        <Error text='게시글이 없습니다.' />
+      </div>
+    );
   return (
     <UserBlogPostCardListBlock>
-      {/* // ! SearchBox CSS 위치 수정 필요 */}
-      <SearchBox onBlur={setSearchTerm} />
+      <div className='searchBoxWrap'>
+        <SearchBox onBlur={setSearchTerm} />
+      </div>
       <GridLayout>
         {data.map((item, idx) => (
           <PostCard data={item} key={idx} />
@@ -65,4 +76,3 @@ export default function PostCardList({ uri }) {
     </UserBlogPostCardListBlock>
   );
 }
-

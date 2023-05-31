@@ -25,9 +25,7 @@ export default function OrderAndSearch({ orderIndex, setOrder, setSearch }) {
   return (
     <SearchWrap>
       <PostOrder buttonIndex={orderIndex} setButtonIndex={setOrder} />
-      <div className='searchBoxSize'>
-        <SearchBox onBlur={setSearch} />
-      </div>
+      <SearchBox onBlur={setSearch} />
     </SearchWrap>
   );
 }
