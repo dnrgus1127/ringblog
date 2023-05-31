@@ -9,7 +9,7 @@ const SearchBoxBlock = styled.div`
   align-items: center;
   padding: 0.3rem 1rem;
 
-  ${media.medium} {
+  ${media.small} {
     width: 100%;
   }
 `;
