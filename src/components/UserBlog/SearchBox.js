@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import media from "../../lib/style/media";
 
 const Container = styled.div`
   width: var(--width);
@@ -15,14 +16,12 @@ const Container = styled.div`
     padding: 0.3rem 1rem;
   }
 
-  @media (max-width: 1100px) {
-  }
-  @media (max-width: 832px) {
+  ${media.medium} {
     .boxWrap {
       width: 100%;
     }
   }
-  @media (max-width: 640px) {
+  ${media.small} {
   }
 `;
 
