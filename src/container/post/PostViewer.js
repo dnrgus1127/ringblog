@@ -84,7 +84,9 @@ export default function PostViewer({ post, index }) {
   const [fixed, setfixed] = useState(false);
   const { loggedUser } = useSelector((state) => state.login);
   const { hashTags } = useSelector((state) => state.post);
-  const { sub, subscribe, unSubscribe } = useSubscription(post.writer);
+  const { sub, subscribe, unSubscribe } = useSubscription({
+    writer: post.writer,
+  });
   const { loggedIn } = useSelector((state) => state.login);
   const underRef = useRef();
 
