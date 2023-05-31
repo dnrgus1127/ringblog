@@ -134,6 +134,7 @@ export default function PostEditor() {
         </MarkdownInputBlock>
         <StringLength
           string={postData.contents}
+          // TODO 글자 수 초과 시 적용
           overLimit={() => {}}
           className='length'
         />

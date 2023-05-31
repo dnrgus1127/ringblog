@@ -45,7 +45,6 @@ async function uploadImg(file) {
     method: "post",
     body: formData,
   }).then((res) => (result = res.json()));
-
   return result;
 }
 

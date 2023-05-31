@@ -5,8 +5,6 @@ import PublishSeriesBlock from "../../components/WritePosts/PublishSeriesBlock";
 import PublishSettingSection from "../../components/WritePosts/PublishSettingSection";
 import { useMutation } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-
-import { domain } from "../../lib/fetch/domain";
 import { writeActions } from "../../redux/writeReducer";
 import PublishPermissionBlock from "../../components/WritePosts/PublishPermissionBlock";
 import useWrite from "../../components/WritePosts/hooks/useWrite";
@@ -28,7 +26,7 @@ export default function PublishSetting() {
   const publishImg = useMutation(async (file) => {
     const formData = new FormData();
     formData.append("img", file);
-    const response = await fetch(`${domain}/imgUpload`, {
+    const response = await fetch(`/imgUpload`, {
       method: "POST",
       body: formData,
     });
@@ -50,7 +48,7 @@ export default function PublishSetting() {
     return await publishImg.mutateAsync(imgFile);
   };
 
-  // todo 확장자 리듀서에 저장받도록 수정
+  // TODO 확장자 리듀서에 저장받도록 수정
   const uploadPost = async () => {
     let serverThumbNailPath;
     if (publishData.thumbnailPath) {
