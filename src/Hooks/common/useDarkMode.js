@@ -14,9 +14,11 @@ export default function useDarkMode() {
     if (setting.darkMode === 0) {
       // 다크모드 아님
       dispatch(colorActions.setLightMod());
+      localStorage.setItem("darkMode", "light");
     } else if (setting.darkMode === 1) {
       // 다크모드
       dispatch(colorActions.setDarkMod());
+      localStorage.setItem("darkMode", "dark");
     }
   }, [loggedIn, setting.darkMode, dispatch]);
 }
