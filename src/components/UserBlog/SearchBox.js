@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: calc(var(--width) * 0.6);
+  width: var(--width);
   margin: 2rem auto;
   display: flex;
   justify-content: end;
@@ -14,11 +14,8 @@ const Container = styled.div`
     align-items: center;
     padding: 0.3rem 1rem;
   }
-  @media (min-width: 1400px) {
-  }
+
   @media (max-width: 1100px) {
-    
-    width: 100%;
   }
   @media (max-width: 832px) {
     .boxWrap {
