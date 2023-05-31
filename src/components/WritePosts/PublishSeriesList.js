@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const SeriesList = styled.div`
   width: 100%;
-  height: 24rem;
+  max-height: 24rem;
   overflow-y: auto;
   background-color: ${({ theme }) => theme.bgElement2};
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
@@ -24,12 +24,19 @@ const SeriesItem = styled.div`
   cursor: pointer;
 `;
 
+const EmptyList = styled(SeriesItem)`
+  text-align: center;
+  color: ${({ theme }) => theme.btnColor};
+`;
+
 export default function PublishSeriesList({ list, selectedId, onSelectedId }) {
   useEffect(() => {
-    onSelectedId(list[0]._id);
+    list.length !== 0 && onSelectedId(list[0]._id);
   }, [list, onSelectedId]);
+
   return (
     <SeriesList>
+      {list.length === 0 && <EmptyList>시리즈를 추가해 보세요!</EmptyList>}
       {list.map((item) => (
         <SeriesItem
           key={item._id}
