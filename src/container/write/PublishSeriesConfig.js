@@ -7,7 +7,6 @@ import PublishSeriesConfigBtn from "../../components/WritePosts/PublishSeriesCon
 import PublishSeriesConfigTemp from "../../components/WritePosts/PublishSeriesConfigTemp";
 import PublishSeriesCreate from "../../components/WritePosts/PublishSeriesCreate";
 import PublishSeriesList from "../../components/WritePosts/PublishSeriesList";
-import { domain } from "../../lib/fetch/domain";
 import { writeActions } from "../../redux/writeReducer";
 
 const PublishSeriesBlock = styled.div``;
@@ -26,7 +25,7 @@ export default function PublishSeriesConfig() {
     [`seriesList`, loggedUser.userId],
     async () => {
       const response = await fetch(
-        `${domain}/series/byUser?userId=${loggedUser.userId}`
+        `/series/byUser?userId=${loggedUser.userId}`
       );
       return response.json();
     },
@@ -37,7 +36,7 @@ export default function PublishSeriesConfig() {
 
   // 시리즈 작성
   const createSeries = useMutation(async (data) => {
-    const response = await fetch(`${domain}/series/newSeries`, {
+    const response = await fetch(`/series/newSeries`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
@@ -83,7 +82,7 @@ export default function PublishSeriesConfig() {
     return true;
   };
 
-  if (seriesListLoading) return;
+  if (seriesListLoading) return <div>123</div>;
   return (
     <PublishSeriesBlock>
       <PublishSeriesConfigTemp
