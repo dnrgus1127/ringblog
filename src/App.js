@@ -12,11 +12,13 @@ import { useSelector } from "react-redux";
 import MainPage from "./container/main/MainPage";
 import QueryHooks from "./container/app/QueryHooks";
 import PostContainer from "./container/post/PostContainer";
+import { useLogin } from "./Hooks/useLogin";
 
 function App() {
   const { themePalette } = useSelector((state) => state.color);
   const { showAlert } = useSelector((state) => state.common.alert);
 
+  useLogin();
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>

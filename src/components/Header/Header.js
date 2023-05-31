@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useLogin } from "../../Hooks/useLogin";
 import { ColorButton } from "../Button";
 import Gnb from "../Gnb";
 import HideMenu from "./HideMenu";
@@ -75,10 +74,6 @@ export default function Header() {
   const ControllLoginForm = () => {
     dispatch(loginActions.onToggleLoginForm());
   };
-
-  // 새로고침 시 로그인 여부 확인
-  useLogin();
-
   return (
     <HeaderCon>
       <HideMenu trigger={hideMenu} onToggleTrigger={setHideMenu} />

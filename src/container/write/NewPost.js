@@ -2,7 +2,7 @@ import React from "react";
 import { MarkdownCss } from "../../components/common/markdown/MarkdownCss";
 import { useEffect } from "react";
 import CustomMD from "../../components/common/markdown/CustomMD";
-import { useQuery as paramQuery } from "../../functions/urlQuery";
+import { useQuery as urlQuery } from "../../functions/urlQuery";
 import { useLogin } from "../../Hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import NewPostPublishScreen from "./NewPostPublishScreen";
@@ -15,16 +15,28 @@ import Loading from "../../components/Loading";
 import WriteTemplate from "../../components/WritePosts/WriteTemplate";
 
 export default function NewPost() {
-  let query = paramQuery();
-
+  let query = urlQuery();
   const { postNumber, edit } = useSelector((state) => state.write);
   const postData = useSelector((state) => state.write.data);
-
   const { loggedIn } = useSelector((state) => state.login);
+
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
   useLogin();
+  // 로그인 검증
+  // TODO 수정 시 로그인한 유저와 작성자가 일치하는지 확인
+  useEffect(() => {
+    if (!loggedIn) {
+      navigation("/");
+    }
+  }, [loggedIn, navigation]);
+
+  useEffect(() => {
+    window.onbeforeunload = (e) => {
+      return 0;
+    };
+  }, [navigation]);
 
   useEffect(() => {
     return () => {
@@ -87,14 +99,6 @@ export default function NewPost() {
       dispatch(writeActions.setData({ ...data }));
     }
   }, [data, dispatch, edit]);
-
-  // 로그인 검증 // TODO 로그인한 유저와 작성자가 일치하는지 확인할 필요 있음 when 수정 시에
-  useEffect(() => {
-    if (!loggedIn) {
-      alert("로그인이 필요합니다.");
-      navigation("/");
-    }
-  }, [loggedIn, navigation]);
 
   return (
     <WriteTemplate
