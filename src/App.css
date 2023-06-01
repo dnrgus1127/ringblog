@@ -5,6 +5,9 @@
 /* font-family: 'Fira Mono', monospace;
  */
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+/* font-family: 'Roboto', sans-serif;
+ */
 * {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -95,6 +98,8 @@ body {
   /* 분홍빛 */
   color: #ffd1d1;
   /* 진한보라 */
+
+  color: #736ac1;
   color: #645caa;
   /* 진한보라 -1 */
   color: #a084ca;
