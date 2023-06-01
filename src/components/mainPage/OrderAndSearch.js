@@ -7,7 +7,7 @@ import media from "../../lib/style/media";
 const SearchWrap = styled.div`
   width: var(--width);
   display: flex;
-  margin: 2rem auto;
+  margin: 2rem 0;
   justify-content: space-between;
 
   ${media.small} {

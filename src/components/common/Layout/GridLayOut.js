@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const GridLayOut = styled.div`
   width: var(--width);
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: minmax(30px, 414px);
