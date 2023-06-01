@@ -1,28 +1,34 @@
 import React from "react";
-import styled from "styled-components";
 import Header from "../../components/Header/Header";
 import PostListContainer from "./PostListContainer";
+import MainPageMenu from "../../components/mainPage/MainPageMenu";
+import styled from "styled-components";
+import MainPagePostSliderContainer from "./MainPagePostSliderContainer";
+import Margin from "../../components/common/design/Margin";
 
-const Body = styled.div`
+const MainPageBody = styled.body`
+  width: var(--width);
+  margin: 0 auto;
   padding-top: calc(var(--header) * 1.5);
-  background-color: ${({ theme }) => theme.bgColor};
-`;
-
-const Footer = styled.footer`
-  height: 15vh;
-  width: 100%;
-  padding: 0 var(--gap);
-  background-color: ${({ theme }) => theme.bgColor};
+  .menuAndWriteBtn {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 export default function MainPage() {
   return (
-    <React.Fragment>
+    <>
       <Header />
-      <Body>
+      <MainPageBody>
+        <div className='menuAndWriteBtn'>
+          <MainPageMenu />
+        </div>
+        <Margin>
+          <MainPagePostSliderContainer />
+        </Margin>
         <PostListContainer />
-      </Body>
-      <Footer></Footer>
-    </React.Fragment>
+      </MainPageBody>
+    </>
   );
 }
