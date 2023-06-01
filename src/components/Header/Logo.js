@@ -12,6 +12,15 @@ const LogoSvg = styled.svg`
   ${media.small} {
     width: 25vw;
   }
+
+  stop:nth-child(1) {
+    stop-color: ${({ theme }) => theme.pointColor};
+    stop-opacity: 1;
+  }
+  stop:nth-child(2) {
+    stop-color: white;
+    stop-opacity: 1;
+  }
 `;
 
 export default function Logo() {
@@ -21,14 +30,8 @@ export default function Logo() {
       <LogoSvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -25 70 40'>
         <defs>
           <linearGradient id='gradient' x1='0%' y1='50%' x2='50%' y2='200%'>
-            <stop
-              offset='0%'
-              style={{ stopColor: "#35c6b9", stopOpacity: 0.8 }}
-            />
-            <stop
-              offset='100%'
-              style={{ stopColor: "#e1b6b7", stopOpacity: 1 }}
-            />
+            <stop offset='0%' style={{ stopOpacity: 0.8 }} />
+            <stop offset='100%' style={{ stopOpacity: 1 }} />
           </linearGradient>
         </defs>
         <text
@@ -40,7 +43,7 @@ export default function Logo() {
             fill: "url(#gradient)",
           }}
         >
-          RingBlog
+          Blog
         </text>
       </LogoSvg>
     </Link>

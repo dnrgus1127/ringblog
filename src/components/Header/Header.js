@@ -15,10 +15,8 @@ const HeaderCon = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  /* height: var(--header); */
-  padding: 1rem 0;
   width: 100vw;
-  background-color: ${({ theme }) => theme.bgElement};
+  background-color: ${({ theme }) => theme.bgColor};
   z-index: 9000;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 `;

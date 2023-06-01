@@ -90,3 +90,12 @@ body {
 }
 @media (max-width: 640px) {
 }
+
+#colorList {
+  /* 분홍빛 */
+  color: #ffd1d1;
+  /* 진한보라 */
+  color: #645caa;
+  /* 진한보라 -1 */
+  color: #a084ca;
+}
