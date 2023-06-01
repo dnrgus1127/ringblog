@@ -14,11 +14,12 @@ const Button = styled.button`
   font-size: 0.8em;
   font-weight: 400;
   font-family: "Noto Sans KR", sans-serif;
-  transition: background-color 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.color};
+    background-color: ${({ theme }) => theme.pointColor};
+    border-color: ${({ theme }) => theme.pointColor};
     color: ${({ theme }) => theme.oppositeColor};
     font-weight: 800;
   }
