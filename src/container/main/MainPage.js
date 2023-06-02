@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import PostListContainer from "./PostListContainer";
 import MainPageMenu from "../../components/mainPage/MainPageMenu";
 import styled from "styled-components";
-import MainPagePostSliderContainer from "./MainPagePostSliderContainer";
+import MainPagePostSlideContainer from "./MainPagePostSlideContainer";
 import Margin from "../../components/common/design/Margin";
 
 const MainPageBody = styled.body`
@@ -25,7 +25,7 @@ export default function MainPage() {
           <MainPageMenu />
         </div>
         <Margin>
-          <MainPagePostSliderContainer />
+          <MainPagePostSlideContainer />
         </Margin>
         <PostListContainer />
       </MainPageBody>

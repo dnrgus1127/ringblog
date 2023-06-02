@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "react-query";
-import MainPagePostSlider from "../../components/mainPage/MainPagePostSlider";
+import MainPagePostSlide from "../../components/mainPage/MainPagePostSlide";
 
-export default function MainPagePostSliderContainer() {
+export default function MainPagePostSlideContainer() {
   const { data } = useQuery(["tempPost"], async () => {
     const response = await fetch("/posts/198");
     const result = await response.json();
@@ -10,5 +10,5 @@ export default function MainPagePostSliderContainer() {
     return result;
   });
 
-  return <MainPagePostSlider data={data} />;
+  return <MainPagePostSlide data={data} />;
 }
