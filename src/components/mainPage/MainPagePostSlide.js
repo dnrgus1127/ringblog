@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import MainPagePostSlideItem from "./MainPagePostSlideItem";
 
@@ -15,7 +15,7 @@ const PostSliderBlock = styled.div`
   flex-wrap: nowrap;
   position: relative;
   left: ${(props) => `${props.left * -75}%`};
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
 
   img {
     width: 100%;
@@ -28,14 +28,22 @@ export default function MainPagePostSlide({ data }) {
   const [idx, setIdx] = useState(0);
   const slideRef = useRef();
 
-  const nextItem = () => {
+  useEffect(() => {
     if (idx === 3) {
-      slideRef.current.style.transition = "0s";
-      setIdx(0);
-      slideRef.current.style.transition = "1s  all ease-in-out;";
-    } else {
-      setIdx((prev) => prev + 1);
+      setTimeout(() => {
+        slideRef.current.style.transition = "0s ";
+        setIdx(0);
+      }, 500);
     }
+    if (idx === 0) {
+      setTimeout(() => {
+        slideRef.current.style.transition = "all .5s ease-in-out";
+      }, 50);
+    }
+  }, [idx]);
+
+  const nextItem = () => {
+    setIdx((prev) => prev + 1);
   };
   const preItem = () => {
     setIdx((prev) => prev - 1);
