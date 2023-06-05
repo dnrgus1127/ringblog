@@ -37,8 +37,8 @@ function contentValide(contents) {
   if (len === undefined) {
     alert("포스트 내용을 작성해 주세요!");
     return false;
-  } else if (len > 5000) {
-    alert("포스트 내용은 최대 5000자 까지 가능합니다.");
+  } else if (len > 10000) {
+    alert("포스트 내용은 최대 10000자 까지 가능합니다.");
     return false;
   }
 

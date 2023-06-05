@@ -25,22 +25,31 @@ const PostSliderBlock = styled.div`
 `;
 
 export default function MainPagePostSlide({ data }) {
-  const [idx, setIdx] = useState(0);
+  const [idx, setIdx] = useState(1);
   const slideRef = useRef();
+  const lastIdx = data.length;
+  const startIdx = 1;
 
+  // 무한 슬라이딩 가능하도록
   useEffect(() => {
-    if (idx === 3) {
+    if (idx === lastIdx + 1) {
       setTimeout(() => {
         slideRef.current.style.transition = "0s ";
-        setIdx(0);
+        setIdx(startIdx);
       }, 500);
     }
-    if (idx === 0) {
+    if (idx === startIdx || idx === lastIdx) {
       setTimeout(() => {
         slideRef.current.style.transition = "all .5s ease-in-out";
       }, 50);
     }
-  }, [idx]);
+    if (idx === startIdx - 1) {
+      setTimeout(() => {
+        slideRef.current.style.transition = "0s";
+        setIdx(lastIdx);
+      }, 500);
+    }
+  }, [idx, lastIdx]);
 
   const nextItem = () => {
     setIdx((prev) => prev + 1);
@@ -48,15 +57,21 @@ export default function MainPagePostSlide({ data }) {
   const preItem = () => {
     setIdx((prev) => prev - 1);
   };
+
   return (
     <div>
       <PostSlideWindow>
         <PostSliderBlock left={idx} ref={slideRef}>
-          <MainPagePostSlideItem data={data} idx={1} />
-          <MainPagePostSlideItem data={data} idx={2} />
-          <MainPagePostSlideItem data={data} idx={3} />
-          <MainPagePostSlideItem data={data} idx={1} />
-          <MainPagePostSlideItem data={data} idx={2} />
+          <MainPagePostSlideItem post={data[lastIdx - 1]} />
+          {data.map((item, idx) => (
+            <MainPagePostSlideItem post={item} key={item._id} />
+          ))}
+          {data.map(
+            (item, idx) =>
+              idx < 3 && (
+                <MainPagePostSlideItem post={item} key={item._id + 32} />
+              )
+          )}
         </PostSliderBlock>
       </PostSlideWindow>
       <button onClick={nextItem}>앞</button>
