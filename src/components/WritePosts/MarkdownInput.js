@@ -3,6 +3,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { uploadImg } from "../../functions/fetch";
+import EditorToolBox from "./EditorToolBox";
 
 /**
  * 마크다운을 입력받는 컴포넌트
@@ -30,33 +31,49 @@ export default function MarkdownInput({ data, onChange, onBlur }) {
     setCursor(selectionStart + len);
   };
 
+  const enterTools = (char, len) => {
+    const { value, selectionStart, selectionEnd } = taRef.current;
+    if (selectionEnd !== selectionStart) {
+      onChange(value.substring(0, selectionStart) + char + value.substring(selectionStart));
+      setCursor(selectionEnd + len);
+    }
+    else {
+      onChange(value.substring(0, selectionStart) + char + value.substring(selectionEnd));
+    }
+    setCursor(selectionStart + len);
+    taRef.current.focus();
+  }
+
   // 특수문자 입력 후 커서 위치 조정하는 hook
   useEffect(() => {
     taRef.current.setSelectionRange(cursor, cursor);
   }, [cursor]);
 
   return (
-    <textarea
-      ref={taRef}
-      onChange={(e) => {
-        onChange(e.target.value);
-      }}
-      onPaste={(e) => pasteImg(e, onChange, setCursor)}
-      onKeyDown={(e) => {
-        if (e.key === "Tab") {
-          e.preventDefault();
-          enterSpecialChar(e.target, "\t", 1);
-        } else if (e.key === "Enter") {
-          e.preventDefault();
-          enterSpecialChar(e.target, "  \n", 3);
-        } else if (e.key === '"') {
-          e.preventDefault();
-          enterSpecialChar(e.target, '"', 1);
-        }
-      }}
-      value={data}
-      onBlur={onBlur}
-    ></textarea>
+    <>
+      <EditorToolBox changeContents={enterTools} />
+      <textarea
+        ref={taRef}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
+        onPaste={(e) => pasteImg(e, onChange, setCursor)}
+        onKeyDown={(e) => {
+          if (e.key === "Tab") {
+            e.preventDefault();
+            enterSpecialChar(e.target, "\t", 1);
+          } else if (e.key === "Enter") {
+            e.preventDefault();
+            enterSpecialChar(e.target, "  \n", 3);
+          } else if (e.key === '"') {
+            e.preventDefault();
+            enterSpecialChar(e.target, '"', 1);
+          }
+        }}
+        value={data}
+        onBlur={onBlur}
+      ></textarea>
+    </>
   );
 }
 
@@ -77,8 +94,8 @@ function pasteImg(evt, onChange, setCursor) {
   uploadImg(blob).then((res) => {
     onChange(
       value.substring(0, selectionStart) +
-        `![](${res})` +
-        value.substring(selectionEnd)
+      `![](${res})` +
+      value.substring(selectionEnd)
     );
     setCursor(selectionStart + 22);
   });

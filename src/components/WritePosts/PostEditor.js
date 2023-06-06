@@ -6,6 +6,7 @@ import { writeActions } from "../../redux/writeReducer";
 import MarkdownInput from "./MarkdownInput";
 import StringLength from "./StringLength";
 import PostEditorUnderMenu from "./PostEditorUnderMenu";
+import EditorToolBox from "./EditorToolBox";
 
 const PostEditorBlock = styled.div`
   .length {
@@ -28,11 +29,13 @@ const PostEditorBlock = styled.div`
   }
 `;
 
-const Editor = styled.div``;
+const Editor = styled.div`
+    padding : 0 4rem;
+
+`;
 
 const MarkdownInputBlock = styled.div`
   textarea {
-    padding: 0 calc(var(--gap) / 2);
 
     background: none;
     outline: none;
@@ -70,7 +73,7 @@ const MarkdownInputBlock = styled.div`
 `;
 
 const TitleAndHr = styled.div`
-  padding: calc(var(--gap) / 2);
+  padding-top: calc(var(--gap) / 2) ;
   hr {
     margin: 2rem 0;
     border: 1.5px solid ${({ theme }) => theme.lineColor};
@@ -129,13 +132,14 @@ export default function PostEditor() {
           />
           <hr />
         </TitleAndHr>
+        {/* <EditorToolBox changeContents={changeContents} /> */}
         <MarkdownInputBlock>
           <MarkdownInput data={postData.contents} onChange={changeContents} />
         </MarkdownInputBlock>
         <StringLength
           string={postData.contents}
           // TODO 글자 수 초과 시 적용
-          overLimit={() => {}}
+          overLimit={() => { }}
           className='length'
         />
       </Editor>
