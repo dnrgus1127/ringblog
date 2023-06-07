@@ -22,7 +22,8 @@ const lightTheme = {
   borderColor: "rgb(192,192,192)",
   mdColor: "#f8fdfc",
   tableColor: "#A0A0A0", //임시
-  btnColor: "rgb(24, 24, 24)",
+  // btnColor: "rgb(24, 24, 24)",
+  btnColor: "#606C5D",
   btnHover: "rgb(0, 0, 0)",
   // btnColor: "#12B886",
   // btnHover: "#20C997",
@@ -30,7 +31,8 @@ const lightTheme = {
 
   codeColor: "#e9ecef",
   preColor: "#f6f6f6",
-  pointColor: "rgb(16,16,16)",
+  // pointColor: "rgb(16,16,16)",
+  pointColor: "#606C5D",
   ...theme,
 };
 
