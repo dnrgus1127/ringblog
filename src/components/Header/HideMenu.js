@@ -32,7 +32,7 @@ const SiteMap = styled.div`
 
 const UserMenu = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 
   & > .border {
     padding: 1.5rem;
