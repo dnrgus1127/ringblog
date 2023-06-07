@@ -13,6 +13,7 @@ import EditorToolBox from "./EditorToolBox";
 export default function MarkdownInput({ data, onChange, onBlur }) {
   const taRef = useRef();
   const [cursor, setCursor] = useState(0);
+  const [endCursor, setEndCursor] = useState(0);
 
   // tab, enter 등 특수문자 입력시
   /**
@@ -29,29 +30,63 @@ export default function MarkdownInput({ data, onChange, onBlur }) {
       value.substring(0, selectionStart) + char + value.substring(selectionEnd)
     );
     setCursor(selectionStart + len);
+    setEndCursor(selectionStart + len);
   };
 
-  const enterTools = (char, len) => {
+  const onClickHeading = (char, len) => {
     const { value, selectionStart, selectionEnd } = taRef.current;
     if (selectionEnd !== selectionStart) {
-      onChange(value.substring(0, selectionStart) + char + value.substring(selectionStart));
+      onChange(
+        value.substring(0, selectionStart) +
+          char +
+          value.substring(selectionStart)
+      );
       setCursor(selectionEnd + len);
-    }
-    else {
-      onChange(value.substring(0, selectionStart) + char + value.substring(selectionEnd));
+      setEndCursor(selectionEnd + len);
+    } else {
+      onChange(
+        value.substring(0, selectionStart) +
+          char +
+          value.substring(selectionEnd)
+      );
     }
     setCursor(selectionStart + len);
+    setEndCursor(selectionStart + len);
     taRef.current.focus();
-  }
+  };
+
+  const onClickBold = (len) => {
+    const { value, selectionStart, selectionEnd } = taRef.current;
+    if (selectionEnd !== selectionStart) {
+      onChange(
+        value.substring(0, selectionStart) +
+          `**` +
+          value.substring(selectionStart, selectionEnd) +
+          "**" +
+          value.substring(selectionEnd)
+      );
+      setCursor(selectionStart + 2);
+      setEndCursor(selectionStart + selectionEnd - selectionStart + 2);
+    } else {
+      onChange(
+        value.substring(0, selectionStart) +
+          `**텍스트**` +
+          value.substring(selectionEnd)
+      );
+      setCursor(selectionStart + 2);
+      setEndCursor(selectionStart + 5);
+    }
+    taRef.current.focus();
+  };
 
   // 특수문자 입력 후 커서 위치 조정하는 hook
   useEffect(() => {
-    taRef.current.setSelectionRange(cursor, cursor);
-  }, [cursor]);
+    taRef.current.setSelectionRange(cursor, endCursor);
+  }, [cursor, endCursor]);
 
   return (
     <>
-      <EditorToolBox changeContents={enterTools} />
+      <EditorToolBox onHeading={onClickHeading} onBold={onClickBold} />
       <textarea
         ref={taRef}
         onChange={(e) => {
@@ -94,8 +129,8 @@ function pasteImg(evt, onChange, setCursor) {
   uploadImg(blob).then((res) => {
     onChange(
       value.substring(0, selectionStart) +
-      `![](${res})` +
-      value.substring(selectionEnd)
+        `![](${res})` +
+        value.substring(selectionEnd)
     );
     setCursor(selectionStart + 22);
   });

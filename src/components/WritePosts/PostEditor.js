@@ -29,13 +29,11 @@ const PostEditorBlock = styled.div`
 `;
 
 const Editor = styled.div`
-    padding : 0 4rem;
-
+  padding: 0 4rem;
 `;
 
 const MarkdownInputBlock = styled.div`
   textarea {
-
     background: none;
     outline: none;
     border: none;
@@ -72,7 +70,7 @@ const MarkdownInputBlock = styled.div`
 `;
 
 const TitleAndHr = styled.div`
-  padding-top: calc(var(--gap) / 2) ;
+  padding-top: calc(var(--gap) / 2);
   hr {
     margin: 2rem 0;
     border: 1.5px solid ${({ theme }) => theme.lineColor};
@@ -131,14 +129,13 @@ export default function PostEditor() {
           />
           <hr />
         </TitleAndHr>
-        {/* <EditorToolBox changeContents={changeContents} /> */}
         <MarkdownInputBlock>
           <MarkdownInput data={postData.contents} onChange={changeContents} />
         </MarkdownInputBlock>
         <StringLength
           string={postData.contents}
           // TODO 글자 수 초과 시 적용
-          overLimit={() => { }}
+          overLimit={() => {}}
           className='length'
         />
       </Editor>
