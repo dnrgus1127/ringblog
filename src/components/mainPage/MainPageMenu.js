@@ -26,7 +26,7 @@ const MenuItem = styled.div`
   display: flex;
   align-items: center;
   &.selected {
-    color: white;
+    color: ${({ theme }) => theme.color};
   }
 `;
 
