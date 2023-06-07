@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 const ToolBoxButton = styled.button`
     padding : 1rem;
-    color : ${({ theme }) => theme.btnColor};
-    /* color : ${({ theme }) => theme.pointColor}; */
+    
+    color : ${({ theme }) => theme.pointColor};
     
     font-size : 1.8rem;
     &:hover {
