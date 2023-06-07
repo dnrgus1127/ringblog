@@ -6,7 +6,6 @@ import { writeActions } from "../../redux/writeReducer";
 import MarkdownInput from "./MarkdownInput";
 import StringLength from "./StringLength";
 import PostEditorUnderMenu from "./PostEditorUnderMenu";
-import EditorToolBox from "./EditorToolBox";
 
 const PostEditorBlock = styled.div`
   .length {
