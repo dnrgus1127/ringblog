@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import EditorToolBoxBtn from "./EditorToolBoxBtn";
 
@@ -15,9 +15,13 @@ const ToolBoxBlock = styled.div`
   }
 `;
 
-export default function EditorToolBox({ onHeading, onBold }) {
-  const headings = ["# ", "## ", "### ", "#### "];
-
+const headings = ["# ", "## ", "### ", "#### "];
+export default function EditorToolBox({
+  onClickHeadingBtn,
+  onClickFontStyleBtn,
+  onClickImageBtn,
+}) {
+  const fileSelectorRef = useRef();
   return (
     <ToolBoxBlock>
       {headings.map((item, idx) => (
@@ -25,17 +29,50 @@ export default function EditorToolBox({ onHeading, onBold }) {
           icon={`h${idx + 1}`}
           type='heading'
           onClick={() => {
-            onHeading(item, item.length);
+            onClickHeadingBtn(item, item.length);
           }}
         />
       ))}
       <hr />
-      <EditorToolBoxBtn icon='B' type='bold' onClick={onBold} />
-      {/* <EditorToolBoxBtn icon='I' type='italic' onClick={onClickItalic} />
-      <EditorToolBoxBtn icon='T' type='cancel' onClick={onClickCancel} /> */}
+      <EditorToolBoxBtn
+        icon='B'
+        type='bold'
+        onClick={() => {
+          onClickFontStyleBtn("**");
+        }}
+      />
+      <EditorToolBoxBtn
+        icon='I'
+        type='italic'
+        onClick={() => {
+          onClickFontStyleBtn("_");
+        }}
+      />
+      <EditorToolBoxBtn
+        icon='T'
+        type='cancel'
+        onClick={() => {
+          onClickFontStyleBtn("~~");
+        }}
+      />
       <hr />
       <EditorToolBoxBtn icon='💻' />
-      <EditorToolBoxBtn icon='📷' />
+
+      <input
+        type='file'
+        hidden
+        accept='image/*'
+        ref={fileSelectorRef}
+        onChange={(e) => {
+          onClickImageBtn(e.target.files[0]);
+        }}
+      />
+      <EditorToolBoxBtn
+        icon='📷'
+        onClick={() => {
+          fileSelectorRef.current.click();
+        }}
+      />
       <EditorToolBoxBtn icon='🔗' />
       <EditorToolBoxBtn icon='💬' />
     </ToolBoxBlock>

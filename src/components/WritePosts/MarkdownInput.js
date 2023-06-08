@@ -15,12 +15,12 @@ export default function MarkdownInput({ data, onChange, onBlur }) {
   const [cursor, setCursor] = useState(0);
   const [endCursor, setEndCursor] = useState(0);
 
-  // tab, enter 등 특수문자 입력시
-  /**
-   * contents에 특수문자 입력하는 함수
-   * @param {*} HTMLnode (e.target)
-   * @param {*} char 특수문자("\t","\n")
-   */
+  // 특수문자 입력 후 커서 위치 조정하는 hook
+  useEffect(() => {
+    taRef.current.setSelectionRange(cursor, endCursor);
+    taRef.current.focus();
+  }, [cursor, endCursor]);
+
   const enterSpecialChar = (
     { value, selectionStart, selectionEnd },
     char,
@@ -33,8 +33,10 @@ export default function MarkdownInput({ data, onChange, onBlur }) {
     setEndCursor(selectionStart + len);
   };
 
-  const onClickHeading = (char, len) => {
+  // ? toolkit functions ////////////////////////////////////
+  const onClickHeadingBtn = (char, len) => {
     const { value, selectionStart, selectionEnd } = taRef.current;
+
     if (selectionEnd !== selectionStart) {
       onChange(
         value.substring(0, selectionStart) +
@@ -49,50 +51,75 @@ export default function MarkdownInput({ data, onChange, onBlur }) {
           char +
           value.substring(selectionEnd)
       );
+      setCursor(selectionStart + len);
+      setEndCursor(selectionStart + len);
     }
-    setCursor(selectionStart + len);
-    setEndCursor(selectionStart + len);
-    taRef.current.focus();
   };
 
-  const onClickBold = (len) => {
+  const onClickFontStyleBtn = (specialString) => {
     const { value, selectionStart, selectionEnd } = taRef.current;
     if (selectionEnd !== selectionStart) {
       onChange(
         value.substring(0, selectionStart) +
-          `**` +
+          specialString +
           value.substring(selectionStart, selectionEnd) +
-          "**" +
+          specialString +
           value.substring(selectionEnd)
       );
-      setCursor(selectionStart + 2);
-      setEndCursor(selectionStart + selectionEnd - selectionStart + 2);
+      setCursor(selectionStart + specialString.length);
+      setEndCursor(selectionEnd + specialString.length);
     } else {
       onChange(
         value.substring(0, selectionStart) +
-          `**텍스트**` +
+          specialString +
+          "텍스트" +
+          specialString +
           value.substring(selectionEnd)
       );
-      setCursor(selectionStart + 2);
-      setEndCursor(selectionStart + 5);
+      setCursor(selectionStart + specialString.length);
+      setEndCursor(selectionStart + specialString.length + 3);
     }
-    taRef.current.focus();
   };
 
-  // 특수문자 입력 후 커서 위치 조정하는 hook
-  useEffect(() => {
-    taRef.current.setSelectionRange(cursor, endCursor);
-  }, [cursor, endCursor]);
+  // ? 이미지 기능
+  const insertImgIntoTextArea = (file) => {
+    const { value, selectionStart, selectionEnd } = taRef.current;
+    uploadImg(file).then((res) => {
+      onChange(
+        value.substring(0, selectionStart) +
+          `![](${res})` +
+          value.substring(selectionEnd)
+      );
+    });
+  };
+  const dataTransferItemListToFile = (dataTransferItemList) => {
+    // 이미지 파일이 아닌 경우 return
+
+    const items = [].slice.call(dataTransferItemList).filter((item) => {
+      return item.type.indexOf("image") !== -1;
+    });
+    if (items.length === 0) return;
+    return items[0].getAsFile();
+  };
+  // ? /////////
 
   return (
     <>
-      <EditorToolBox onHeading={onClickHeading} onBold={onClickBold} />
+      <EditorToolBox
+        onClickHeadingBtn={onClickHeadingBtn}
+        onClickFontStyleBtn={onClickFontStyleBtn}
+        onClickImageBtn={insertImgIntoTextArea}
+      />
       <textarea
         ref={taRef}
         onChange={(e) => {
           onChange(e.target.value);
         }}
-        onPaste={(e) => pasteImg(e, onChange, setCursor)}
+        onPaste={(e) =>
+          insertImgIntoTextArea(
+            dataTransferItemListToFile(e.clipboardData.items)
+          )
+        }
         onKeyDown={(e) => {
           if (e.key === "Tab") {
             e.preventDefault();
@@ -107,31 +134,16 @@ export default function MarkdownInput({ data, onChange, onBlur }) {
         }}
         value={data}
         onBlur={onBlur}
-      ></textarea>
+        onDragOver={(e) => {
+          e.preventDefault();
+        }}
+        onDrop={(e) => {
+          e.preventDefault();
+          insertImgIntoTextArea(
+            dataTransferItemListToFile(e.dataTransfer.items)
+          );
+        }}
+      />
     </>
   );
-}
-
-function pasteImg(evt, onChange, setCursor) {
-  const { value, selectionStart, selectionEnd } = evt.target;
-  const clipboardItems = evt.clipboardData.items;
-  const items = [].slice.call(clipboardItems).filter(function (item) {
-    // Filter the image items only
-    return item.type.indexOf("image") !== -1;
-  });
-  if (items.length === 0) {
-    return;
-  }
-
-  const item = items[0];
-  // Get the blob of image
-  const blob = item.getAsFile();
-  uploadImg(blob).then((res) => {
-    onChange(
-      value.substring(0, selectionStart) +
-        `![](${res})` +
-        value.substring(selectionEnd)
-    );
-    setCursor(selectionStart + 22);
-  });
 }
