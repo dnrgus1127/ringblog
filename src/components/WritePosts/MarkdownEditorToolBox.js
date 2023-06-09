@@ -16,10 +16,13 @@ const ToolBoxBlock = styled.div`
 `;
 
 const headings = ["# ", "## ", "### ", "#### "];
-export default function EditorToolBox({
+export default function MarkdownEditorToolBox({
   onClickHeadingBtn,
   onClickFontStyleBtn,
   onClickImageBtn,
+  onClickCodeBtn,
+  onClickLinkBtn,
+  onClickBlockQuoteBtn,
 }) {
   const fileSelectorRef = useRef();
   return (
@@ -28,6 +31,7 @@ export default function EditorToolBox({
         <EditorToolBoxBtn
           icon={`h${idx + 1}`}
           type='heading'
+          key={item}
           onClick={() => {
             onClickHeadingBtn(item, item.length);
           }}
@@ -56,7 +60,7 @@ export default function EditorToolBox({
         }}
       />
       <hr />
-      <EditorToolBoxBtn icon='💻' />
+      <EditorToolBoxBtn icon='💻' onClick={onClickCodeBtn} />
 
       <input
         type='file'
@@ -73,8 +77,8 @@ export default function EditorToolBox({
           fileSelectorRef.current.click();
         }}
       />
-      <EditorToolBoxBtn icon='🔗' />
-      <EditorToolBoxBtn icon='💬' />
+      <EditorToolBoxBtn icon='🔗' onClick={onClickLinkBtn} />
+      <EditorToolBoxBtn icon='💬' onClick={onClickBlockQuoteBtn} />
     </ToolBoxBlock>
   );
 }

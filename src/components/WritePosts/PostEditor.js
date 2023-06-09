@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import media from "../../lib/style/media";
 import { writeActions } from "../../redux/writeReducer";
-import MarkdownInput from "./MarkdownInput";
 import StringLength from "./StringLength";
 import PostEditorUnderMenu from "./PostEditorUnderMenu";
+import MarkdownEditorContainer from "../../container/write/MarkdownEditorContainer";
 
 const PostEditorBlock = styled.div`
   .length {
@@ -30,43 +30,6 @@ const PostEditorBlock = styled.div`
 
 const Editor = styled.div`
   padding: 0 4rem;
-`;
-
-const MarkdownInputBlock = styled.div`
-  textarea {
-    background: none;
-    outline: none;
-    border: none;
-    font-family: inherit;
-    font-size: 1.8rem;
-    width: 100%;
-    height: 67vh;
-    resize: none;
-  }
-  textarea::-webkit-scrollbar {
-    width: 3px;
-    height: 1rem;
-  }
-  textarea::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.color};
-  }
-  textarea::-webkit-scrollbar-track {
-    background-color: ${({ theme }) => theme.bgElement};
-  }
-
-  ${media.xlarge} {
-    textarea {
-      height: 70vh;
-    }
-  }
-
-  ${media.medium} {
-    textarea {
-      height: 77vh;
-      padding: 0 calc(var(--gap) / 3);
-      font-size: 1.6rem;
-    }
-  }
 `;
 
 const TitleAndHr = styled.div`
@@ -102,6 +65,7 @@ const Title = styled(Input)`
 `;
 
 export default function PostEditor() {
+  const markDownEditorRef = useRef();
   const postData = useSelector((state) => state.write.data);
 
   const dispatch = useDispatch();
@@ -129,9 +93,11 @@ export default function PostEditor() {
           />
           <hr />
         </TitleAndHr>
-        <MarkdownInputBlock>
-          <MarkdownInput data={postData.contents} onChange={changeContents} />
-        </MarkdownInputBlock>
+        <MarkdownEditorContainer
+          markDownEditorRef={markDownEditorRef}
+          editorValue={postData.contents}
+          onChange={changeContents}
+        />
         <StringLength
           string={postData.contents}
           // TODO 글자 수 초과 시 적용
