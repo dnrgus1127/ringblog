@@ -94,7 +94,7 @@ const MarkdownCss = styled.div`
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     padding: 1rem 2rem;
-    border-left: 4px solid #63e6be;
+    border-left: 4px solid ${({ theme }) => theme.pointColor};
   }
   table {
     border: 1px solid ${({ theme }) => theme.tableColor};
@@ -114,6 +114,10 @@ const MarkdownCss = styled.div`
     max-width: 100%;
     display: block;
     margin: 0 auto;
+  }
+
+  a {
+    color: ${({ theme }) => theme.pointColor};
   }
 `;
 
