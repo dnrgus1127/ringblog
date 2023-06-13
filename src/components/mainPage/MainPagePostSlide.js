@@ -156,7 +156,8 @@ export default function MainPagePostSlide({ data }) {
       <SlideIndicatorBox>
         {indicatorList.map((i, idx) => (
           <svg
-            className={idx + 1 === index && "selected"}
+            key={idx + i}
+            className={idx + 1 === index ? "selected" : ""}
             clipRule='evenodd'
             fillRule='evenodd'
             strokeLinejoin='round'

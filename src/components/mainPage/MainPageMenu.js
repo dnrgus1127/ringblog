@@ -46,6 +46,7 @@ export default function MainPageMenu() {
       <MenuList>
         {MenuName.map((item, idx) => (
           <MenuItem
+            key={item + idx}
             className={idx === selectedMenuId && "selected"}
             onClick={() => setSelectedMenuId(idx)}
           >
