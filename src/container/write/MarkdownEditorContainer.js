@@ -116,7 +116,7 @@ export default function MarkdownEditorContainer({
   };
 
   // ? 링크텍스트
-  const onClickLinkBtn = () => {
+  const onClickLinkBtn = (link = "") => {
     const { selectionStart, selectionEnd } = markDownEditorRef.current;
 
     if (selectionEnd !== selectionStart) {
@@ -124,7 +124,7 @@ export default function MarkdownEditorContainer({
         editorValue.substring(0, selectionStart) +
           "[" +
           editorValue.substring(selectionStart, selectionEnd) +
-          "]()" +
+          `](${link})` +
           editorValue.substring(selectionEnd)
       );
       setCursor(selectionStart + 1);
@@ -132,7 +132,7 @@ export default function MarkdownEditorContainer({
     } else {
       onChange(
         editorValue.substring(0, selectionStart) +
-          "[링크텍스트]()" +
+          `[링크텍스트](${link})` +
           editorValue.substring(selectionEnd)
       );
       setCursor(selectionStart + 1);
@@ -146,18 +146,22 @@ export default function MarkdownEditorContainer({
     if (selectionEnd !== selectionStart) {
       onChange(
         editorValue.substring(0, selectionStart) +
-          "\n" +
+          "  \n" +
           "> " +
-          editorValue.substring(selectionStart)
+          editorValue.substring(selectionStart, selectionEnd) +
+          "  \n" +
+          editorValue.substring(selectionEnd)
       );
-      setCursor(selectionStart + 1);
-      setEndCursor(selectionEnd + 1);
+      setCursor(selectionStart + 3);
+      setEndCursor(selectionEnd + 3);
     } else {
       onChange(
         editorValue.substring(0, selectionStart) +
-          "> " +
+          "  \n> " +
           editorValue.substring(selectionStart)
       );
+      setCursor(selectionStart + 3);
+      setEndCursor(selectionStart + 3);
     }
   };
 

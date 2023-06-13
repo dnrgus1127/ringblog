@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import EditorToolBoxBtn from "./EditorToolBoxBtn";
+import MarkdownInsertLink from "./MarkdownInsertLink";
+import useBoolean from "../../Hooks/useBoolean";
 
 const ToolBoxBlock = styled.div`
   display: flex;
@@ -13,6 +15,10 @@ const ToolBoxBlock = styled.div`
     width: 1px;
     background-color: ${({ theme }) => theme.greyColor};
   }
+
+  .linkBox {
+    position: relative;
+  }
 `;
 
 const headings = ["# ", "## ", "### ", "#### "];
@@ -24,6 +30,7 @@ export default function MarkdownEditorToolBox({
   onClickLinkBtn,
   onClickBlockQuoteBtn,
 }) {
+  const [showLinkBox, onToggleShowLinkBox] = useBoolean();
   const fileSelectorRef = useRef();
   return (
     <ToolBoxBlock>
@@ -77,7 +84,14 @@ export default function MarkdownEditorToolBox({
           fileSelectorRef.current.click();
         }}
       />
-      <EditorToolBoxBtn icon='🔗' onClick={onClickLinkBtn} />
+      <div className='linkBox'>
+        <EditorToolBoxBtn icon='🔗' onClick={onToggleShowLinkBox} />
+        <MarkdownInsertLink
+          visible={showLinkBox}
+          onClose={onToggleShowLinkBox}
+          onComfirm={onClickLinkBtn}
+        />
+      </div>
       <EditorToolBoxBtn icon='💬' onClick={onClickBlockQuoteBtn} />
     </ToolBoxBlock>
   );

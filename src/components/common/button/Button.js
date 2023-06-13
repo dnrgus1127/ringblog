@@ -8,6 +8,13 @@ const Button = styled.button`
   padding: 1rem 2rem;
   border-radius: 4px;
   ${(props) =>
+    props.size === "xsmall" &&
+    css`
+      font-size: 1.2rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 2px;
+    `}
+  ${(props) =>
     props.size === "small" &&
     css`
       font-size: 1.4rem;
@@ -56,7 +63,7 @@ export const ConfirmButton = ({ onClick, children, size = "medium", type }) => {
 
 // 설정메뉴에서 사용하는 버튼
 const Setting = styled(Button)`
-  background-color: ${({ theme }) => theme.btnColor2};
+  background-color: ${({ theme }) => theme.pointColor};
   color: ${({ theme }) => theme.Color};
   border-radius: 6px;
 `;
