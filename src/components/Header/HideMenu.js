@@ -6,6 +6,7 @@ import useAuth from "../../Hooks/login/useAuth";
 import { loginActions } from "../../redux/loginState";
 import { settingActions } from "../../redux/settingState";
 import { CancelButton } from "../common/button/Button";
+import LoginByOauth from "../common/Login/LoginByOauth";
 
 const Container = styled.div`
   position: absolute;
@@ -122,6 +123,7 @@ export default function HideMenu({ trigger, onToggleTrigger }) {
 
         <SiteMap></SiteMap>
       </div>
+      <LoginByOauth />
     </Container>
   );
 }
