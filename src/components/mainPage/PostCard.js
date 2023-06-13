@@ -134,7 +134,15 @@ export default function PostCard({ data }) {
       <Link to={`/Post?index=${data._id}`}>
         {hasThumbnail && (
           <div className='thumbnail'>
-            <img src={data.thumbnailPath} alt={"썸네일"}></img>
+            <img
+              src={data.thumbnailPath}
+              alt={"썸네일"}
+              // onError={({ target }) => {
+              //   // 무한 루프 방지
+              //   target.onError = "null";
+              //   target.src = "defaultThumb.jpg";
+              // }}
+            ></img>
           </div>
         )}
         <CardInfo hasThumb={hasThumbnail}>

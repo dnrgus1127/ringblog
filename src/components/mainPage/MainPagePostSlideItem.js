@@ -102,6 +102,11 @@ export default function MainPagePostSlideItem({ post }) {
             className='backgroundImg'
             src={post.thumbnailPath}
             alt='thumbNail'
+            onError={({ target }) => {
+              // 무한 루프 방지
+              target.onError = "null";
+              target.src = "defaultThumb.jpg";
+            }}
           />
         )}
         <SlideContents>
