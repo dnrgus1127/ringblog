@@ -6,7 +6,7 @@ import styled from "styled-components";
 import MainPagePostSlideContainer from "./MainPagePostSlideContainer";
 import Margin from "../../components/common/design/Margin";
 
-const MainPageBody = styled.body`
+const MainPageBody = styled.div`
   width: var(--width);
   margin: 0 auto;
   padding-top: calc(var(--header) * 1.5);
