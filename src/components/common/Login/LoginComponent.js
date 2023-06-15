@@ -7,6 +7,11 @@ import { loginActions } from "../../../redux/loginState";
 import { InputCss } from "../../../styledCss/InputCss";
 import { ColorButton } from "../../Button";
 import Loading from "../../Loading";
+import SocialLoginBtn from "./SocialLoginBtn";
+
+import googleLoginButton from "../../../images/btn_google_signin_light_normal_web.png";
+import kakaoLoginButton from "../../../images/kakao_login_medium_narrow.png";
+import GitHubLoginButton from "./GitHubLoginButton";
 
 const Input = styled(InputCss)``;
 
@@ -21,6 +26,15 @@ const Form = styled.form`
     align-items: center;
     justify-content: center;
   }
+`;
+
+const SocialLoginBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 2rem;
+  margin-top: 2rem;
+  gap: 1rem;
 `;
 
 export default function LoginComponent({ onOff }) {
@@ -66,6 +80,27 @@ export default function LoginComponent({ onOff }) {
     inputRef.current.focus();
   }, []);
 
+  const githubLogin = (e) => {
+    e.preventDefault();
+    fetch("/oauth/github")
+      .then((res) => res.json())
+      .then((data) => window.location.replace(data.uri));
+  };
+  const googleLogin = (e) => {
+    fetch("/oauth/google")
+      .then((res) => res.json())
+      .then((data) => {
+        window.location.replace(data.uri);
+      });
+  };
+  const kakaoLogin = () => {
+    fetch("/oauth/kakao")
+      .then((res) => res.json())
+      .then((data) => {
+        window.location.replace(data.uri);
+      });
+  };
+
   return (
     <React.Fragment>
       <h2>로그인</h2>
@@ -97,8 +132,18 @@ export default function LoginComponent({ onOff }) {
           </Button>
         </div>
       </Form>
-
-      {/* <h3>소셜 계정 ID 로그인</h3> */}
+      <h3>소셜 계정 로그인</h3>
+      <SocialLoginBlock>
+        <SocialLoginBtn onClick={githubLogin} icon={<GitHubLoginButton />} />
+        <SocialLoginBtn
+          onClick={googleLogin}
+          icon={<img src={googleLoginButton} alt='googleLogin' />}
+        />
+        <SocialLoginBtn
+          onClick={kakaoLogin}
+          icon={<img src={kakaoLoginButton} alt='kakaoLogin' />}
+        />
+      </SocialLoginBlock>
       {loginQuery.isLoading && <Loading text='로그인 중' />}
     </React.Fragment>
   );
