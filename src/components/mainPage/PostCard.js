@@ -137,11 +137,11 @@ export default function PostCard({ data }) {
             <img
               src={data.thumbnailPath}
               alt={"썸네일"}
-              // onError={({ target }) => {
-              //   // 무한 루프 방지
-              //   target.onError = "null";
-              //   target.src = "defaultThumb.jpg";
-              // }}
+              onError={({ target }) => {
+                // 무한 루프 방지
+                target.onError = "null";
+                target.src = "defaultThumb.jpg";
+              }}
             ></img>
           </div>
         )}
