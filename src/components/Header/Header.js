@@ -5,11 +5,11 @@ import Gnb from "../Gnb";
 import HideMenu from "./HideMenu";
 import { useDispatch, useSelector } from "react-redux";
 import SettingScreen from "../../container/Setting/SettingPage";
-import LoginForm from "../common/Login/LoginForm";
-import LogOutButton from "../common/Login/LogOutButton";
+import LogOutButton from "../common/Auth/LogOutButton";
 import media from "../../lib/style/media";
 import { loginActions } from "../../redux/loginState";
 import Logo from "./Logo";
+import AuthScreen from "../../container/Auth/AuthScreen";
 
 const HeaderCon = styled.header`
   position: fixed;
@@ -99,7 +99,8 @@ export default function Header() {
 
         {loginForm && (
           <LoginFromWrap>
-            <LoginForm onOff={ControllLoginForm} />
+            {/* <LoginForm onOff={ControllLoginForm} /> */}
+            <AuthScreen onOff={ControllLoginForm} />
           </LoginFromWrap>
         )}
         {settingVisible && <SettingScreen />}
