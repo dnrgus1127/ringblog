@@ -18,6 +18,7 @@ const loginSlice = createSlice({
     setLogin(state, action) {
       state.loggedUser = action.payload;
       state.loggedIn = true;
+      state.loginForm.onLoginForm = false;
     },
     setLoggedUser(state, action) {
       state.loggedUser.username = action.payload;
@@ -28,6 +29,7 @@ const loginSlice = createSlice({
         userId: "",
       };
       state.loggedIn = false;
+      state.loginForm.onLoginForm = false;
     },
     onToggleLoginForm(state) {
       state.loginForm.onLoginForm = !state.loginForm.onLoginForm;
