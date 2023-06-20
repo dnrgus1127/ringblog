@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { writeActions } from "../../redux/writeReducer";
-import useAlert from "../common/hooks/useAlert";
 import CreateHashTag from "../hasTags/CreateHashTag";
 import HashTagBlock from "../hasTags/HashTagBlock";
+import useAlert from "../../Hooks/common/useAlert";
 
 export default function PublishHasTags() {
   const { hashTags } = useSelector((state) => state.write.data);

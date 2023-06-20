@@ -2,11 +2,11 @@ import React from "react";
 import PostCommentWrite from "../../components/posts/PostCommentWrite";
 import { useMutation } from "react-query";
 import { FullStamp } from "../../functions/time";
-import useAlert from "../../components/common/hooks/useAlert";
 import { useDispatch, useSelector } from "react-redux";
 import { loginActions } from "../../redux/loginState";
 import { postActions } from "../../redux/postState";
 import { commentValid } from "../../functions/comments/commentValidation";
+import useAlert from "../../Hooks/common/useAlert";
 
 export default function PostWriteCommentContainer({ refetchComments, index }) {
   const { onToggleAlert } = useAlert();

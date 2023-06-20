@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { commonActions } from "../../../redux/commonState";
+import { commonActions } from "../../redux/commonState";
 
 export default function useAlert() {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import media from "../../lib/style/media";
-import useAlert from "./hooks/useAlert";
+import useAlert from "../../Hooks/common/useAlert";
 
 const Window = styled.div`
   position: fixed;

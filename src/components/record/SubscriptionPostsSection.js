@@ -2,9 +2,9 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useInfiniteQuery } from "react-query";
-import useAlert from "../common/hooks/useAlert";
 import Loading from "../Loading";
 import SubPostList from "./SubPostList";
+import useAlert from "../../Hooks/common/useAlert";
 
 // 보여지는 포스트 수
 const limit = 3;

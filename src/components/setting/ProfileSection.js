@@ -1,17 +1,18 @@
 import React from "react";
+import styled from "styled-components";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+
+import { loginActions } from "../../redux/loginState";
+import ProfileImgSelector from "./ProfileImgSelector";
 import { checkName } from "../../functions/Login/AccountValidation";
 import media from "../../lib/style/media";
-import { loginActions } from "../../redux/loginState";
 import { CancelButton, SettingButton } from "../common/button/Button";
-import useAlert from "../common/hooks/useAlert";
 import Loading from "../Loading";
 import StringLength from "../WritePosts/StringLength";
-import ProfileImgSelector from "./ProfileImgSelector";
+import useAlert from "../../Hooks/common/useAlert";
 import SettingSectionTemplate from "./SettingSectionTemplate";
 
 const NickNameAndImg = styled.div`

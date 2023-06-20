@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import media from "../../lib/style/media";
 import defaultProfileImg from "../../images/thumbnail.jpg";
-import useAlert from "../common/hooks/useAlert";
 import ProfileImg from "../common/ProfileImg";
+import useAlert from "../../Hooks/common/useAlert";
 
 const ProfileBox = styled.div`
   position: relative;

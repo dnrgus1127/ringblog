@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
-import useAlert from "../../components/common/hooks/useAlert";
 import { useEffect, useState } from "react";
+import useAlert from "../common/useAlert";
 
 export default function useSubscription({ writer }) {
   const { onToggleAlert } = useAlert();

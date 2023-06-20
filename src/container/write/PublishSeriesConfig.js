@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import useAlert from "../../components/common/hooks/useAlert";
 import PublishSeriesConfigBtn from "../../components/WritePosts/PublishSeriesConfigBtn";
 import PublishSeriesConfigTemp from "../../components/WritePosts/PublishSeriesConfigTemp";
 import PublishSeriesCreate from "../../components/WritePosts/PublishSeriesCreate";
 import PublishSeriesList from "../../components/WritePosts/PublishSeriesList";
 import { writeActions } from "../../redux/writeReducer";
+import useAlert from "../../Hooks/common/useAlert";
 
 const PublishSeriesBlock = styled.div``;
 
