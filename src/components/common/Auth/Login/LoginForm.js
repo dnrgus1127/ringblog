@@ -18,6 +18,7 @@ export default function LoginForm({
   failType,
   setId,
   setPw,
+  disabledLogin,
 }) {
   const inputRef = useRef();
   useEffect(() => {
@@ -52,7 +53,9 @@ export default function LoginForm({
           fail={failType === 1}
         />
         <LoginFailed type={failType} isLoginFailed={authFail} />
-        <ConfirmButton type='submit'>로그인</ConfirmButton>
+        <ConfirmButton type='submit' disabled={disabledLogin}>
+          로그인
+        </ConfirmButton>
       </Form>
     </React.Fragment>
   );
