@@ -7,6 +7,7 @@ const Button = styled.button`
   font-weight: 800;
   padding: 1rem 2rem;
   border-radius: 4px;
+  transition: all 0.2s ease-in;
   ${(props) =>
     props.size === "xsmall" &&
     css`

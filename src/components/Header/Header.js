@@ -5,11 +5,12 @@ import Gnb from "../Gnb";
 import HideMenu from "./HideMenu";
 import { useDispatch, useSelector } from "react-redux";
 import SettingScreen from "../../container/Setting/SettingPage";
-import LogOutButton from "../common/Auth/LogOutButton";
 import media from "../../lib/style/media";
 import { loginActions } from "../../redux/loginState";
 import Logo from "./Logo";
 import AuthScreen from "../../container/Auth/AuthScreen";
+import { ConfirmButton } from "../common/button/Button";
+import useAuth from "../../Hooks/login/useAuth";
 
 const HeaderCon = styled.header`
   position: fixed;
@@ -72,6 +73,7 @@ export default function Header() {
   const ControllLoginForm = () => {
     dispatch(loginActions.onToggleLoginForm());
   };
+  const { logout } = useAuth();
   return (
     <HeaderCon>
       <HideMenu trigger={hideMenu} onToggleTrigger={setHideMenu} />
@@ -85,7 +87,7 @@ export default function Header() {
                 <p className='userName'>
                   <span>{loggedUser.username}</span>님 환영합니다.
                 </p>
-                <LogOutButton />
+                <ConfirmButton onClick={logout}>로그아웃</ConfirmButton>
               </>
             ) : (
               <LoginButton className='loginBtn' onClick={ControllLoginForm}>
