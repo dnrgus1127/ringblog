@@ -10,7 +10,7 @@ import { loginActions } from "../../redux/loginState";
 import Logo from "./Logo";
 import AuthScreen from "../../container/Auth/AuthScreen";
 import { ConfirmButton } from "../common/button/Button";
-import useAuth from "../../Hooks/login/useAuth";
+import useAuth from "../../Hooks/Login/useAuth";
 
 const HeaderCon = styled.header`
   position: fixed;

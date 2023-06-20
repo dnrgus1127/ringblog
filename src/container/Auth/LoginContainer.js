@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Loading from "../../components/Loading";
 import LoginForm from "../../components/common/Auth/Login/LoginForm";
-import useAuth from "../../Hooks/login/useAuth";
+import useAuth from "../../Hooks/Login/useAuth";
 
 export default function LoginContainer({ onOff }) {
   const [id, setId] = useState("");
