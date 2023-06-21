@@ -1,12 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import MainPagePostSlideItem from "./MainPagePostSlideItem";
+
+const ProgressKeyFrames = keyframes`
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+`;
 
 const PostSlideWindow = styled.div`
   width: 100%;
   height: 55rem;
   overflow: hidden;
   position: relative;
+  #slideProgressBar {
+    position: relative;
+    top: -3px;
+    /* width: 100%; */
+    height: 3px;
+    z-index: 500;
+    background-color: ${({ theme }) => theme.warning};
+    /* transition: all 5s ease; */
+    animation: ${ProgressKeyFrames} 5s infinite forwards;
+    animation-play-state: ${(props) =>
+      props.animationState ? "running" : "paused"};
+  }
 `;
 
 const PostSliderBlock = styled.div`
@@ -66,12 +87,21 @@ const SlideIndicatorBox = styled.div`
       display: initial;
     }
   }
+  .pauseButton {
+    font-size: 0;
+    line-height: 0;
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
 `;
 
 const indicatorList = ["", "", "", "", "", ""];
 
 export default function MainPagePostSlide({ data }) {
   const [index, setSlideIndex] = useState(1);
+  const [pauseSlide, setPauseSlide] = useState(0);
   const slideRef = useRef();
 
   const lastIdx = data.length;
@@ -79,13 +109,16 @@ export default function MainPagePostSlide({ data }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (pauseSlide !== 0) {
+        return;
+      }
       setSlideIndex((prev) => prev + 1);
     }, 5000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [pauseSlide, index]);
 
   // 무한 슬라이딩 가능하도록
   useEffect(() => {
@@ -115,10 +148,21 @@ export default function MainPagePostSlide({ data }) {
     setSlideIndex((prev) => prev - 1);
   };
 
+  const pause = () => {
+    if (pauseSlide === 0) {
+      setPauseSlide(index);
+    } else {
+      setPauseSlide(0);
+    }
+  };
+
   return (
     <div>
-      <PostSlideWindow>
-        <PostSliderBlock left={index} ref={slideRef}>
+      <PostSlideWindow animationState={pauseSlide === 0}>
+        <PostSliderBlock
+          left={pauseSlide === 0 ? index : pauseSlide}
+          ref={slideRef}
+        >
           <MainPagePostSlideItem post={data[lastIdx - 1]} />
           {data.map((item, idx) => (
             <MainPagePostSlideItem post={item} key={item._id} />
@@ -152,8 +196,30 @@ export default function MainPagePostSlide({ data }) {
             </svg>
           </SlideBtn>
         </BtnBlock>
+        <div id='slideProgressBar'></div>
       </PostSlideWindow>
       <SlideIndicatorBox>
+        <button className='pauseButton' onClick={pause}>
+          {pauseSlide !== 0 ? (
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
+            >
+              <path d='M3 22v-20l18 10-18 10z' />
+            </svg>
+          ) : (
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
+            >
+              <path d='M11 22h-4v-20h4v20zm6-20h-4v20h4v-20z' />
+            </svg>
+          )}
+        </button>
         {indicatorList.map((i, idx) => (
           <svg
             key={idx + i}
