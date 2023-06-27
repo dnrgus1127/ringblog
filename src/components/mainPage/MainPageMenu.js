@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import shadow from "../../lib/style/shadow";
 import media from "../../lib/style/media";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginActions } from "../../redux/loginState";
 
 const MainPageMenuBlock = styled.div`
   width: 100%;
@@ -36,6 +39,9 @@ const MenuItem = styled.div`
   ${media.small} {
     font-size: 1.2rem;
   }
+  &:hover {
+    color: ${({ theme }) => theme.greyColor};
+  }
 `;
 
 const WriteButton = styled.button`
@@ -50,9 +56,20 @@ const WriteButton = styled.button`
   }
 `;
 
-const MenuName = ["Hot", "New", "Follow", "Update"];
+const MenuName = ["Main", "My", "Read", "Update"];
 export default function MainPageMenu() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loggedIn } = useSelector((state) => state.login);
   const [selectedMenuId, setSelectedMenuId] = useState(0);
+
+  const onClickNewPost = () => {
+    if (loggedIn) {
+      navigate("/writeNewPost");
+    } else {
+      dispatch(loginActions.onToggleLoginForm());
+    }
+  };
   return (
     <MainPageMenuBlock>
       <MenuList>
@@ -66,7 +83,7 @@ export default function MainPageMenu() {
           </MenuItem>
         ))}
       </MenuList>
-      <WriteButton>포스트 작성</WriteButton>
+      <WriteButton onClick={onClickNewPost}>포스트 작성</WriteButton>
     </MainPageMenuBlock>
   );
 }
