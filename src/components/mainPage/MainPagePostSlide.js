@@ -1,13 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import MainPagePostSlideItem from "./MainPagePostSlideItem";
+import useBoolean from "../../Hooks/useBoolean";
+
+// 다음 슬라이드로 자동 넘어가는 시간 (ms)
+const SLIDE_DELAY = 8000;
 
 const ProgressKeyFrames = keyframes`
   0% {
     width: 0;
+    opacity: 0.5;
   }
   100% {
     width: 100%;
+    opacity: .8;
   }
 `;
 
@@ -19,14 +25,11 @@ const PostSlideWindow = styled.div`
   #slideProgressBar {
     position: relative;
     top: -3px;
-    /* width: 100%; */
     height: 3px;
     z-index: 500;
-    background-color: ${({ theme }) => theme.warning};
-    /* transition: all 5s ease; */
-    animation: ${ProgressKeyFrames} 5s infinite forwards;
-    animation-play-state: ${(props) =>
-      props.animationState ? "running" : "paused"};
+    background-color: ${({ theme }) => theme.pointColor};
+    opacity: 0;
+    animation: ${ProgressKeyFrames} ${SLIDE_DELAY}ms linear;
   }
 `;
 
@@ -98,71 +101,62 @@ const SlideIndicatorBox = styled.div`
 `;
 
 const indicatorList = ["", "", "", "", "", ""];
-
+const DEFAULT_INDEX = 1;
 export default function MainPagePostSlide({ data }) {
-  const [index, setSlideIndex] = useState(1);
-  const [pauseSlide, setPauseSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(DEFAULT_INDEX);
+  const [pauseSlide, onTogglePauseSlide] = useBoolean(false);
   const slideRef = useRef();
+  const progressbarRef = useRef(null);
 
   const lastIdx = data.length;
-  const startIdx = 1;
 
+  // 슬라이드 정지 상태가 아니면 5000ms 마다 다음 슬라이드로 전환
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (pauseSlide !== 0) {
-        return;
+    const interval = setTimeout(() => {
+      if (!pauseSlide) {
+        if (currentSlide + 1 < lastIdx) {
+          setCurrentSlide((prev) => prev + 1);
+        } else {
+          setCurrentSlide(DEFAULT_INDEX);
+        }
       }
-      setSlideIndex((prev) => prev + 1);
-    }, 5000);
+    }, SLIDE_DELAY);
 
     return () => {
-      clearInterval(interval);
+      clearTimeout(interval);
     };
-  }, [pauseSlide, index]);
+  }, [pauseSlide, currentSlide, lastIdx]);
 
-  // 무한 슬라이딩 가능하도록
+  // 슬라이드 전환 시 애니메이션 초기화
   useEffect(() => {
-    if (index === lastIdx + 1) {
-      setTimeout(() => {
-        slideRef.current.style.transition = "0s ";
-        setSlideIndex(startIdx);
-      }, 500);
-    }
-    if (index === startIdx || index === lastIdx) {
-      setTimeout(() => {
-        slideRef.current.style.transition = "all .5s ease-in-out";
-      }, 50);
-    }
-    if (index === startIdx - 1) {
-      setTimeout(() => {
-        slideRef.current.style.transition = "0s";
-        setSlideIndex(lastIdx);
-      }, 500);
-    }
-  }, [index, lastIdx]);
+    if (progressbarRef.current === null) return;
+    progressbarRef.current.style.animation = "none";
+    void progressbarRef.current.offsetWidth;
+    progressbarRef.current.style.animation = null;
+  }, [currentSlide]);
 
   const nextItem = () => {
-    setSlideIndex((prev) => prev + 1);
+    if (currentSlide < lastIdx) {
+      setCurrentSlide((prev) => prev + 1);
+    } else {
+      setCurrentSlide(DEFAULT_INDEX);
+    }
   };
   const preItem = () => {
-    setSlideIndex((prev) => prev - 1);
+    if (currentSlide === DEFAULT_INDEX) {
+      setCurrentSlide(lastIdx + 1);
+    }
+    setCurrentSlide((prev) => prev - 1);
   };
 
   const pause = () => {
-    if (pauseSlide === 0) {
-      setPauseSlide(index);
-    } else {
-      setPauseSlide(0);
-    }
+    onTogglePauseSlide();
   };
 
   return (
     <div>
-      <PostSlideWindow animationState={pauseSlide === 0}>
-        <PostSliderBlock
-          left={pauseSlide === 0 ? index : pauseSlide}
-          ref={slideRef}
-        >
+      <PostSlideWindow>
+        <PostSliderBlock left={currentSlide} ref={slideRef}>
           <MainPagePostSlideItem post={data[lastIdx - 1]} />
           {data.map((item, idx) => (
             <MainPagePostSlideItem post={item} key={item._id} />
@@ -196,11 +190,11 @@ export default function MainPagePostSlide({ data }) {
             </svg>
           </SlideBtn>
         </BtnBlock>
-        <div id='slideProgressBar'></div>
+        {!pauseSlide && <div id='slideProgressBar' ref={progressbarRef}></div>}
       </PostSlideWindow>
       <SlideIndicatorBox>
         <button className='pauseButton' onClick={pause}>
-          {pauseSlide !== 0 ? (
+          {pauseSlide ? (
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='24'
@@ -223,7 +217,7 @@ export default function MainPagePostSlide({ data }) {
         {indicatorList.map((i, idx) => (
           <svg
             key={idx + i}
-            className={idx + 1 === index ? "selected" : ""}
+            className={idx + 1 === currentSlide ? "selected" : ""}
             clipRule='evenodd'
             fillRule='evenodd'
             strokeLinejoin='round'
