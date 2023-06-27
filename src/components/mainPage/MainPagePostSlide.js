@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import MainPagePostSlideItem from "./MainPagePostSlideItem";
 import useBoolean from "../../Hooks/useBoolean";
+import media from "../../lib/style/media";
 
 // 다음 슬라이드로 자동 넘어가는 시간 (ms)
 const SLIDE_DELAY = 8000;
@@ -31,6 +32,10 @@ const PostSlideWindow = styled.div`
     opacity: 0;
     animation: ${ProgressKeyFrames} ${SLIDE_DELAY}ms linear;
   }
+
+  ${media.small} {
+    height: 40rem;
+  }
 `;
 
 const PostSliderBlock = styled.div`
@@ -47,6 +52,10 @@ const PostSliderBlock = styled.div`
     height: 100%;
     object-fit: cover;
   }
+
+  ${media.medium} {
+    left: ${(props) => `${props.left * -100}%`};
+  }
 `;
 
 const BtnBlock = styled.div`
@@ -59,6 +68,9 @@ const BtnBlock = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
+  ${media.small} {
+    padding: 0;
+  }
 `;
 
 const SlideBtn = styled.button`

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import shadow from "../../lib/style/shadow";
+import media from "../../lib/style/media";
 
 const MainPageMenuBlock = styled.div`
   width: 100%;
@@ -14,6 +15,9 @@ const MenuList = styled.div`
   ${shadow.large};
   display: flex;
   width: 84%;
+  ${media.small} {
+    width: 77%;
+  }
 `;
 
 const MenuItem = styled.div`
@@ -28,6 +32,10 @@ const MenuItem = styled.div`
   &.selected {
     color: ${({ theme }) => theme.color};
   }
+
+  ${media.small} {
+    font-size: 1.2rem;
+  }
 `;
 
 const WriteButton = styled.button`
@@ -36,6 +44,10 @@ const WriteButton = styled.button`
   border-radius: 4px;
   color: ${({ theme }) => theme.oppositeColor};
   font-weight: 800;
+  ${media.small} {
+    width: 22%;
+    font-size: 1.3rem;
+  }
 `;
 
 const MenuName = ["Hot", "New", "Follow", "Update"];
