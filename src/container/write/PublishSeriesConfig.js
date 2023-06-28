@@ -44,6 +44,20 @@ export default function PublishSeriesConfig() {
     return response.json();
   });
 
+  const { mutateAsync: checkDuplicateSeries } = useMutation(
+    async (seriesName) => {
+      const res = await fetch("/series/checkDulicate", {
+        method: "POST",
+        body: JSON.stringify({
+          seriesName: seriesName,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      return res.json();
+    }
+  );
+
   const onCancel = () => {
     dispatch(writeActions.onToggleSeriesSelect());
   };
@@ -64,12 +78,14 @@ export default function PublishSeriesConfig() {
   };
 
   const onCreateNewSeries = async (data) => {
-    if (!data) {
-      onToggleAlert("시리즈명은 공백으로 둘 수 없습니다.", true);
-      return false;
-    }
-    if (data.length > 20) {
-      onToggleAlert("시리즈명은 20자 이하여야 합니다.", true);
+    const result = validSeriesTitle(data);
+
+    if (result) return false;
+
+    const { isDuplicated } = await checkDuplicateSeries(data);
+
+    if (isDuplicated) {
+      onToggleAlert("중복된 시리즈 이름입니다.", true);
       return false;
     }
 
@@ -82,7 +98,18 @@ export default function PublishSeriesConfig() {
     return true;
   };
 
-  if (seriesListLoading) return <div>123</div>;
+  const validSeriesTitle = (newTitle) => {
+    if (newTitle.length === 0) {
+      onToggleAlert("시리즈명은 공백으로 둘 수 없습니다.", true);
+      return true;
+    } else if (newTitle.length > 20) {
+      onToggleAlert("시리즈명은 20자 이하여야 합니다.", true);
+      return true;
+    }
+    return false;
+  };
+
+  if (seriesListLoading) return <div></div>;
   return (
     <PublishSeriesBlock>
       <PublishSeriesConfigTemp

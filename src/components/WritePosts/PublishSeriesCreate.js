@@ -38,6 +38,14 @@ export default function PublishSeriesCreate({ onCreateSeries }) {
   const [showBtns, onToggleShowBtns, setShowBtns] = useBoolean(false);
   const [seriesTitle, setSeriesTitle] = useState("");
 
+  const createSeries = async () => {
+    const result = await onCreateSeries(seriesTitle);
+    if (result) {
+      setSeriesTitle("");
+      onToggleShowBtns();
+    }
+  };
+
   return (
     <PublishCreateBlock>
       <input
@@ -47,22 +55,17 @@ export default function PublishSeriesCreate({ onCreateSeries }) {
         onFocus={() => {
           setShowBtns(true);
         }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            createSeries();
+          }
+        }}
         onChange={(e) => setSeriesTitle(e.target.value)}
       />
       {showBtns ? (
         <div className='btnWrap'>
           <CancelButton onClick={onToggleShowBtns}>취소</CancelButton>
-          <ConfirmButton
-            onClick={() => {
-              const result = onCreateSeries(seriesTitle);
-              if (result) {
-                setSeriesTitle("");
-                onToggleShowBtns();
-              }
-            }}
-          >
-            시리즈 추가
-          </ConfirmButton>
+          <ConfirmButton onClick={createSeries}>시리즈 추가</ConfirmButton>
         </div>
       ) : null}
     </PublishCreateBlock>
