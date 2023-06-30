@@ -148,3 +148,21 @@ export const CloseButton = ({ onClick }) => {
     </Close>
   );
 };
+
+const Delete = styled(Button)`
+  background-color: red;
+`;
+
+export const RedButton = ({
+  onClick,
+  children,
+  size = "medium",
+  isChange = false,
+  bgColor = "grey",
+}) => {
+  return (
+    <Delete size={size} onClick={onClick}>
+      {children}
+    </Delete>
+  );
+};
