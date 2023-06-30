@@ -22,7 +22,7 @@ function useLogin() {
       .then((data) => data.json())
       .then((result) => {
         if (result.isLogined === true) {
-          login({ username: result.username, userId: result.userId });
+          login(result);
         } else {
           logout(false);
         }

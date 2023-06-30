@@ -4,6 +4,7 @@ const initialState = {
   loggedUser: {
     username: "",
     userId: "",
+    id: null,
   },
   loggedIn: false,
   loginForm: {
