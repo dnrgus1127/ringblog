@@ -6,6 +6,7 @@ import { settingActions } from "../../redux/settingState";
 import { CancelButton } from "../common/button/Button";
 import ProfileSection from "./ProfileSection";
 import SettingMenu from "./SettingMenu";
+import DeleteAccount from "../../container/Setting/DeleteAccount";
 
 const Screen = styled.div`
   width: 100vw;
@@ -73,6 +74,9 @@ const MenuPane = styled(Pane)`
 const itemList = (index) => {
   if (index === 0) {
     return <ProfileSection />;
+  }
+  if (index === 1) {
+    return <DeleteAccount />;
   }
 };
 

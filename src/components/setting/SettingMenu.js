@@ -42,7 +42,7 @@ const MenuItem = styled.div`
   }
 `;
 
-const menus = ["프로필", "메뉴2", "메뉴3", "메뉴4"];
+const menus = ["프로필", "회원탈퇴", "메뉴3", "메뉴4"];
 
 export default function SettingMenu() {
   const { selectedMenuNumber } = useSelector((state) => state.setting);
