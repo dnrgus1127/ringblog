@@ -10,7 +10,6 @@ export default function useAuth() {
   const dispatch = useDispatch();
 
   const { mutateAsync: login, isLoading: isLoadingLogin } = useMutation(
-    "login",
     async ({ userId, password }) => {
       const response = await fetch(`/login`, {
         method: "POST",
@@ -19,7 +18,7 @@ export default function useAuth() {
       });
       const result = await response.json();
       // 로그인 실패 시 {authSuccess(bool), failMessage(String)}
-      if (!result.authSuccess) {
+      if (!result.isLogined) {
         setIsFailAuth(true);
         setFailType(result.failType);
         return false;
