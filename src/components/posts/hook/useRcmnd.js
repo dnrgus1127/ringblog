@@ -26,6 +26,8 @@ export function useRcmnd(postId) {
         .then((data) => {
           setRcmnd(data.result);
         });
+    } else {
+      setRcmnd(0);
     }
   }, [loggedIn, loggedUser, postId]);
 
@@ -67,8 +69,6 @@ export function useRcmnd(postId) {
       } else {
         doRcmnd();
       }
-    } else {
-      alert("로그인이 필요합니다.");
     }
   };
 

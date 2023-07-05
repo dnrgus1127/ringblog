@@ -4,6 +4,8 @@ import { ColorButton } from "../Button";
 import { useRcmndCnt } from "./hook/useRcmndCnt";
 import { useRcmnd } from "./hook/useRcmnd";
 import media from "../../lib/style/media";
+import { useDispatch } from "react-redux";
+import { loginActions } from "../../redux/loginState";
 
 const Container = styled.div`
   display: flex;
@@ -72,6 +74,7 @@ const icon_comment = (
 );
 
 export default function SideMenu({ index, scroll }) {
+  const dispatch = useDispatch();
   // 추천 관련
   const { clickRcmnd, rcmnd } = useRcmnd(index);
   // 추천 갯수
@@ -83,6 +86,7 @@ export default function SideMenu({ index, scroll }) {
         rcmd={rcmnd}
         onClick={() => {
           clickRcmnd();
+          dispatch(loginActions.onToggleLoginForm());
         }}
       >
         {icon_rcmnd}
