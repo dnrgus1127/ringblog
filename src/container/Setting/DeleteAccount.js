@@ -1,6 +1,15 @@
 import React from "react";
 import SettingSectionTemplate from "../../components/setting/SettingSectionTemplate";
 import { RedButton } from "../../components/common/button/Button";
+import styled from "styled-components";
+
+const DeleteAccountButton = styled.button`
+  padding: 1rem;
+  background-color: ${({ theme }) => theme.pointColor};
+  width: 50%;
+  margin: 0 auto;
+  display: block;
+`;
 
 export default function DeleteAccount() {
   const deleteAccount = async () => {
@@ -17,9 +26,9 @@ export default function DeleteAccount() {
   return (
     <SettingSectionTemplate>
       <h3>계정 삭제</h3>
-      <RedButton size='small' onClick={deleteAccount}>
+      <DeleteAccountButton size='small' onClick={deleteAccount}>
         계정 삭제
-      </RedButton>
+      </DeleteAccountButton>
     </SettingSectionTemplate>
   );
 }
