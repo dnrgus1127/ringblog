@@ -13,10 +13,13 @@ import MainPage from "./container/main/MainPage";
 import QueryHooks from "./container/app/QueryHooks";
 import PostContainer from "./container/post/PostContainer";
 import { useLogin } from "./Hooks/useLogin";
+import PrivateRoute from "./components/Route/PrivateRoute";
+import PageError from "./Pages/PageError";
 
 function App() {
   const { themePalette } = useSelector((state) => state.color);
   const { showAlert } = useSelector((state) => state.common.alert);
+  const { loggedIn } = useSelector((state) => state.login);
 
   useLogin();
   const queryClient = new QueryClient();
@@ -28,10 +31,19 @@ function App() {
           <GlobalStyle />
           <Routes>
             <Route path='/' element={<MainPage />}></Route>
-            <Route path='/WriteNewPost' element={<NewPost />}></Route>
+            <Route
+              path='/WriteNewPost'
+              element={<PrivateRoute element={<NewPost />} auth={loggedIn} />}
+            ></Route>
             <Route path='/Post' element={<PostContainer />}></Route>
             <Route path='/userBlog' element={<UserBlog />}></Route>
-            <Route path='/RecordPage' element={<Recordpage />} />
+            <Route
+              path='/RecordPage'
+              element={
+                <PrivateRoute element={<Recordpage />} auth={loggedIn} />
+              }
+            />
+            <Route path='/*' element={<PageError />} />
           </Routes>
           {showAlert && <AlertWindow />}
         </ThemeProvider>
