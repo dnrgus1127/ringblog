@@ -176,7 +176,7 @@ export default function MainPagePostSlide({ data }) {
           {data.map(
             (item, idx) =>
               idx < 3 && (
-                <MainPagePostSlideItem post={item} key={item._id + 32} />
+                <MainPagePostSlideItem post={item} key={item._id + 321} />
               )
           )}
         </PostSliderBlock>
@@ -227,10 +227,10 @@ export default function MainPagePostSlide({ data }) {
           )}
         </button>
         {indicatorList.map((i, idx) => {
-          if (idx >= lastIdx) return <></>;
+          if (idx >= lastIdx) return null;
           return (
             <svg
-              key={idx + i}
+              key={i + idx}
               className={idx + 1 === currentSlide ? "selected" : ""}
               clipRule='evenodd'
               fillRule='evenodd'

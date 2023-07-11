@@ -15,6 +15,7 @@ import PostContainer from "./container/post/PostContainer";
 import { useLogin } from "./Hooks/useLogin";
 import PrivateRoute from "./components/Route/PrivateRoute";
 import PageError from "./Pages/PageError";
+import UpdatePage from "./Pages/UpdatePage";
 
 function App() {
   const { themePalette } = useSelector((state) => state.color);
@@ -43,6 +44,7 @@ function App() {
                 <PrivateRoute element={<Recordpage />} auth={loggedIn} />
               }
             />
+            <Route path='/update' element={<UpdatePage />} />
             <Route path='/*' element={<PageError />} />
           </Routes>
           {showAlert && <AlertWindow />}

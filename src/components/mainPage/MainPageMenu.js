@@ -77,7 +77,10 @@ export default function MainPageMenu() {
           <MenuItem
             key={item + idx}
             className={idx === selectedMenuId && "selected"}
-            onClick={() => setSelectedMenuId(idx)}
+            onClick={() => {
+              setSelectedMenuId(idx);
+              navigate(`/${item}`);
+            }}
           >
             {item}
           </MenuItem>
