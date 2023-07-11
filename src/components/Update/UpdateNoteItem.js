@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { MarkdownCss } from "../common/markdown/MarkdownCss";
 import CustomMD from "../common/markdown/CustomMD";
 
 const UpdateNoteItemBlock = styled.div`

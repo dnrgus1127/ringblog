@@ -1,6 +1,5 @@
 import React from "react";
 import SettingSectionTemplate from "../../components/setting/SettingSectionTemplate";
-import { RedButton } from "../../components/common/button/Button";
 import styled from "styled-components";
 
 const DeleteAccountButton = styled.button`
