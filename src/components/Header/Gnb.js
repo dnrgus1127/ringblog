@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import NewPostBtn from "../NewPostBtn";
 
 import { useSelector } from "react-redux";
 import DarkModeBtn from "../common/button/DarkModeBtn";
+import NewPostBtn from "../WritePosts/NewPostBtn";
 
 const MenuSection = styled.div`
   display: flex;
