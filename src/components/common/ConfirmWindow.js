@@ -1,17 +1,16 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-
 import { ConfirmButton, CancelButton } from "./button/Button";
 
-const Container = styled.div`
+const BackgroundCon = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.3);
   width: 100vw;
   height: 100vh;
-  z-index: 9000;
-  display: ${(props) => (props.visible ? "flex" : "none")};
+  z-index: 10003;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
   align-items: center;
   justify-content: center;
 `;
@@ -29,7 +28,7 @@ const OpenAnimation = keyframes`
 
 `;
 
-const Window = styled.div`
+const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement3};
   width: 30vw;
   border-radius: 6px;
@@ -38,8 +37,13 @@ const Window = styled.div`
   animation: ${OpenAnimation} 0.4s;
 
   h2,
-  p {
+  .bottomSpace {
     margin-bottom: 2rem;
+  }
+
+  .subMsg {
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.warning};
   }
 
   h2 {
@@ -56,27 +60,34 @@ const Window = styled.div`
   button {
     font-size: 1.4rem;
   }
+
+  @media (max-width: 640px) {
+    width: 80vw;
+    padding: 1.5rem 2rem;
+
+    .subMsg {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
-export default function PopupOkCancle({
-  visible,
-  children,
-  onCancel,
-  onConfirm,
-  title,
-}) {
+export default function ConfirmWindow({ title, message, subMsg, cancel, ok }) {
   return (
-    <Container visible={visible}>
-      <Window>
+    <BackgroundCon>
+      <Container>
         <div>
           <h2>{title}</h2>
-          <p>{children}</p>
+          <div className='bottomSpace'>
+            <p>{message}</p>
+            {subMsg && <p className='subMsg'>{subMsg}</p>}
+          </div>
+
           <div className='buttonWrap'>
-            <CancelButton onClick={onCancel}>취소</CancelButton>
-            <ConfirmButton onClick={onConfirm}>확인</ConfirmButton>
+            <CancelButton onClick={cancel}>취소</CancelButton>
+            <ConfirmButton onClick={ok}>확인</ConfirmButton>
           </div>
         </div>
-      </Window>
-    </Container>
+      </Container>
+    </BackgroundCon>
   );
 }

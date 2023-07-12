@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const Button = styled.button`
+export const Button = styled.button`
   font-family: inherit;
   font-size: 1.6rem;
   font-weight: 800;
