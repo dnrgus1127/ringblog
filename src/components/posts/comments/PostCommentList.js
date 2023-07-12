@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import { ColorButton } from "../../Button";
 import PopupOkCancle from "../../common/PopupOkCancle";
 import useBoolean from "../../../Hooks/useBoolean";
 import useCmtDel from "../../../Hooks/Comments/useCmtDel";
 import PostCommentItem from "../PostCommentItem";
+import { Button } from "../../common/button/Button";
 
 const PostCommentListBlock = styled.div``;
 
-const MoreButton = styled(ColorButton)`
+const MoreButton = styled(Button)`
   width: 100%;
   background-color: ${({ theme }) => theme.btnColor};
   color: black;

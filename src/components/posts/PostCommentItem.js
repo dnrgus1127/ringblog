@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { relativeDate } from "../../functions/dateFormat";
 import useBoolean from "../../Hooks/useBoolean";
-import { BtnCss } from "../Button";
 import MdfdComment from "./comments/MdfdComment";
 import { Link } from "react-router-dom";
+import { Button } from "../common/button/Button";
 
 const Container = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.greyColor};
@@ -54,7 +54,7 @@ const CommentInfo = styled.div`
   }
 `;
 
-const Btn = styled(BtnCss)`
+const Btn = styled(Button)`
   font-size: 1.3rem;
   color: ${({ theme }) => theme.color};
   margin: 0;

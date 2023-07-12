@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useBoolean from "../../Hooks/useBoolean";
 import { useFetch } from "../../Hooks/useFetch";
-import { BtnCss, ColorButton } from "../Button";
 import CustomCheckBox from "../common/CustomCheckBox";
+import { ConfirmButton, CancelButton } from "../common/button/Button";
 
 const Container = styled.div`
   z-index: 9999;
@@ -261,26 +261,9 @@ export default function SeriesMdfd({ close, data, refresh }) {
         ) : null}
         <div className='btn'>
           <CancelButton onClick={close}>취소</CancelButton>
-          <OkButton onClick={mdfdSeries}>수정</OkButton>
+          <ConfirmButton onClick={mdfdSeries}>수정</ConfirmButton>
         </div>
       </MdfdContainer>
-      {/* {choosePosts ? (
-        <ChoosePosts
-          addNumbers={addNumbers}
-          delNumbers={delNumbers}
-          includeList={checkIncludeChooseList}
-          postList={notHaveSeries.data}
-        />
-      ) : null} */}
     </Container>
   );
 }
-
-const CancelButton = styled(BtnCss)`
-  font-size: 1.6rem;
-  color: ${({ theme }) => theme.color};
-`;
-
-const OkButton = styled(ColorButton)`
-  font-size: 1.6rem;
-`;

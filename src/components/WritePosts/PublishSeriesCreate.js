@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import useBoolean from "../../Hooks/useBoolean";
-import { BtnCss, ColorButton } from "../Button";
+import { CancelButton, ConfirmButton } from "../common/button/Button";
 
 const PublishCreateBlock = styled.div`
   width: 100%;
@@ -29,10 +29,6 @@ const PublishCreateBlock = styled.div`
     padding: 0.8rem 1.2rem;
   }
 `;
-
-const CancelButton = styled(BtnCss)``;
-
-const ConfirmButton = styled(ColorButton)``;
 
 export default function PublishSeriesCreate({ onCreateSeries }) {
   const [showBtns, onToggleShowBtns, setShowBtns] = useBoolean(false);

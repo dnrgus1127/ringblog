@@ -1,10 +1,10 @@
 import React from "react";
 import { useRef } from "react";
 import styled from "styled-components";
-import { BtnCss } from "../Button";
 import thumbnailDefault from "../../images/thumbnail2.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { writeActions } from "../../redux/writeReducer";
+import { Button } from "../common/button/Button";
 
 const ThumbnailBox = styled.div`
   width: 100%;
@@ -35,7 +35,7 @@ const ThumbnailBox = styled.div`
   }
 `;
 
-const SelectButton = styled(BtnCss)`
+const SelectButton = styled(Button)`
   color: ${({ theme }) => theme.color};
   background-color: ${({ theme }) => theme.bgElement3};
   &:hover {

@@ -5,8 +5,8 @@ import { stackoverflowLight } from "react-syntax-highlighter/dist/cjs/styles/hlj
 import remarkGfm from "remark-gfm";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
-import { ReloadButton } from "../../Button";
 import { useSelector } from "react-redux";
+import { ConfirmButton } from "../button/Button";
 
 // TODO - 다크모드 아닐 때 SyntaxHighlighter style 추가 필요
 export default function CustomMD({ children }) {
@@ -85,13 +85,13 @@ class ErrorBoundary extends React.Component {
             <p style={{ color: "#dd2ede" }}>
               좌측 내용을 수정하고 아래 버튼을 눌러주세요
             </p>
-            <ReloadButton
+            <ConfirmButton
               onClick={() => {
                 this.setState({ hasError: false });
               }}
             >
               다시 시도
-            </ReloadButton>
+            </ConfirmButton>
           </div>
         </div>
       );

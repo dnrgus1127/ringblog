@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { writeActions } from "../../redux/writeReducer";
-import { BtnCss } from "../Button";
+import { Button } from "../common/button/Button";
 
-const SeriesSelect = styled(BtnCss)`
+const SeriesSelect = styled(Button)`
   width: 100%;
   color: ${({ theme }) => theme.btnColor};
   background-color: ${({ theme }) => theme.bgElement2};

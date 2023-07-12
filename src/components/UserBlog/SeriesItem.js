@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import useBoolean from "../../Hooks/useBoolean";
 import SeriesPosts from "./SeriesPosts";
-import ConfirmWindow from "../ConfirmWindow";
-
 import useQueryUri from "../../Hooks/useQueryUri";
+import ConfirmWindow from "../common/ConfirmWindow";
 
 const ArrowIcon = styled.svg`
   width: 3rem;
