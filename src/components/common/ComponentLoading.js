@@ -8,5 +8,5 @@ const Loading = styled.div`
 `;
 
 export default function ComponentLoading({ text }) {
-  return <Loading>{text}을 불러오는 중입니다..</Loading>;
+  return <Loading>{text}을(를) 불러오는 중입니다..</Loading>;
 }

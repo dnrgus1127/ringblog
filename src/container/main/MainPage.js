@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header/Header";
 import PostListContainer from "./PostListContainer";
-import MainPageMenu from "../../components/mainPage/MainPageMenu";
+// import MainPageMenu from "../../components/mainPage/MainPageMenu";
 import styled from "styled-components";
 import MainPagePostSlideContainer from "./MainPagePostSlideContainer";
 import Margin from "../../components/common/design/Margin";
@@ -21,9 +21,9 @@ export default function MainPage() {
     <>
       <Header />
       <MainPageBody>
-        <div className='menuAndWriteBtn'>
+        {/* <div className='menuAndWriteBtn'>
           <MainPageMenu />
-        </div>
+        </div> */}
         <Margin>
           <MainPagePostSlideContainer />
         </Margin>
