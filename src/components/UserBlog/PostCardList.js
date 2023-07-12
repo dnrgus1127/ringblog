@@ -8,6 +8,7 @@ import SearchBox from "./SearchBox";
 import PostCard from "../mainPage/PostCard";
 import GridLayout from "../common/Layout/GridLayOut";
 import media from "../../lib/style/media";
+import useDebounce from "../../Hooks/lib/useDebounce";
 const UserBlogPostCardListBlock = styled.div`
   width: calc(var(--width) * 0.6);
 
@@ -32,19 +33,20 @@ const UserBlogPostCardListBlock = styled.div`
 `;
 
 export default function PostCardList({ uri }) {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
+  const searchTerm = useDebounce(search, 500);
 
   let query = urlQuery();
   const writer = query.get("writer");
 
-  const defaultQuery = `${uri}?writer=${writer}`;
-  const searchQuery = defaultQuery + `&search=${searchTerm}`;
+  const baseQuery = `${uri}?writer=${writer}`;
+  const finalQuery = baseQuery + `&search=${searchTerm}`;
 
   const { data, isLoading, isError } = useQuery(
     ["posts", uri, searchTerm],
     async () => {
       const response = await fetch(
-        `${searchTerm === "" ? defaultQuery : searchQuery}`
+        `${searchTerm === "" ? baseQuery : finalQuery}`
       );
 
       return response.json();
@@ -58,7 +60,7 @@ export default function PostCardList({ uri }) {
       <div>
         {/* ? SearchBox 안넣어주면 검색 결과 없을때 재검색 불가능 */}
         <div className='searchBoxWrap'>
-          <SearchBox onBlur={setSearchTerm} />
+          <SearchBox onBlur={setSearch} />
         </div>
         <Error text='게시글이 없습니다.' />
       </div>
@@ -66,7 +68,7 @@ export default function PostCardList({ uri }) {
   return (
     <UserBlogPostCardListBlock>
       <div className='searchBoxWrap'>
-        <SearchBox onBlur={setSearchTerm} />
+        <SearchBox value={search} setValue={setSearch} />
       </div>
       <GridLayout>
         {data.map((item, idx) => (

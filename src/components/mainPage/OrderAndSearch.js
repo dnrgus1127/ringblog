@@ -21,11 +21,16 @@ const SearchWrap = styled.div`
   }
 `;
 
-export default function OrderAndSearch({ orderIndex, setOrder, setSearch }) {
+export default function OrderAndSearch({
+  orderIndex,
+  setOrder,
+  setSearch,
+  search,
+}) {
   return (
     <SearchWrap>
       <PostOrder buttonIndex={orderIndex} setButtonIndex={setOrder} />
-      <SearchBox onBlur={setSearch} />
+      <SearchBox onBlur={setSearch} setValue={setSearch} value={search} />
     </SearchWrap>
   );
 }

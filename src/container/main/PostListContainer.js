@@ -6,11 +6,14 @@ import GridLayout from "../../components/common/Layout/GridLayOut";
 import Error from "../../components/common/Error/Error";
 import BlogItemSekeletonList from "../../components/mainPage/BlogItemSekeletonList";
 import Loading from "../../components/Loading";
+import useDebounce from "../../Hooks/lib/useDebounce";
 
 export default function PostListContainer() {
   const [search, setSearch] = useState("");
   const [orderIndex, setOrder] = useState(0);
   const containRef = useRef(null);
+
+  const searchTerm = useDebounce(search, 500);
 
   const {
     data,
@@ -20,11 +23,11 @@ export default function PostListContainer() {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(
-    [`PostList`, search, orderIndex],
+    [`PostList`, searchTerm, orderIndex],
     async ({ pageParam = 0 }) => {
       const response = await fetch(
         `/posts/Infinite?${
-          search && `search=${search}`
+          searchTerm && `search=${searchTerm}`
         }&offset=${pageParam}&order=${orderIndex === 0 && `rcmnd`}`
       );
 
@@ -43,6 +46,7 @@ export default function PostListContainer() {
 
   useEffect(() => {
     const handleScroll = (event) => {
+      if (!containRef.current) return;
       const { clientHeight } = containRef.current;
       const { scrollY } = window;
       // 스크롤이 끝에 닿으면 다음 페이지를 가져옵니다.
@@ -83,6 +87,7 @@ export default function PostListContainer() {
         orderIndex={orderIndex}
         setOrder={setOrder}
         setSearch={setSearch}
+        search={search}
       />
       <RenderData />
     </React.Fragment>

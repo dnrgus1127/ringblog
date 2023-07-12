@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import styled from "styled-components";
 import media from "../../lib/style/media";
 
@@ -27,8 +26,7 @@ const SearchInput = styled.input`
   font-size: 1.6rem;
 `;
 
-export default function SearchBox({ onBlur }) {
-  const [text, setText] = useState("");
+export default function SearchBox({ value, setValue }) {
   return (
     <SearchBoxBlock>
       <SearchIcon
@@ -45,18 +43,15 @@ export default function SearchBox({ onBlur }) {
         />
       </SearchIcon>
       <SearchInput
-        value={text}
+        value={value}
         // ? 검색 후 엔터 누르면 blur되어 포스트 검색 요청
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.target.blur();
           }
         }}
-        onBlur={() => {
-          onBlur(text);
-        }}
         onChange={(e) => {
-          setText(e.target.value);
+          setValue(e.target.value);
         }}
         placeholder='검색어를 입력하세요...'
       ></SearchInput>
