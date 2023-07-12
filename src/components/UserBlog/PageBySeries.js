@@ -1,27 +1,24 @@
-import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 
-import Error from "../common/Error/Error";
-import { Fetch } from "../Fetch";
 import SeriesList from "./SeriesList";
+import { useQuery } from "react-query";
+
+import ComponentLoading from "../common/ComponentLoading";
+import { useSearchParams } from "react-router-dom";
 
 export default function PageBySeries() {
-  const { loggedUser, loggedIn } = useSelector((state) => state.login);
-  const [reFetch, setReFetch] = useState();
-  const forceUpdate = useCallback(() => setReFetch({}), []);
+  const [searchParms] = useSearchParams();
+  const writer = searchParms.get("writer");
 
-  function loadList({ data }) {
-    return <SeriesList data={data} refresh={forceUpdate} />;
-  }
+  const { data, refetch, isLoading } = useQuery(
+    ["mySereis", writer],
+    async () => {
+      const res = await fetch(`/series/byUser?userId=${writer}`);
 
-  if (!loggedIn) return <Error text={"로그인이 필요합니다."} />;
-  return (
-    <div>
-      <Fetch
-        uri={`/series/byUser?userId=${loggedUser.userId}`}
-        renderSuccess={loadList}
-        options={reFetch}
-      />
-    </div>
+      return res.json();
+    }
   );
+
+  if (isLoading) return <ComponentLoading text='시리즈' />;
+  return <SeriesList data={data} refresh={refetch} />;
 }
