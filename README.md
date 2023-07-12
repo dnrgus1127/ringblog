@@ -31,8 +31,19 @@ velog처럼 마크다운을 이용해서 게시글을 작성하고 기록할 수
 ├── README.md
 ├── package-lock.json
 ├── package.json
-├──  :
-│   ├── README.md
-│   ├──
+├── .gitignore
+├── src
+│   ├── component // 재사용 가능한 컴포넌트
+│   ├── container // 데이터의 fetching, 로직과 관련된 컴포넌트
+│   ├── functions //
+│   ├── Hooks // 커스텀 훅들
+│   ├── images // assets
+│   ├── lib // function과 합쳐야 함
+│   ├── Pages // 페이지 컴포넌트
+│   ├── redux // 리덕스 state
+│   ├── styledCss
+│   ├── theme
+│   ├── App.js
+│   ├── index.js
 └──
 ```
