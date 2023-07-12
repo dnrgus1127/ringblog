@@ -5,7 +5,7 @@ import BlogContentsProvider from "./BlogContentsProvider";
 import UserBlogTemplate from "../../components/UserBlog/UserBlogTemplate";
 import { useQuery } from "react-query";
 import { useQuery as urlQuery } from "../../functions/urlQuery";
-import Loading from "../../components/Loading";
+import Loading from "../../components/common/Loading";
 import Error from "../../components/common/Error/Error";
 
 export default function UserBlog() {

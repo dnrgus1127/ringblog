@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import useRcmndList from "../../../Hooks/Rcmnd/useRcmndList";
 import Error from "../../common/Error/Error";
-import Loading from "../../Loading";
+import Loading from "../../common/Loading";
 import PostCard from "../../mainPage/PostCard";
 
 const GridLayout = styled.div`

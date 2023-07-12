@@ -1,9 +1,9 @@
 import React from "react";
-import useCmtLoggedUser from "../../common/Comment/hooks/useCmtLoggedUser";
-import Loading from "../../Loading";
+import Loading from "../../common/Loading";
 import Error from "../../common/Error/Error";
 import CommentList from "../../posts/comments/PostCommentList";
 import { useSelector } from "react-redux";
+import useCmtLoggedUser from "../../../Hooks/Comments/useCmtLoggedUser";
 
 export default function RecordComments() {
   const { loggedIn } = useSelector((state) => state.login);

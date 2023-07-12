@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useInfiniteQuery } from "react-query";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import SubPostList from "./SubPostList";
 import useAlert from "../../Hooks/common/useAlert";
 

@@ -10,7 +10,7 @@ import ProfileImgSelector from "./ProfileImgSelector";
 import { checkName } from "../../functions/Login/AccountValidation";
 import media from "../../lib/style/media";
 import { CancelButton, SettingButton } from "../common/button/Button";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import StringLength from "../WritePosts/StringLength";
 import useAlert from "../../Hooks/common/useAlert";
 import SettingSectionTemplate from "./SettingSectionTemplate";

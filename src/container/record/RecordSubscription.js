@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import Error from "../../components/common/Error/Error";
-import Loading from "../../components/Loading";
+import Loading from "../../components/common/Loading";
 import RecordSubscriptionBlock from "../../components/record/RecordSubscriptionBlock";
 
 export default function RecordSubscription() {

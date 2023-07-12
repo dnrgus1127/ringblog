@@ -5,7 +5,7 @@ import { useInfiniteQuery } from "react-query";
 import GridLayout from "../../components/common/Layout/GridLayOut";
 import Error from "../../components/common/Error/Error";
 import BlogItemSekeletonList from "../../components/mainPage/BlogItemSekeletonList";
-import Loading from "../../components/Loading";
+import Loading from "../../components/common/Loading";
 import useDebounce from "../../Hooks/lib/useDebounce";
 
 export default function PostListContainer() {

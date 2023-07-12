@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import styled from "styled-components";
 import { useQuery as uriQuery } from "../../functions/urlQuery";
-import Loading from "../../components/Loading";
+import Loading from "../../components/common/Loading";
 import { useQuery } from "react-query";
 import useQueryUri from "../../Hooks/useQueryUri";
 import { useDispatch } from "react-redux";

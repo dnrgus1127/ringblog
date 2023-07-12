@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Loading from "../../components/Loading";
+import Loading from "../../components/common/Loading";
 import LoginForm from "../../components/common/Auth/Login/LoginForm";
 import useAuth from "../../Hooks/Login/useAuth";
 

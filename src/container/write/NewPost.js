@@ -11,7 +11,7 @@ import { writeActions } from "../../redux/writeReducer";
 import PostEditor from "../../components/WritePosts/PostEditor";
 import { domain } from "../../lib/fetch/domain";
 import { useQuery } from "react-query";
-import Loading from "../../components/Loading";
+import Loading from "../../components/common/Loading";
 import WriteTemplate from "../../components/WritePosts/WriteTemplate";
 
 export default function NewPost() {

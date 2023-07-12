@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import ProfileImg from "../common/ProfileImg";
 import defaultImg from "../../images/thumbnail.jpg";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import SubscriptionPostsSection from "./SubscriptionPostsSection";
 import useSubscription from "../../Hooks/Subscribe/useSubscription";
 import { Link } from "react-router-dom";

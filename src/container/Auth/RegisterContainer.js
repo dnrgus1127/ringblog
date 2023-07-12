@@ -6,7 +6,7 @@ import {
 } from "../../functions/Login/AccountValidation";
 import RegisterFrom from "../../components/common/Auth/Register/RegisterFrom";
 import { useMutation } from "react-query";
-import Loading from "../../components/Loading";
+import Loading from "../../components/common/Loading";
 import RegisterComplete from "../../components/common/Auth/Register/RegisterComplete";
 
 export default function RegisterContainer() {

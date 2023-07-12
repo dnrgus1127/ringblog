@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useQuery as urlQuery } from "../../functions/urlQuery";
 import styled from "styled-components";
 import Error from "../common/Error/Error";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import SearchBox from "./SearchBox";
 import PostCard from "../mainPage/PostCard";
 import GridLayout from "../common/Layout/GridLayOut";

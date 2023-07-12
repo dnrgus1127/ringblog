@@ -1,7 +1,5 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { ColorButton } from "../Button";
-import Gnb from "../Gnb";
 import HideMenu from "./HideMenu";
 import { useDispatch, useSelector } from "react-redux";
 import SettingScreen from "../../container/Setting/SettingPage";
@@ -12,6 +10,7 @@ import AuthScreen from "../../container/Auth/AuthScreen";
 import { ConfirmButton } from "../common/button/Button";
 import useAuth from "../../Hooks/Login/useAuth";
 import useScroll from "../../Hooks/lib/useScroll";
+import Gnb from "./Gnb";
 
 const HeaderCon = styled.header`
   position: fixed;
@@ -58,11 +57,6 @@ const LoginFromWrap = styled.div`
   left: 0;
 `;
 
-const LoginButton = styled(ColorButton)`
-  padding: 0.8rem 1.4rem;
-  font-size: 1.6rem;
-`;
-
 export default function Header() {
   const [hideMenu, setHideMenu] = useState(false);
   const lastScrollY = useRef(0);
@@ -107,9 +101,9 @@ export default function Header() {
                 <ConfirmButton onClick={logout}>로그아웃</ConfirmButton>
               </>
             ) : (
-              <LoginButton className='loginBtn' onClick={ControllLoginForm}>
+              <ConfirmButton className='loginBtn' onClick={ControllLoginForm}>
                 로그인
-              </LoginButton>
+              </ConfirmButton>
             )}
           </div>
 
