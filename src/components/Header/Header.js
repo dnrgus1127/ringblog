@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { ColorButton } from "../Button";
 import Gnb from "../Gnb";
@@ -11,15 +11,17 @@ import Logo from "./Logo";
 import AuthScreen from "../../container/Auth/AuthScreen";
 import { ConfirmButton } from "../common/button/Button";
 import useAuth from "../../Hooks/Login/useAuth";
+import useScroll from "../../Hooks/lib/useScroll";
 
 const HeaderCon = styled.header`
   position: fixed;
-  top: 0;
+  top: ${(props) => (props.visible ? "0" : "calc(-1 *var(--header))")};
   left: 0;
   width: 100vw;
   background-color: ${({ theme }) => theme.bgColor};
   z-index: 9000;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 `;
 
 const ContentWrap = styled.div`
@@ -63,6 +65,8 @@ const LoginButton = styled(ColorButton)`
 
 export default function Header() {
   const [hideMenu, setHideMenu] = useState(false);
+  const lastScrollY = useRef(0);
+  const [visible, setVisible] = useState(true);
   const dispatch = useDispatch();
   const { onLoginForm: loginForm } = useSelector(
     (state) => state.login.loginForm
@@ -74,8 +78,21 @@ export default function Header() {
     dispatch(loginActions.onToggleLoginForm());
   };
   const { logout } = useAuth();
+
+  const handler = () => {
+    console.log(1);
+    if (window.scrollY > lastScrollY.current) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+    lastScrollY.current = window.scrollY;
+  };
+
+  useScroll(handler, 300);
+
   return (
-    <HeaderCon>
+    <HeaderCon visible={visible}>
       <HideMenu trigger={hideMenu} onToggleTrigger={setHideMenu} />
       <ContentWrap>
         <Logo />
