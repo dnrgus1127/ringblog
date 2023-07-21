@@ -74,8 +74,7 @@ export default function Header() {
   const { logout } = useAuth();
 
   const handler = () => {
-    console.log(1);
-    if (window.scrollY > lastScrollY.current) {
+    if (window.scrollY > lastScrollY.current && window.scrollY !== 0) {
       setVisible(false);
     } else {
       setVisible(true);
