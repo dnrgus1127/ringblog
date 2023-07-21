@@ -5,7 +5,7 @@ import PublishSeriesBlock from "../../components/WritePosts/PublishSeriesBlock";
 import PublishSettingSection from "../../components/WritePosts/PublishSettingSection";
 import { useMutation } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { writeActions } from "../../redux/writeReducer";
+import { writeActions } from "../../store/writeReducer";
 import PublishPermissionBlock from "../../components/WritePosts/PublishPermissionBlock";
 import useWrite from "../../components/WritePosts/hooks/useWrite";
 

@@ -1,15 +1,15 @@
 import React from "react";
-import Header from "../../components/Header/Header";
+import Header from "../components/Header/Header";
 import styled from "styled-components";
-import { useQuery as uriQuery } from "../../functions/urlQuery";
-import Loading from "../../components/common/Loading";
+import { useQuery as uriQuery } from "../lib/urlQuery";
+import Loading from "../components/common/Loading";
 import { useQuery } from "react-query";
-import useQueryUri from "../../Hooks/useQueryUri";
+import useQueryUri from "../Hooks/useQueryUri";
 import { useDispatch } from "react-redux";
-import { postActions } from "../../redux/postState";
+import { postActions } from "../store/postState";
 import { useEffect } from "react";
-import media from "../../lib/style/media";
-import PostViewer from "./PostViewer";
+import media from "../lib/style/media";
+import PostViewer from "../container/post/PostViewer";
 
 const Body = styled.div`
   padding: calc(var(--header) * 1.5) 0;
@@ -26,7 +26,7 @@ const Body = styled.div`
   }
 `;
 
-export default function PostContainer() {
+export default function PostPage() {
   let query = uriQuery();
   const index = query.get("index");
   const queryUri = `/posts/${index}`;

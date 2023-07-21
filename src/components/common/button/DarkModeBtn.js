@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { colorActions } from "../../../redux/colorState";
+import { colorActions } from "../../../store/colorState";
 import { useMutation } from "react-query";
 const Sun = (
   <svg

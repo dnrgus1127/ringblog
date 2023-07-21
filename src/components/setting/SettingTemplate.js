@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import media from "../../lib/style/media";
-import { settingActions } from "../../redux/settingState";
+import { settingActions } from "../../store/settingState";
 import { CancelButton } from "../common/button/Button";
 import ProfileSection from "./ProfileSection";
 import SettingMenu from "./SettingMenu";

@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginActions } from "../redux/loginState";
+import { loginActions } from "../store/loginState";
 
 function useLogin() {
   const { loggedIn } = useSelector((state) => state.login);

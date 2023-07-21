@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import WritePostSettingTemplate from "../../components/WritePosts/WritePostSettingTemplate";
-import { writeActions } from "../../redux/writeReducer";
+import { writeActions } from "../../store/writeReducer";
 import PublishSeriesConfig from "./PublishSeriesConfig";
 import PublishSetting from "./PublishSetting";
 import PublishThumbnailContainer from "./PublishThumbnailContainer";

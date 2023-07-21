@@ -1,6 +1,6 @@
 import React from "react";
-import PageError from "../../Pages/PageError";
+import ErrorPage from "../../Pages/ErrorPage";
 
 export default function PrivateRoute({ element, auth }) {
-  return auth ? element : <PageError errorCode={403} />;
+  return auth ? element : <ErrorPage errorCode={403} />;
 }

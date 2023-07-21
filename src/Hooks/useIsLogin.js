@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { loginActions } from "../redux/loginState";
+import { loginActions } from "../store/loginState";
 
 export default function useIsLogin(dependency) {
   const dispatch = useDispatch();

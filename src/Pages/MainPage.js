@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "../../components/Header/Header";
-import PostListContainer from "./PostListContainer";
+import Header from "../components/Header/Header";
+import PostListContainer from "../container/main/PostListContainer";
 // import MainPageMenu from "../../components/mainPage/MainPageMenu";
 import styled from "styled-components";
-import MainPagePostSlideContainer from "./MainPagePostSlideContainer";
-import Margin from "../../components/common/design/Margin";
+import MainPagePostSlideContainer from "../container/main/MainPagePostSlideContainer";
+import Margin from "../components/common/design/Margin";
 
 const MainPageBody = styled.div`
   width: var(--width);

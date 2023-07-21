@@ -2,7 +2,7 @@ import React from "react";
 import useSubPost from "./hook/useSubPost";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { onlyDate } from "../../../functions/dateFormat";
+import { onlyDate } from "../../../lib/dateFormat";
 
 const Container = styled.div`
   display: flex;

@@ -4,7 +4,7 @@ import { useRcmndCnt } from "./hook/useRcmndCnt";
 import { useRcmnd } from "./hook/useRcmnd";
 import media from "../../lib/style/media";
 import { useDispatch } from "react-redux";
-import { loginActions } from "../../redux/loginState";
+import { loginActions } from "../../store/loginState";
 import { Button } from "../common/button/Button";
 
 const Container = styled.div`

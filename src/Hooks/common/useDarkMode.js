@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { colorActions } from "../../redux/colorState";
+import { colorActions } from "../../store/colorState";
 
 export default function useDarkMode() {
   const { setting } = useSelector((state) => state.setting);

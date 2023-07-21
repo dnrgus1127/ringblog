@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { loginActions } from "../../redux/loginState";
+import { loginActions } from "../../store/loginState";
 import { ConfirmButton } from "../common/button/Button";
 
 const PostCommentNoLoginBlock = styled.div`

@@ -1,14 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import BlogNavigation from "../../components/UserBlog/BlogNavigation";
-import BlogContentsProvider from "./BlogContentsProvider";
-import UserBlogTemplate from "../../components/UserBlog/UserBlogTemplate";
+import BlogNavigation from "../components/UserBlog/BlogNavigation";
+import BlogContentsProvider from "../container/userBlog/BlogContentsProvider";
+import UserBlogTemplate from "../components/UserBlog/UserBlogTemplate";
 import { useQuery } from "react-query";
-import { useQuery as urlQuery } from "../../functions/urlQuery";
-import Loading from "../../components/common/Loading";
-import Error from "../../components/common/Error/Error";
+import { useQuery as urlQuery } from "../lib/urlQuery";
+import Loading from "../components/common/Loading";
+import Error from "../components/common/Error/Error";
 
-export default function UserBlog() {
+export default function UserBlogPage() {
   const [navType, setNavType] = useState(0);
   let query = urlQuery();
   const userId = query.get("writer");

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { writeActions } from "../../redux/writeReducer";
+import { writeActions } from "../../store/writeReducer";
 import { Button } from "../common/button/Button";
 
 const SeriesSelect = styled(Button)`

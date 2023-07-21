@@ -2,15 +2,15 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import HideMenu from "./HideMenu";
 import { useDispatch, useSelector } from "react-redux";
-import SettingScreen from "../../container/Setting/SettingPage";
 import media from "../../lib/style/media";
-import { loginActions } from "../../redux/loginState";
+import { loginActions } from "../../store/loginState";
 import Logo from "./Logo";
 import AuthScreen from "../../container/Auth/AuthScreen";
 import { ConfirmButton } from "../common/button/Button";
 import useAuth from "../../Hooks/Login/useAuth";
 import useScroll from "../../Hooks/lib/useScroll";
 import Gnb from "./Gnb";
+import SettingWindow from "../../container/Setting/SettingWindow";
 
 const HeaderCon = styled.header`
   position: fixed;
@@ -116,7 +116,7 @@ export default function Header() {
             <AuthScreen onOff={ControllLoginForm} />
           </LoginFromWrap>
         )}
-        {settingVisible && <SettingScreen />}
+        {settingVisible && <SettingWindow />}
       </ContentWrap>
     </HeaderCon>
   );

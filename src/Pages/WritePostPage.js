@@ -1,20 +1,18 @@
 import React from "react";
-import { MarkdownCss } from "../../components/common/markdown/MarkdownCss";
+import { MarkdownCss } from "../components/common/markdown/MarkdownCss";
 import { useEffect } from "react";
-import CustomMD from "../../components/common/markdown/CustomMD";
-import { useQuery as urlQuery } from "../../functions/urlQuery";
-// import { useLogin } from "../../Hooks/useLogin";
+import CustomMD from "../components/common/markdown/CustomMD";
+import { useQuery as urlQuery } from "../lib/urlQuery";
 import { useNavigate } from "react-router-dom";
-import NewPostPublishScreen from "./NewPostPublishScreen";
+import NewPostPublishScreen from "../container/write/NewPostPublishScreen";
 import { useDispatch, useSelector } from "react-redux";
-import { writeActions } from "../../redux/writeReducer";
-import PostEditor from "../../components/WritePosts/PostEditor";
-import { domain } from "../../lib/fetch/domain";
+import { writeActions } from "../store/writeReducer";
+import PostEditor from "../components/WritePosts/PostEditor";
 import { useQuery } from "react-query";
-import Loading from "../../components/common/Loading";
-import WriteTemplate from "../../components/WritePosts/WriteTemplate";
+import Loading from "../components/common/Loading";
+import WriteTemplate from "../components/WritePosts/WriteTemplate";
 
-export default function NewPost() {
+export default function WritePostPage() {
   let query = urlQuery();
   const { postNumber, edit } = useSelector((state) => state.write);
   const postData = useSelector((state) => state.write.data);
@@ -68,9 +66,7 @@ export default function NewPost() {
   const seriesQuery = useQuery(
     "series",
     async () => {
-      const response = await fetch(
-        `${domain}/series/ForPost?postId=${postNumber}`
-      );
+      const response = await fetch(`/series/ForPost?postId=${postNumber}`);
       return response.json();
     },
     {

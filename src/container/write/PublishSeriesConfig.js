@@ -6,7 +6,7 @@ import PublishSeriesConfigBtn from "../../components/WritePosts/PublishSeriesCon
 import PublishSeriesConfigTemp from "../../components/WritePosts/PublishSeriesConfigTemp";
 import PublishSeriesCreate from "../../components/WritePosts/PublishSeriesCreate";
 import PublishSeriesList from "../../components/WritePosts/PublishSeriesList";
-import { writeActions } from "../../redux/writeReducer";
+import { writeActions } from "../../store/writeReducer";
 import useAlert from "../../Hooks/common/useAlert";
 
 const PublishSeriesBlock = styled.div``;

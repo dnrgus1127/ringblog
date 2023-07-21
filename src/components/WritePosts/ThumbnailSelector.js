@@ -3,7 +3,7 @@ import { useRef } from "react";
 import styled from "styled-components";
 import thumbnailDefault from "../../images/thumbnail2.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { writeActions } from "../../redux/writeReducer";
+import { writeActions } from "../../store/writeReducer";
 import { Button } from "../common/button/Button";
 
 const ThumbnailBox = styled.div`

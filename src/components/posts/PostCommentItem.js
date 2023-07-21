@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { relativeDate } from "../../functions/dateFormat";
+import { relativeDate } from "../../lib/time/dateFormat";
 import useBoolean from "../../Hooks/useBoolean";
 import MdfdComment from "./comments/MdfdComment";
 import { Link } from "react-router-dom";

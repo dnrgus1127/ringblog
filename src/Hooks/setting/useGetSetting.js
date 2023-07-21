@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { settingActions } from "../../redux/settingState";
+import { settingActions } from "../../store/settingState";
 
 export default function useGetSetting() {
   const { loggedUser, loggedIn } = useSelector((state) => state.login);

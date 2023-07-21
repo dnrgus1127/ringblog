@@ -5,9 +5,9 @@ import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loginActions } from "../../redux/loginState";
+import { loginActions } from "../../store/loginState";
 import ProfileImgSelector from "./ProfileImgSelector";
-import { checkName } from "../../functions/Login/AccountValidation";
+import { checkName } from "../../lib/valid/AccountValidation";
 import media from "../../lib/style/media";
 import { CancelButton, SettingButton } from "../common/button/Button";
 import Loading from "../common/Loading";

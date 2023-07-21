@@ -1,8 +1,8 @@
 import { useMutation } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FullStamp } from "../../../functions/time";
-import { postValid } from "../../../functions/validation";
+import { FullStamp } from "../../../lib/time/timeStamp";
+import { postValid } from "../../../lib/valid/validation";
 
 export default function useWrite() {
   const { loggedUser } = useSelector((state) => state.login);

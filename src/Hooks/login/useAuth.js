@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
-import { loginActions } from "../../redux/loginState";
+import { loginActions } from "../../store/loginState";
 import { useState } from "react";
 
 // TODO 로그인, 로그아웃 관련된 커스텀 훅

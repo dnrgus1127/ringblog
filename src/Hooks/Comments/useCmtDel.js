@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginActions } from "../../redux/loginState";
+import { loginActions } from "../../store/loginState";
 
 /**
  *

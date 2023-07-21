@@ -3,7 +3,7 @@ import {
   checkId,
   checkName,
   checkPassword,
-} from "../../functions/Login/AccountValidation";
+} from "../../lib/valid/AccountValidation";
 import RegisterFrom from "../../components/common/Auth/Register/RegisterFrom";
 import { useMutation } from "react-query";
 import Loading from "../../components/common/Loading";

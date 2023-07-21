@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MarkdownEditor from "../../components/WritePosts/MarkdownEditor";
-import { uploadImg } from "../../functions/fetch";
+import { uploadImg } from "../../lib/api/fetch";
 import MarkdownEditorToolBox from "../../components/WritePosts/MarkdownEditorToolBox";
 
 export default function MarkdownEditorContainer({
@@ -17,7 +17,7 @@ export default function MarkdownEditorContainer({
     markDownEditorRef.current.focus();
   }, [cursor, endCursor, markDownEditorRef]);
 
-  // ? toolkit functions ////////////////////////////////////
+  // ? toolkit lib ////////////////////////////////////
   const onClickHeadingBtn = (char, len) => {
     const { selectionStart, selectionEnd } = markDownEditorRef.current;
 

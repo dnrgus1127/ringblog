@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import defaultImg from "../../images/blogThum.jpg";
-import { onlyDate } from "../../functions/dateFormat";
+import { onlyDate } from "../../lib/time/dateFormat";
 import { Link } from "react-router-dom";
 import media from "../../lib/style/media";
 

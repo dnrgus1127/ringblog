@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { useQuery as urlQuery } from "../../functions/urlQuery";
+import { useQuery as urlQuery } from "../../lib/urlQuery";
 import styled from "styled-components";
 import Error from "../common/Error/Error";
 import Loading from "../common/Loading";

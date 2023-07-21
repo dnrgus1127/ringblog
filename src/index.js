@@ -6,12 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import writeReducer from "./redux/writeReducer";
-import postState from "./redux/postState";
-import settingState from "./redux/settingState";
-import loginState from "./redux/loginState";
-import commonState from "./redux/commonState";
-import colorState from "./redux/colorState";
+import writeReducer from "./store/writeReducer";
+import postState from "./store/postState";
+import settingState from "./store/settingState";
+import loginState from "./store/loginState";
+import commonState from "./store/commonState";
+import colorState from "./store/colorState";
 
 let store = configureStore({
   reducer: {

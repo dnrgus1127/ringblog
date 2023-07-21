@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { onlyDate } from "../../functions/dateFormat";
+import { onlyDate } from "../../lib/dateFormat";
 
 const Container = styled.div`
   img {

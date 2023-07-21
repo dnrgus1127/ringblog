@@ -53,7 +53,7 @@ const PAGE_ERROR_CODE = {
   },
 };
 
-export default function PageError({ errorCode = 404 }) {
+export default function ErrorPage({ errorCode = 404 }) {
   const navigate = useNavigate();
   return (
     <NotFoundPage>

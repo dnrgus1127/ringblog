@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { deletePost } from "../../functions/fetch";
+import { deletePost } from "../../lib/api/fetch";
 
 const Wrapper = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { MarkdownCss } from "../../components/common/markdown/MarkdownCss";
-import { onlyDate } from "../../functions/dateFormat";
+import { onlyDate } from "../../lib/time/dateFormat";
 import CustomMD from "../../components/common/markdown/CustomMD";
 import MarkdownNav from "../../components/common/markdown/MarkdownNav";
 import PostEditBtn from "../../components/posts/PostEditBtn";

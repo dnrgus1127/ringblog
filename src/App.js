@@ -1,21 +1,22 @@
 import "./App.css";
 
 import { Route, Routes } from "react-router-dom";
-import NewPost from "./container/write/NewPost";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./theme/GlobalStyle";
-import UserBlog from "./container/userBlog/UserBlog";
-import Recordpage from "./container/record/Recordpage";
+import UserBlog from "./Pages/UserBlogPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AlertWindow from "./components/common/AlertWindow";
 import { useSelector } from "react-redux";
-import MainPage from "./container/main/MainPage";
 import QueryHooks from "./container/app/QueryHooks";
-import PostContainer from "./container/post/PostContainer";
 import { useLogin } from "./Hooks/useLogin";
 import PrivateRoute from "./components/Route/PrivateRoute";
-import PageError from "./Pages/PageError";
+
 import UpdatePage from "./Pages/UpdatePage";
+import ErrorPage from "./Pages/ErrorPage";
+import MainPage from "./Pages/MainPage";
+import PostPage from "./Pages/PostPage";
+import RecordPage from "./Pages/RecordPage";
+import WritePostPage from "./Pages/WritePostPage";
 
 function App() {
   const { themePalette } = useSelector((state) => state.color);
@@ -34,18 +35,20 @@ function App() {
             <Route path='/' element={<MainPage />}></Route>
             <Route
               path='/WriteNewPost'
-              element={<PrivateRoute element={<NewPost />} auth={loggedIn} />}
+              element={
+                <PrivateRoute element={<WritePostPage />} auth={loggedIn} />
+              }
             ></Route>
-            <Route path='/Post' element={<PostContainer />}></Route>
+            <Route path='/Post' element={<PostPage />}></Route>
             <Route path='/userBlog' element={<UserBlog />}></Route>
             <Route
               path='/RecordPage'
               element={
-                <PrivateRoute element={<Recordpage />} auth={loggedIn} />
+                <PrivateRoute element={<RecordPage />} auth={loggedIn} />
               }
             />
             <Route path='/update' element={<UpdatePage />} />
-            <Route path='/*' element={<PageError />} />
+            <Route path='/*' element={<ErrorPage />} />
           </Routes>
           {showAlert && <AlertWindow />}
         </ThemeProvider>

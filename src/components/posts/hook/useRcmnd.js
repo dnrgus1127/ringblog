@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { alertMsg } from "../../../functions/alerts";
-import { loginActions } from "../../../redux/loginState";
+import { alertMsg } from "../../../lib/alerts";
+import { loginActions } from "../../../store/loginState";
 
 /**
  *

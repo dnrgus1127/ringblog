@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { FullStamp } from "../../functions/time";
+import { FullStamp } from "../../lib/time/timeStamp";
 
 export default function useCmtMdfd(commentId, initState, afterFetch) {
   const [comment, setComment] = useState(initState);
