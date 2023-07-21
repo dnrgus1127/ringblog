@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import styled, { css } from "styled-components";
 
 const Container = styled.div`
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   ${(props) =>
     props.size === "small" &&
     css`
@@ -29,7 +31,7 @@ const Container = styled.div`
  */
 export default function StringLength({
   string,
-  maxLength = 5000,
+  maxLength = 10000,
   overLimit,
   size = "medium",
   className,

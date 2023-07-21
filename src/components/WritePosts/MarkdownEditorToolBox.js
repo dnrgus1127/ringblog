@@ -6,9 +6,11 @@ import useBoolean from "../../Hooks/useBoolean";
 
 const ToolBoxBlock = styled.div`
   display: flex;
+  width: 100%;
   gap: 1rem;
   align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
   hr {
     height: 2rem;
     border: none;

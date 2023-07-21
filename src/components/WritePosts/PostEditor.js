@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import media from "../../lib/style/media";
@@ -6,30 +6,27 @@ import { writeActions } from "../../store/writeReducer";
 import StringLength from "./StringLength";
 import PostEditorUnderMenu from "./PostEditorUnderMenu";
 import MarkdownEditorContainer from "../../container/write/MarkdownEditorContainer";
+import useBoolean from "../../Hooks/useBoolean";
 
 const PostEditorBlock = styled.div`
   .length {
     text-align: end;
-    padding-right: 2rem;
   }
 
-  .inputArea {
-    padding-bottom: 0;
-    height: 92vh;
-  }
   input {
     font-family: inherit;
-  }
-
-  ${media.medium} {
-    .inputArea {
-      padding: 0 2rem;
-    }
   }
 `;
 
 const Editor = styled.div`
   padding: 0 4rem;
+  padding-bottom: 0;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  ${media.medium} {
+    padding: 0 2rem;
+  }
 `;
 
 const TitleAndHr = styled.div`
@@ -65,6 +62,12 @@ const Title = styled(Input)`
 `;
 
 export default function PostEditor() {
+  const [isTextOver, , setIsTextOver] = useBoolean(false);
+
+  useEffect(() => {
+    console.log(isTextOver);
+  }, [isTextOver]);
+
   const markDownEditorRef = useRef();
   const postData = useSelector((state) => state.write.data);
 
@@ -101,11 +104,14 @@ export default function PostEditor() {
         <StringLength
           string={postData.contents}
           // TODO 글자 수 초과 시 적용
-          overLimit={() => {}}
+          overLimit={(value) => {
+            setIsTextOver(value);
+          }}
           className='length'
+          maxLength={10000}
         />
       </Editor>
-      <PostEditorUnderMenu onClick={MenuOnOff} />
+      <PostEditorUnderMenu onClick={MenuOnOff} textOver={isTextOver} />
     </PostEditorBlock>
   );
 }

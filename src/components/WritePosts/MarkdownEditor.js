@@ -11,7 +11,7 @@ const MarkdownInputBlock = styled.textarea`
   font-family: inherit;
   font-size: 1.8rem;
   width: 100%;
-  height: 67vh;
+  flex-grow: 1;
   resize: none;
 
   &::-webkit-scrollbar {
@@ -27,14 +27,14 @@ const MarkdownInputBlock = styled.textarea`
 
   ${media.xlarge} {
     & {
-      height: 70vh;
+      /* height: 70vh; */
     }
   }
 
   ${media.medium} {
     & {
-      height: 77vh;
-      padding: 0 calc(var(--gap) / 3);
+      /* height: 77vh; */
+      padding: 0 1rem;
       font-size: 1.6rem;
     }
   }

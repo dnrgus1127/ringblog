@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import media from "../../lib/style/media";
+import { ConfirmButton } from "../common/button/Button";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement2};
@@ -60,9 +61,10 @@ const Button = styled(Btn)`
   }
 `;
 
-export default function PostEditorUnderMenu({ onClick }) {
-  const { postNumber } = useSelector((state) => state.write);
+export default function PostEditorUnderMenu({ onClick, textOver }) {
+  const { postNumber, data } = useSelector((state) => state.write);
   const navigate = useNavigate();
+
   return (
     <Container>
       <BtnBack
@@ -77,9 +79,12 @@ export default function PostEditorUnderMenu({ onClick }) {
         <Button onClick={onClick} bg={false}>
           임시저장
         </Button>
-        <Button bg={true} onClick={onClick}>
+        <ConfirmButton
+          onClick={onClick}
+          disabled={data.title.length < 2 || textOver}
+        >
           {postNumber ? "수정하기" : "제출하기"}
-        </Button>
+        </ConfirmButton>
       </div>
     </Container>
   );
