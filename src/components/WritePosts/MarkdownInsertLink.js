@@ -29,7 +29,7 @@ const MarkdownLinkBlock = styled.div`
 `;
 
 export default function MarkdownInsertLink({ visible, onComfirm, onClose }) {
-  const [link, setLink] = useState();
+  const [link, setLink] = useState("");
 
   const comfirm = () => {
     onComfirm(link);
