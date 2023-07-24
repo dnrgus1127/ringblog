@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import media from "../../lib/style/media";
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -37,15 +38,26 @@ const Right = styled(WriteSection)`
     background-color: ${({ theme }) => theme.oppositeColor};
   }
   ${media.medium} {
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: ${(props) => (props.order === "left" ? -1 : 1)};
+  }
+  ${media.small} {
+    padding: 2.5rem;
   }
 `;
 
-export default function WriteTemplate({ left, right, children }) {
+export default function WriteTemplate({
+  left,
+  right,
+  children,
+  order = "left",
+}) {
   return (
     <Container>
       <Left>{left}</Left>
-      <Right>{right}</Right>
+      <Right order={order}>{right}</Right>
       {children}
     </Container>
   );

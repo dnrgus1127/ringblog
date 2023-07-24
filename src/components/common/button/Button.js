@@ -121,7 +121,7 @@ export const ColorChangingButton = ({
   );
 };
 
-const Close = styled(Confirm)`
+export const Close = styled(Confirm)`
   padding: 1rem;
 
   svg {

@@ -1,9 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import media from "../../lib/style/media";
-import { ConfirmButton } from "../common/button/Button";
+import { ConfirmButton, Button, CloseButton } from "../common/button/Button";
+import { writeActions } from "../../store/writeReducer";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgElement2};
@@ -43,27 +44,31 @@ const BtnBack = styled(Btn)`
   border-radius: 4px;
 `;
 
-const Button = styled(Btn)`
-  background-color: ${({ theme }) =>
-    (props) =>
-      props.bg ? theme.btnColor : "none"};
-
-  padding: 0.5rem 2rem;
-  border-radius: 4px;
-  color: ${({ theme }) =>
-    (props) =>
-      props.bg ? theme.oppositeColor : theme.btnColor};
-  margin-left: 2rem;
-  &:hover {
-    background-color: ${({ theme }) =>
-      (props) =>
-        props.bg ? theme.btnHover : "none"};
+const PreviewButton = styled(Button)`
+  display: none;
+  color: ${({ theme }) => theme.btnColor};
+  ${media.medium} {
+    display: block;
+  }
+`;
+const CloseButtonWrap = styled.div`
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+  z-index: 3;
+  ${media.medium} {
+    display: block;
   }
 `;
 
 export default function PostEditorUnderMenu({ onClick, textOver }) {
-  const { postNumber, data } = useSelector((state) => state.write);
+  const { postNumber, data, onMobilePreview } = useSelector(
+    (state) => state.write
+  );
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <Container>
@@ -76,16 +81,30 @@ export default function PostEditorUnderMenu({ onClick, textOver }) {
       </BtnBack>
 
       <div className='btnWrap'>
-        <Button onClick={onClick} bg={false}>
-          임시저장
-        </Button>
+        <PreviewButton
+          onClick={() => {
+            dispatch(writeActions.onToggleMobliePreivew());
+          }}
+          bg={false}
+        >
+          미리보기
+        </PreviewButton>
         <ConfirmButton
           onClick={onClick}
-          disabled={data.title.length < 2 || textOver}
+          disabled={!(data.title.length >= 2 && !textOver)}
         >
           {postNumber ? "수정하기" : "제출하기"}
         </ConfirmButton>
       </div>
+      <CloseButtonWrap>
+        {onMobilePreview && (
+          <CloseButton
+            onClick={() => {
+              dispatch(writeActions.onToggleMobliePreivew());
+            }}
+          />
+        )}
+      </CloseButtonWrap>
     </Container>
   );
 }

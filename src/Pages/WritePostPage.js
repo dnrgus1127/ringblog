@@ -1,7 +1,5 @@
 import React from "react";
-import { MarkdownCss } from "../components/common/markdown/MarkdownCss";
 import { useEffect } from "react";
-import CustomMD from "../components/common/markdown/CustomMD";
 import { useQuery as urlQuery } from "../lib/urlQuery";
 import { useNavigate } from "react-router-dom";
 import NewPostPublishScreen from "../container/write/NewPostPublishScreen";
@@ -11,10 +9,13 @@ import PostEditor from "../components/WritePosts/PostEditor";
 import { useQuery } from "react-query";
 import Loading from "../components/common/Loading";
 import WriteTemplate from "../components/WritePosts/WriteTemplate";
+import WritePreview from "../components/WritePosts/WritePreview";
 
 export default function WritePostPage() {
   let query = urlQuery();
-  const { postNumber, edit } = useSelector((state) => state.write);
+  const { postNumber, edit, onMobilePreview } = useSelector(
+    (state) => state.write
+  );
   const postData = useSelector((state) => state.write.data);
   const { loggedIn } = useSelector((state) => state.login);
 
@@ -98,13 +99,9 @@ export default function WritePostPage() {
 
   return (
     <WriteTemplate
+      order={onMobilePreview ? "right" : "left"}
       left={<PostEditor />}
-      right={
-        <MarkdownCss>
-          <h1 style={{ marginBottom: "6rem" }}>{postData.title}</h1>
-          <CustomMD>{postData.contents}</CustomMD>
-        </MarkdownCss>
-      }
+      right={<WritePreview data={postData} />}
     >
       {isLoading && <Loading text={"로딩중"} />}
       <NewPostPublishScreen />

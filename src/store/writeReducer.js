@@ -9,6 +9,7 @@ const initialState = {
   },
   edit: false,
   postNumber: null,
+  onMobilePreview: false,
   data: {
     thumbnailPath: null,
     title: "",
@@ -69,6 +70,9 @@ const writeSlice = createSlice({
             ? null
             : action.payload.thumbnailPath,
       };
+    },
+    onToggleMobliePreivew(state) {
+      state.onMobilePreview = !state.onMobilePreview;
     },
 
     setEdit(state, action) {

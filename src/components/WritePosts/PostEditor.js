@@ -43,6 +43,9 @@ const TitleAndHr = styled.div`
       margin: 1rem 0;
     }
   }
+  ${media.small} {
+    padding-top: 3.5rem;
+  }
 `;
 
 const Input = styled.input`
