@@ -7,7 +7,7 @@ import { loginActions } from "../../store/loginState";
 import Logo from "./Logo";
 import AuthScreen from "../../container/Auth/AuthScreen";
 import { ConfirmButton } from "../common/button/Button";
-import useAuth from "../../Hooks/Login/useAuth";
+import useAuth from "../../Hooks/login/useAuth";
 import useScroll from "../../Hooks/lib/useScroll";
 import Gnb from "./Gnb";
 import SettingWindow from "../../container/Setting/SettingWindow";

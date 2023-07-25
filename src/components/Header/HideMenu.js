@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import useAuth from "../../Hooks/Login/useAuth";
+import useAuth from "../../Hooks/login/useAuth";
 import { loginActions } from "../../store/loginState";
 import { settingActions } from "../../store/settingState";
 import { CancelButton } from "../common/button/Button";
