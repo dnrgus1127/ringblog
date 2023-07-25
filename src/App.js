@@ -17,6 +17,7 @@ import MainPage from "./Pages/MainPage";
 import PostPage from "./Pages/PostPage";
 import RecordPage from "./Pages/RecordPage";
 import WritePostPage from "./Pages/WritePostPage";
+import Footer from "./container/Layout/Footer";
 
 function App() {
   const { themePalette } = useSelector((state) => state.color);
@@ -52,6 +53,7 @@ function App() {
           </Routes>
           {showAlert && <AlertWindow />}
         </ThemeProvider>
+        <Footer />
       </div>
     </QueryClientProvider>
   );
