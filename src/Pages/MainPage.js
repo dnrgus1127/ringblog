@@ -5,6 +5,7 @@ import PostListContainer from "../container/main/PostListContainer";
 import styled from "styled-components";
 import MainPagePostSlideContainer from "../container/main/MainPagePostSlideContainer";
 import Margin from "../components/common/design/Margin";
+import media from "../lib/style/media";
 
 const MainPageBody = styled.div`
   width: var(--width);
@@ -14,6 +15,12 @@ const MainPageBody = styled.div`
     display: flex;
     justify-content: space-between;
   }
+  ${media.small} {
+    padding-top: calc(var(--header));
+    .mobile {
+      display: none;
+    }
+  }
 `;
 
 export default function MainPage() {
@@ -21,11 +28,10 @@ export default function MainPage() {
     <>
       <Header />
       <MainPageBody>
-        {/* <div className='menuAndWriteBtn'>
-          <MainPageMenu />
-        </div> */}
         <Margin>
-          <MainPagePostSlideContainer />
+          <div className='mobile'>
+            <MainPagePostSlideContainer />
+          </div>
         </Margin>
         <PostListContainer />
       </MainPageBody>
