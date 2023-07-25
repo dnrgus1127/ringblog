@@ -6,14 +6,14 @@ import { useMutation, useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 
 import { loginActions } from "../../store/loginState";
-import ProfileImgSelector from "./ProfileImgSelector";
+import ProfileImgSelector from "../../components/setting/ProfileImgSelector";
 import { checkName } from "../../lib/valid/AccountValidation";
 import media from "../../lib/style/media";
-import { CancelButton, SettingButton } from "../common/button/Button";
-import Loading from "../common/Loading";
-import StringLength from "../WritePosts/StringLength";
+import { CancelButton, SettingButton } from "../../components/common/button/Button";
+import Loading from "../../components/common/Loading";
+import StringLength from "../../components/WritePosts/StringLength";
 import useAlert from "../../Hooks/common/useAlert";
-import SettingSectionTemplate from "./SettingSectionTemplate";
+import SettingSectionTemplate from "../../components/setting/SettingSectionTemplate";
 
 const NickNameAndImg = styled.div`
   display: flex;
@@ -120,6 +120,7 @@ export default function ProfileSection() {
 
   return (
     <SettingSectionTemplate>
+      <h2>프로필</h2>
       <h3>프로필 수정</h3>
       <NickNameAndImg>
         <div className='nickName'>

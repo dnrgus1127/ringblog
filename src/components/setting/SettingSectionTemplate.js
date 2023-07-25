@@ -6,7 +6,10 @@ const Section = styled.div`
   width: 100%;
   height: 100%;
 
-  h4 {
+  h2 {
+    margin-bottom: 2rem;
+  }
+  h3,h4 {
     margin-bottom: 1rem;
   }
 
@@ -32,9 +35,9 @@ const Section = styled.div`
   }
   input {
     width: 100%;
-    height: 2.5rem;
-
-    padding: 0 1rem;
+    /* height: 2.5rem; */
+    font-size : 1.6rem;
+    padding: .1rem 1rem;
   }
 
   textarea {
