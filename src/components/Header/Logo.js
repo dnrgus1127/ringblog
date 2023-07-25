@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import media from "../../lib/style/media";
 
@@ -24,8 +24,19 @@ const LogoSvg = styled.svg`
 `;
 
 export default function Logo() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   return (
-    <Link to={"/"}>
+    <div
+      style={{ cursor: "pointer" }}
+      onClick={() => {
+        if (pathname === "/") {
+          window.location.reload();
+        } else {
+          navigate("/");
+        }
+      }}
+    >
       {/* ChatGPT로 생성한 LOGO */}
       <LogoSvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -25 70 40'>
         <defs>
@@ -46,6 +57,6 @@ export default function Logo() {
           Blog
         </text>
       </LogoSvg>
-    </Link>
+    </div>
   );
 }
