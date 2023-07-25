@@ -11,31 +11,33 @@ import DeleteAccount from "../../container/Setting/DeleteAccount";
 const Screen = styled.div`
   width: 100vw;
   height: 100vh;
-  padding: 12rem;
+  
   background-color: rgba(0, 0, 0, 0.5);
 
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 10003;
+  z-index: 10303;
 
   ${media.small} {
     padding: 0;
-    padding-right: 1rem;
     height: 100vh;
     overflow-y: auto;
   }
   ${media.xsmall} {
     padding-right: 0;
   }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ScreenContents = styled.div`
   border-radius: 4px;
-  width: 100%;
-  min-height: 100%;
+  width: 80vw;
+  height: 80vh;
   overflow-y: auto;
-
+  
   background-color: ${({ theme }) => theme.bgElement2};
   padding: 0.5rem 1.5rem;
 
@@ -52,6 +54,8 @@ const ScreenContents = styled.div`
   }
 
   ${media.small} {
+    width: 100%;
+    height: 100%;
     padding: 1rem 1.5rem;
     .settingContents {
       display: block;
