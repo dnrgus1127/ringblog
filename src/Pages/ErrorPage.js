@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import media from "../lib/style/media";
 const NotFoundPage = styled.div`
   width: 100vw;
   height: 100vh;
@@ -29,6 +29,16 @@ const ErrorMsgBlcok = styled.div`
   .email:hover {
     color: ${({ theme }) => theme.pointColor};
     cursor: pointer;
+  }
+
+  ${media.small} {
+    padding: 2rem;
+    h3 {
+      font-size: 3rem;
+    }
+    h4 {
+      font-size: 2.5rem;
+    }
   }
 `;
 
