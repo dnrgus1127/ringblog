@@ -6,6 +6,7 @@ import styled from "styled-components";
 import MainPagePostSlideContainer from "../container/main/MainPagePostSlideContainer";
 import Margin from "../components/common/design/Margin";
 import media from "../lib/style/media";
+import Footer from "../container/main/Footer";
 
 const MainPageBody = styled.div`
   width: var(--width);
@@ -35,6 +36,7 @@ export default function MainPage() {
         </Margin>
         <PostListContainer />
       </MainPageBody>
+      <Footer />
     </>
   );
 }
