@@ -24,6 +24,7 @@ const Comment = styled.div`
     width: 3rem;
     height: 3rem;
     fill: ${({ theme }) => theme.color};
+    margin-right: 1rem;
   }
 `;
 
@@ -141,7 +142,11 @@ export default function PostCommentItem({ data, commentsUpdate, onDelete }) {
         >
           {hide ? hideComment : open}
         </button>
-        {hide ? <p>가려진 댓글입니다.</p> : <p>{data.comment}</p>}
+        {hide ? (
+          <p>가려진 댓글입니다.</p>
+        ) : (
+          <p style={{ whiteSpace: "pre-wrap" }}>{data.comment}</p>
+        )}
       </Comment>
       {mdfd ? (
         <MdfdComment

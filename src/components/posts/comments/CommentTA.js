@@ -10,6 +10,7 @@ const CommentTextArea = styled.textarea`
   padding: 1.5rem 2.5rem;
   font-size: 1.6rem;
   margin-bottom: 1rem;
+  overflow: hidden;
 `;
 
 export default function CommentTA(props) {
@@ -17,13 +18,11 @@ export default function CommentTA(props) {
 
   useEffect(() => {
     if (ref && ref.current) {
-      // ref.current.style.height = 'auto';
+      ref.current.style.height = "auto";
       let height = ref.current.scrollHeight; // 높이
       ref.current.style.height = `${height}px`;
     }
-  }, [props.value])
-
-
+  }, [props.value]);
 
   return <CommentTextArea ref={ref} rows={1} {...props}></CommentTextArea>;
 }

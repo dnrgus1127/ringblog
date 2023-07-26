@@ -58,9 +58,8 @@ export default function PostCardList({ uri }) {
   if (data.length === 0)
     return (
       <div>
-        {/* ? SearchBox 안넣어주면 검색 결과 없을때 재검색 불가능 */}
         <div className='searchBoxWrap'>
-          <SearchBox onBlur={setSearch} />
+          <SearchBox value={search} setValue={setSearch} />
         </div>
         <Error text='게시글이 없습니다.' />
       </div>
