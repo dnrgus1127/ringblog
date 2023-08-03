@@ -74,7 +74,7 @@ export default function MarkdownEditorContainer({
     uploadImg(file).then((res) => {
       onChange(
         editorValue.substring(0, selectionStart) +
-          `![](${res})` +
+          `\n![](${res})\n` +
           editorValue.substring(selectionEnd)
       );
     });
