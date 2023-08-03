@@ -21,6 +21,10 @@ const MarkdownCss = styled.div`
     margin: 3rem 0;
   }
 
+  strong {
+    color: ${({ theme }) => theme.pointColor};
+  }
+
   blockquote,
   pre {
     margin: 2rem 0;
@@ -73,7 +77,7 @@ const MarkdownCss = styled.div`
   }
 
   code [class*="language-"] {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 400;
     line-height: 2.1px;
     tab-size: 4;
@@ -81,20 +85,27 @@ const MarkdownCss = styled.div`
     background: none;
   }
 
-  p > code {
+  p > code,
+  ol code,
+  li code {
     background-color: ${({ theme }) => theme.codeColor};
-    padding: 0.2rem 0.5rem;
+    padding: 0.1rem 0.6rem;
     border-radius: 2px;
-    font-size: 1.3rem;
-    margin: 0.1rem 0;
+    font-size: 1.5rem;
+    margin: 0 0.1rem;
   }
 
   blockquote {
-    background-color: ${({ theme }) => theme.bgElement};
+    background-color: ${({ theme }) => theme.preColor};
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     padding: 1rem 2rem;
-    border-left: 4px solid ${({ theme }) => theme.pointColor};
+  }
+  blockquote {
+    border-left: none;
+    border-bottom: 3px solid ${({ theme }) => theme.pointColor};
+    border-right: 3px solid ${({ theme }) => theme.pointColor};
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   }
   table {
     border: 1px solid ${({ theme }) => theme.tableColor};
@@ -114,6 +125,7 @@ const MarkdownCss = styled.div`
     max-width: 100%;
     display: block;
     margin: 0 auto;
+    border: 1px solid ${({ theme }) => theme.pointColor};
   }
 
   a {
