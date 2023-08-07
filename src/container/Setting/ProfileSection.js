@@ -133,7 +133,7 @@ export default function ProfileSection() {
               setNickName(e.target.value);
             }}
             onBlur={() => {
-              if (nickName !== queryProfile.data.nickName) {
+              if (nickName !== queryProfile.data.name) {
                 checkName(nickName, setNickNameError);
               } else {
                 setNickNameError({ isCheck: false });
