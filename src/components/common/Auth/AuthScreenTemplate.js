@@ -57,7 +57,7 @@ export default function AuthScreenTemplate({
         <CloseAndToggle>
           <CloseButton onClick={screenOff}></CloseButton>
           <button className='signButton' onClick={onToggleLoginVisible}>
-            {isLoginVisible ? "로그인 하러가기" : "회원가입"}
+            {isLoginVisible ? "회원가입" : "로그인 하러가기"}
           </button>
         </CloseAndToggle>
         {isLoginVisible ? login : register}
