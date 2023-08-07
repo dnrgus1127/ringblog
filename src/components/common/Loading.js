@@ -69,7 +69,7 @@ const LoadingSpinner = styled.div`
   }
 
   .loadingBar {
-    border-top: 8px solid ${({ theme }) => theme.btnColor};
+    border-top: 8px solid ${({ theme }) => theme.pointColor};
     animation: ${LoadingAnimation} 1s infinite linear;
   }
 
@@ -83,7 +83,7 @@ const LoadingSpinner = styled.div`
       border: 4px solid ${({ theme }) => theme.greyColor};
     }
     .loadingBar {
-      border-top: 4px solid ${({ theme }) => theme.btnColor};
+      border-top: 4px solid ${({ theme }) => theme.pointColor};
       animation: ${LoadingAnimation} 1s infinite linear;
     }
   }

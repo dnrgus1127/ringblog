@@ -3,8 +3,8 @@ import React from "react";
 import SeriesList from "./SeriesList";
 import { useQuery } from "react-query";
 
-import ComponentLoading from "../common/ComponentLoading";
 import { useSearchParams } from "react-router-dom";
+import Loading from "../common/Loading";
 
 export default function PageBySeries() {
   const [searchParms] = useSearchParams();
@@ -19,6 +19,6 @@ export default function PageBySeries() {
     }
   );
 
-  if (isLoading) return <ComponentLoading text='시리즈' />;
+  if (isLoading) return <Loading text='시리즈' />;
   return <SeriesList data={data} refresh={refetch} />;
 }

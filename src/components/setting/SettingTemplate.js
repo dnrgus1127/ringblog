@@ -39,8 +39,7 @@ const ScreenContents = styled.div`
   overflow-y: auto;
 
   background-color: ${({ theme }) => theme.bgElement2};
-  padding: 0.5rem 1.5rem;
-
+  padding: 2rem;
   .spaceFlex {
     display: flex;
     justify-content: space-between;
