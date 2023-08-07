@@ -6,12 +6,13 @@ import { settingActions } from "../../store/settingState";
 import { CancelButton } from "../common/button/Button";
 import ProfileSection from "../../container/Setting/ProfileSection";
 import SettingMenu from "./SettingMenu";
-import DeleteAccount from "../../container/Setting/DeleteAccount";
+import AccountSection from "../../container/Setting/AccountSection";
+import PasswordSection from "../../container/Setting/PasswordSection";
 
 const Screen = styled.div`
   width: 100vw;
   height: 100vh;
-  
+
   background-color: rgba(0, 0, 0, 0.5);
 
   position: fixed;
@@ -33,11 +34,10 @@ const Screen = styled.div`
 `;
 
 const ScreenContents = styled.div`
-  border-radius: 4px;
   width: 80vw;
   height: 80vh;
   overflow-y: auto;
-  
+
   background-color: ${({ theme }) => theme.bgElement2};
   padding: 0.5rem 1.5rem;
 
@@ -80,7 +80,10 @@ const itemList = (index) => {
     return <ProfileSection />;
   }
   if (index === 1) {
-    return <DeleteAccount />;
+    return <AccountSection />;
+  }
+  if (index === 2) {
+    return <PasswordSection />;
   }
 };
 

@@ -9,7 +9,7 @@ import { loginActions } from "../../store/loginState";
 import ProfileImgSelector from "../../components/setting/ProfileImgSelector";
 import { checkName } from "../../lib/valid/AccountValidation";
 import media from "../../lib/style/media";
-import { CancelButton, SettingButton } from "../../components/common/button/Button";
+import { BarButton } from "../../components/common/button/Button";
 import Loading from "../../components/common/Loading";
 import StringLength from "../../components/WritePosts/StringLength";
 import useAlert from "../../Hooks/common/useAlert";
@@ -173,17 +173,21 @@ export default function ProfileSection() {
         }}
       ></textarea>
       <p>블로그를 소개할 간단한 문구를 작성해주세요!</p>
-      <div className='btnWrap'>
-        <SettingButton
+      <div className='btnWrap' style={{ display: "flex", gap: "1rem" }}>
+        <BarButton
           size='small'
           onClick={onUpdate}
           disabled={nickNameError.isCheck || introdutionCheck}
         >
           수정하기
-        </SettingButton>
-        <CancelButton size='small' onClick={clearEntered}>
+        </BarButton>
+        <BarButton
+          size='small'
+          onClick={clearEntered}
+          style={{ backgroundColor: "rgba(217, 73, 79)" }}
+        >
           초기화
-        </CancelButton>
+        </BarButton>
       </div>
     </SettingSectionTemplate>
   );

@@ -28,7 +28,6 @@ const MenuItem = styled.div`
   margin-bottom: 1rme;
   font-size: 1.4rem;
   cursor: pointer;
-  border-radius: 6px;
 
   &.selected {
     background-color: ${({ theme }) => theme.bgElement3};
@@ -42,7 +41,7 @@ const MenuItem = styled.div`
   }
 `;
 
-const menus = ["프로필", "계정 정보"];
+const menus = ["프로필", "계정 정보", "비밀번호"];
 
 export default function SettingMenu() {
   const { selectedMenuNumber } = useSelector((state) => state.setting);
