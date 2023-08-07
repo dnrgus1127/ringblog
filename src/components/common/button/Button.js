@@ -172,6 +172,7 @@ const Bar = styled.button`
   ${(props) => (props.disabled ? "background-color : grey " : null)};
   width: 100%;
   padding: 0.9rem;
+  color: white;
   &:disabled {
     color: black;
   }
