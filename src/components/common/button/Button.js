@@ -166,3 +166,26 @@ export const RedButton = ({
     </Delete>
   );
 };
+
+const Bar = styled.button`
+  background-color: ${({ theme }) => theme.pointColor};
+  ${(props) => (props.disabled ? "background-color : grey " : null)};
+  width: 100%;
+  padding: 0.9rem;
+  &:disabled {
+    color: black;
+  }
+`;
+
+export const BarButton = ({
+  onClick,
+  children,
+  disabled = false,
+  style = null,
+}) => {
+  return (
+    <Bar onClick={onClick} disabled={disabled} style={style}>
+      {children}
+    </Bar>
+  );
+};
