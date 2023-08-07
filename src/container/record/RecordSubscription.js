@@ -24,6 +24,7 @@ export default function RecordSubscription() {
   if (!loggedIn) return <Error text='로그인이 필요합니다.' />;
 
   if (isLoading) return <Loading />;
+  if (data.length === 0) return <Error text='구독한 블로그가 없습니다.' />;
   return (
     <div>
       {data.map((item, idx) => (
