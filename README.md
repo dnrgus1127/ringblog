@@ -16,7 +16,7 @@
 <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 
-
+---
 
 ## 프로젝트 후기
 리액트를 공부하기 시작하며 제작한 토이 프로젝트로 리액트의 훅(useEffect나 메모이제이션에 대한 이해 부족)이나 컴포넌트 분리에 미흡하지만 프로젝트를 진행하며 다음과 같은 경험을 쌓을 수 있었습니다.
@@ -44,7 +44,7 @@
 
 
 
-
+---
 
 
 ## 디렉터리 구조
