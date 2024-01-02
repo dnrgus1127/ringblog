@@ -5,13 +5,13 @@
 > 개발기간 : 2023.03 ~2023.05
 
 ## 기술 스택
-## Languages, Libraries, Frameworks
+### Languages, Libraries, Frameworks
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=javascript&logoColor=white">
 <img src="https://img.shields.io/badge/react query-FF4154?style=for-the-badge&logo=javascript&logoColor=white">
 <img src="https://img.shields.io/badge/styled component-DB7093?style=for-the-badge&logo=javascript&logoColor=white">
 
-## Environment
+### Environment
 <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
 <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
